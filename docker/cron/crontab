@@ -1,0 +1,1 @@
+*/5 * * * * /usr/local/bin/php /symfony/bin/console parse:serials >> /var/log/cron.log 2>&1
