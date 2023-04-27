@@ -23,9 +23,14 @@ class DefaultController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('default/index.html.twig', [
-
-        ]);
+        return $this->json(['ok']);
     }
 
+    /**
+     * @Route("/", name="app_login")
+     */
+    public function adminkaAction(): Response
+    {
+        return $this->json(['adminka']);
+    }
 }
