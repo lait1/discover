@@ -1,4 +1,8 @@
-controllers:
+admin:
+    resource: ../../src/Admin/Controller/
+    type: annotation
+
+front:
     resource: ../../src/Controller/
     type: annotation
 
