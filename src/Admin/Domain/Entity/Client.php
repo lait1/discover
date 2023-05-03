@@ -19,18 +19,15 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    /** @ORM\Column(type="string", length=180, unique=true) */
     private string $phone;
 
-    /**
-     * @ORM\Column(type="string", length=180, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=180, nullable=true) */
     private ?string $email = null;
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private string $password;
