@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="7"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <InvalidThrow>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </InvalidThrow>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </UndefinedDocblockClass>
+        <UndefinedFunction>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </UndefinedFunction>
+        <DuplicateClass>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </DuplicateClass>
+        <UndefinedMagicPropertyAssignment type="suppress"/>
+        <UndefinedInterfaceMethod type="suppress"/>
+        <UndefinedThisPropertyFetch>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </UndefinedThisPropertyFetch>
+    </issueHandlers>
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+    </plugins>
+</psalm>
