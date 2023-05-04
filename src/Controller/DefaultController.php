@@ -25,12 +25,4 @@ class DefaultController extends AbstractController
     {
         return $this->json(['ok']);
     }
-
-    /**
-     * @Route("/", name="app_login")
-     */
-    public function adminkaAction(): Response
-    {
-        return $this->json(['adminka']);
-    }
 }

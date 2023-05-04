@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultAdminController extends AbstractController
 {
     /**
-     * @Route("/admin/test", name="app_admin_index")
+     * @Route("/admin/{vueRouting}", name="app_admin_index")
      */
-    public function testAction(): Response
+    public function indexAction(): Response
     {
         $this->getUser();
 
-        return $this->render('admin/index.html.twig', ['last_username' => $this->getUser()->getUserIdentifier()]);
+        return $this->render('admin/index.html.twig');
     }
 }

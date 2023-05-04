@@ -3,3 +3,8 @@
 #    controller: App\Controller\DefaultController::index
 login_check:
     path: /admin/login_check
+app:
+    path: /{vueRouting}
+    controller: App\Controller\DefaultController::indexAction
+    requirements:
+        vueRouting: "^(?!api|_(profiler|wdt)).*"

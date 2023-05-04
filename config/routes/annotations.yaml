@@ -1,9 +1,9 @@
-admin:
-    resource: ../../src/Admin/Controller/
-    type: annotation
-
 front:
     resource: ../../src/Controller/
+    type: annotation
+
+admin:
+    resource: ../../src/Admin/Controller/
     type: annotation
 
 kernel:
