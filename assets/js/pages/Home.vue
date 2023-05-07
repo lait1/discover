@@ -1,13 +1,21 @@
 <template>
-    <div>
-        <div className="row col">
-            <h1>Homepage</h1>
-        </div>
-    </div>
+  <div>
+    <h1>{{ message }}</h1>
+  </div>
 </template>
 
 <script>
-    export default {
-    name: "Home"
-};
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['message'])
+  },
+  methods: {
+    ...mapActions(['fetchMessage'])
+  },
+  created() {
+    this.fetchMessage()
+  }
+}
 </script>
