@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-free/css/all.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import App from './App.vue';
@@ -11,7 +12,11 @@ Vue.use(VueYouTube)
 Vue.use(Vuetify)
 
 new Vue({
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+        icons: {
+            iconfont: 'fa'
+        },
+    }),
     components: {App, Gallery, Calendar, Trailer}
 }).$mount('#app')
 

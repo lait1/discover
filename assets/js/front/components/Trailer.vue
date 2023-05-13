@@ -1,15 +1,15 @@
 <template>
   <v-app id="inspire">
   <div class="container">
-    <img :src="image" alt="trailer" />
+    <img :src="image" alt="trailer" width="100%" class="trailer__banner" />
 
     <v-btn
-        color="primary"
+        class="trailer__play pulse"
         fab
-        large
         @click="openVideoPopup"
     >
-      <v-icon x-large> mdi-play</v-icon>
+      <i class="fa fa-sharp fa-solid fa-circle-play"></i>
+
     </v-btn>
 
     <v-dialog v-model="showPopup" :max-width="900"  @click:outside="closeVideoPopup">
