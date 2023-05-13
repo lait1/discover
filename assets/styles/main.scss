@@ -1,0 +1,53 @@
+.main {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), url("../images/top-bg.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+
+  &__banner{
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    &-welcome{
+      font-family: 'Oswald', sans-serif;
+      font-weight: 400;
+      font-size: 72px;
+      line-height: 106px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    &-title{
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      margin-bottom: 45px;
+    }
+  }
+  &__buttons{
+    display: flex;
+    justify-content: center;
+    a{
+      margin: 0 12px;
+      width: 204px;
+      padding: 16px 24px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+    }
+    &_chose-tour{
+      background: #0062FB;
+      color: #ffffff;
+    }
+    &_do-your{
+      background: #E5EFFF;
+      color: #0062FB;
+    }
+  }
+}

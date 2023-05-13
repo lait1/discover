@@ -1,0 +1,33 @@
+.welcome{
+  padding: 120px 0;
+  display: flex;
+  color: #1C1D20;
+  font-weight: 400;
+  &__info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .icon{
+      height: 12px;
+      width: 64px;
+      margin: 24px 0;
+    }
+
+    h2 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 50px;
+    }
+    p{
+      font-size: 20px;
+      line-height: 28px;
+      margin: 8px 0;
+    }
+  }
+  &__photo{
+    width: 50%;
+  }
+}

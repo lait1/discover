@@ -23,9 +23,27 @@
         </div>
     </section>
     <section class="welcome">
+        <div class="container">
+            <div class="welcome__info">
+                <h2>ДАВАЙТЕ ЗНАКОМИТЬСЯ!</h2>
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+                <p>Откройте для себя Грузию вместе с нами — командой Discovery Georgia.</p>
+                <p>С 2016 года мы создаем незабываемые впечатления, грузинскую атмосферу, прекрасные фотографии и
+                    мероприятия в лучших традициях грузинских застолий.</p>
+            </div>
+            <div class="welcome__photo">
+                <img src="{{ asset('build/images/welcome.png') }}" alt="welcome">
+            </div>
+        </div>
+    </section>
+    <section class="trailer">
+
+
+                <Trailer image="{{ asset('build/images/trailer.png') }}" :video-id="'hB4kS3Ji-T0'" />
 
     </section>
-    <section class="trailer"></section>
     <section class="advantages"></section>
     <section class="trips"></section>
     <section class="trip-builder"></section>
