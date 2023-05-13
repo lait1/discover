@@ -1,6 +1,152 @@
 body{
-  height: 100px;
-  header{
-    color: #999911;
+  font-family: 'Manrope', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.12px;
+  a{
+    text-decoration: none;
+  }
+
+}
+.header {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  height: 64px;
+
+  a {
+    color: #ffffff;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.49);
+    }
+  }
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo {
+    width: 120px;
+    margin-right: 40px;
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Exo 2', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+
+      img {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: row;
+
+    li {
+      list-style-type: none;
+      margin-right: 24px;
+
+      a {
+        padding-bottom: 18px;
+
+        &:hover {
+          border-bottom: 3px solid #fff;
+        }
+      }
+    }
+  }
+
+  &__social-media{
+    display: flex;
+    align-items: center;
+    &_links{
+      padding-right: 24px;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.24);
+      a{
+        margin: 0 8px;
+      }
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &__currencies{
+    margin-left: 32px;
+    display: flex;
+    align-items: center;
+    .icon{
+      height: 16px;
+    }
+  }
+}
+
+.main {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), url("../images/top-bg.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+
+  &__banner{
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    &-welcome{
+      font-family: 'Oswald', sans-serif;
+      font-weight: 400;
+      font-size: 72px;
+      line-height: 106px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    &-title{
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      margin-bottom: 45px;
+    }
+  }
+  &__buttons{
+    display: flex;
+    justify-content: center;
+    a{
+      margin: 0 12px;
+      width: 204px;
+      padding: 19px 24px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    &_chose-tour{
+      background: #0062FB;
+      color: #ffffff;
+    }
+    &_do-your{
+      background: #E5EFFF;
+      color: #0062FB;
+    }
   }
 }
