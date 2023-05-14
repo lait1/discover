@@ -12,11 +12,7 @@ Vue.use(VueYouTube)
 Vue.use(Vuetify)
 
 new Vue({
-    vuetify: new Vuetify({
-        icons: {
-            iconfont: 'fa'
-        },
-    }),
+    vuetify: new Vuetify(),
     components: {App, Gallery, Calendar, Trailer}
 }).$mount('#app')
 

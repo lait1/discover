@@ -1,4 +1,4 @@
-@import 'main', 'welcome', 'traiter', 'advantages';
+@import 'main', 'welcome', 'traiter', 'advantages', 'trips';
 body{
   font-family: 'Manrope', sans-serif;
   font-style: normal;
@@ -11,16 +11,20 @@ body{
      font-family: 'Manrope', sans-serif !important;
      background: transparent !important;
    }
+  .wrap {
+      display: flex;
+      position: relative;
+      max-width: 1200px;
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
 }
 h1,h2,h3,h4,h5{
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
 }
-.container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 !important;
-}
+
 .header {
   position: absolute;
   display: flex;
@@ -31,7 +35,9 @@ h1,h2,h3,h4,h5{
   line-height: 24px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   height: 64px;
-
+  .wrap{
+    justify-content: space-between;
+  }
   a {
     color: #ffffff;
 
