@@ -30,6 +30,7 @@
 }
 
 .trip{
+  position: relative;
   background: #FFFFFF;
   border-radius: 24px;
   display: flex;
@@ -97,8 +98,32 @@
       }
     }
   }
+  &__tags{
+    position: absolute;
+    display: flex;
+    top: 12px;
+    left: 12px;
+    gap: 8px;
+    .tag{
+      padding: 6px 12px;
+      font-size: 16px;
+      line-height: 24px;
+      background: #FFFFFF;
+      box-shadow: 0px 2px 4px rgba(0, 10, 31, 0.08), 0px 0px 32px rgba(0, 10, 31, 0.12);
+      border-radius: 32px;
+    }
+    .starts{
+      i{
+        margin-right: 6px;
+        color: #F2C94C;
+      }
+
+    }
+  }
+
   .currency {
     height: 40px;
     width: 40px;
   }
+
 }
