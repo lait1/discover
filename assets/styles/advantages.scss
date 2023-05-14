@@ -1,0 +1,60 @@
+.advantages{
+  display: flex;
+  color: #1C1D20;
+  padding-bottom: 120px;
+
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .reverse{
+    flex-direction: column-reverse;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+    h2 {
+      font-size: 42px;
+      line-height: 50px;
+      margin: 0 24px;
+    }
+
+    .icon {
+      width: 64px;
+      height: 12px;
+    }
+
+  }
+
+  &__cards{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__card{
+      width: 384px;
+      height: 468px;
+      background: #F6F6FA;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      margin-bottom: 24px;
+    &-info{
+      padding: 24px;
+    }
+    &-title{
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 28px;
+      margin-bottom: 8px;
+    }
+
+    img{
+      border-radius: 24px;
+    }
+  }
+}

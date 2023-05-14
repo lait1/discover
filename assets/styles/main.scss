@@ -14,8 +14,6 @@
     margin: auto;
     text-align: center;
     &-welcome{
-      font-family: 'Oswald', sans-serif;
-      font-weight: 400;
       font-size: 72px;
       line-height: 106px;
       text-transform: uppercase;
@@ -40,6 +38,7 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 28px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 0 0 16px rgba(0, 0, 0, 0.12);
     }
     &_chose-tour{
       background: #0062FB;

@@ -12,10 +12,10 @@
                 каждый день, <br>
                 как новое приключение
             </h1>
-            <h3 class="main__banner-title">
+            <p class="main__banner-title">
                 Открывайте Грузию, пробуйте лучше национальные блюда <br>
                 и встречайте закаты вместе с нами в авторских турах
-            </h3>
+            </p>
             <div class="main__buttons">
                 <a class="main__buttons_chose-tour" href="#">ВЫБРАТЬ ТУР</a>
                 <a class="main__buttons_do-your" href="#">СОЗДАТЬ СВОЙ</a>
@@ -39,13 +39,100 @@
         </div>
     </section>
     <section class="trailer">
+        <Trailer image="{{ asset('build/images/trailer.jpg') }}" :video-id="'hB4kS3Ji-T0'" />
+    </section>
+    <section class="advantages">
+        <div class="container">
+            <div class="advantages__header">
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+                <h2>ПОЧЕМУ С НАМИ КЛАССНО?</h2>
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+            </div>
+            <div class="advantages__cards">
 
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Удобство передвижения
+                        </h3>
+                        <p class="advantages__card-description">
+                            Наш автопарк состоит только из комфортабельных машин и больших автобусов, подходящих для
+                            любого количества пассажиров.
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_1.jpg') }}" alt="Удобство передвижения">
+                </article>
 
-                <Trailer image="{{ asset('build/images/trailer.jpg') }}" :video-id="'hB4kS3Ji-T0'" />
+                <article class="advantages__card reverse">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Местные гиды
+                        </h3>
+                        <p class="advantages__card-description">
+                            Они знают каждый уголок Грузии и с радостью помогут вам почувствовать атмосферу родной страны во время вашего тура.
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_2.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Свой маршрут
+                        </h3>
+                        <p class="advantages__card-description">
+                            Сделайте свой отдых насыщенным и интересным, выбрав места, которые вам действительно хочется посетить. А наша команда поможет вам в этом!
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_3.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card reverse">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Свой фотограф
+                        </h3>
+                        <p class="advantages__card-description">
+                            Сделайте свое путешествие по-настоящему незабываемым - заказывайте фотосессию с нашими крутыми фотографами!
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_4.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Незабываемые впечатления
+                        </h3>
+                        <p class="advantages__card-description">
+                            Пикник, яхтинг, рафтинг, застолье, рыбалка - мы все организуем все, что вы задумаете! Нет ограничений, только незабываемые впечатления.
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_5.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Крутое видео
+                        </h3>
+                        <p class="advantages__card-description">
+                            Дополните свой тур уникальными кадрами. У нас есть квадрокоптер, с помощью которого можно снять потрясающее видео вашего путешествия!
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_6.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+            </div>
+        </div>
+    </section>
+    <section class="trips">
 
     </section>
-    <section class="advantages"></section>
-    <section class="trips"></section>
     <section class="trip-builder"></section>
     <section class="gallery">
     </section>

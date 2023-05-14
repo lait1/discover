@@ -1,12 +1,20 @@
-@import 'main', 'welcome', 'traiter';
+@import 'main', 'welcome', 'traiter', 'advantages';
 body{
   font-family: 'Manrope', sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12px;
   a{
     text-decoration: none;
   }
+  .v-application{
+     font-family: 'Manrope', sans-serif !important;
+     background: transparent !important;
+   }
+}
+h1,h2,h3,h4,h5{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
 }
 .container {
   display: flex;

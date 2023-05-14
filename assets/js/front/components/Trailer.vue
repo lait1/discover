@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app >
   <div class="container">
     <img :src="image" alt="trailer" width="100%" class="trailer__banner" />
 
@@ -47,3 +47,9 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+::v-deep .v-application--wrap {
+  min-height: fit-content;
+}
+</style>
