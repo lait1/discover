@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Admin\Infrastructure\DataFixtures;
+namespace App\DataFixtures;
 
-use App\Admin\Domain\Entity\User;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
