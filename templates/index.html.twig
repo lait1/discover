@@ -247,8 +247,46 @@
             </div>
         </div>
     </section>
-    <section class="trip-builder"></section>
+    <section class="trip-builder">
+    </section>
     <section class="gallery">
+        <div class="wrap">
+            <div class="gallery__header">
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+                <h2>ФОТО НАШИХ ПУТЕШЕСТВИЙ</h2>
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+            </div>
+            <div class="gallery__filter">
+                <a href="#" class="gallery__filter-link active">Все</a>
+                <a href="#" class="gallery__filter-link">Тбилиси</a>
+                <a href="#" class="gallery__filter-link">Мцхета</a>
+                <a href="#" class="gallery__filter-link">Казбеги</a>
+                <a href="#" class="gallery__filter-link">Боржоми</a>
+                <a href="#" class="gallery__filter-link">Гастрономия</a>
+                <a href="#" class="gallery__filter-link">Необычное</a>
+            </div>
+            <div class="gallery__list">
+                <div class="gallery__photo ">
+                    <img src="{{ asset('build/images/photos/photo1.jpeg') }}" alt="">
+                </div>
+                <div class="gallery__photo bigsize">
+                    <img src="{{ asset('build/images/photos/photo2.jpeg') }}" alt="">
+                </div>
+                <div class="gallery__photo empty">
+                    <span>Здесь может быть ваше фото!</span>
+                </div>
+                <div class="gallery__photo bigsize">
+                    <img src="{{ asset('build/images/photos/photo.png') }}" alt="">
+                </div>
+                <div class="gallery__photo">
+                    <img src="{{ asset('build/images/photos/photo3.jpeg') }}" alt="">
+                </div>
+            </div>
+        </div>
     </section>
     <section class="feedback"></section>
 {% endblock %}
