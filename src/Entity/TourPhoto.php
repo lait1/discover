@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,47 +29,10 @@ class TourPhoto
     /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="photos") */
     private $tour;
 
-    public function __construct()
+    public function __construct(string $path, string $name, bool $main = false)
     {
-        $this->tours = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection<int, Tour>
-     */
-    public function getTours(): Collection
-    {
-        return $this->tours;
-    }
-
-    public function addTour(Tour $tour): self
-    {
-        if (!$this->tours->contains($tour)) {
-            $this->tours[] = $tour;
-            $tour->addPhoto($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTour(Tour $tour): self
-    {
-        if ($this->tours->removeElement($tour)) {
-            $tour->removePhoto($this);
-        }
-
-        return $this;
-    }
-
-    public function getTour(): ?Tour
-    {
-        return $this->tour;
-    }
-
-    public function setTour(?Tour $tour): self
-    {
-        $this->tour = $tour;
-
-        return $this;
+        $this->path = $path;
+        $this->name = $name;
+        $this->main = $main;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @ORM\Table(name="tours")
@@ -23,13 +24,19 @@ class Tour
     private string $name;
 
     /** @ORM\Column(type="string") */
+    private string $slug;
+
+    /** @ORM\Column(type="string") */
     private string $title;
+
+    /** @ORM\Column(type="string") */
+    private string $description;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
     private string $price;
 
     /** @ORM\Column(type="string") */
-    private string $duration;
+    private string $longTime;
 
     /** @ORM\Column(type="string") */
     private string $complexity;
@@ -46,34 +53,27 @@ class Tour
     /** @ORM\Column(name="created_at", type="integer", nullable=false, options={"unsigned": true}) */
     private int $createdAt;
 
+    /** @ORM\Column(type="boolean") */
+    private bool $public;
+
     /** @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tours") */
     private ArrayCollection $categories;
 
     /** @ORM\OneToMany(targetEntity=TourPhoto::class, mappedBy="tour") */
     private ArrayCollection $photos;
 
-    /** @ORM\Column(type="boolean") */
-    private bool $public;
+    /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
+    private $reviews;
 
     public function __construct(
-        string $title,
-        string $price,
-        string $duration,
-        string $complexity,
-        int $bandSize,
-        array $content,
-        array $details
+        string $name
     ) {
-        $this->title = $title;
-        $this->price = $price;
-        $this->duration = $duration;
-        $this->complexity = $complexity;
-        $this->bandSize = $bandSize;
-        $this->content = $content;
-        $this->details = $details;
+        $slugger = new AsciiSlugger('ru');
+        $this->name = $name;
+        $this->slug = $slugger->slug($name);
         $this->createdAt = time();
-        $this->photos = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->public = false;
+        u('спасибо')->ascii();
     }
 
     /**
@@ -120,6 +120,36 @@ class Tour
     public function removeCategory(Category $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setTour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getTour() === $this) {
+                $review->setTour(null);
+            }
+        }
 
         return $this;
     }

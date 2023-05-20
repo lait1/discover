@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,9 +28,11 @@ class Category
     /** @ORM\ManyToMany(targetEntity=Tour::class, mappedBy="categories") */
     private $tours;
 
-    public function __construct()
+    public function __construct(string $name, ?int $priority, $tours)
     {
-        $this->tours = new ArrayCollection();
+        $this->name = $name;
+        $this->priority = $priority;
+        $this->tours = $tours;
     }
 
     /**

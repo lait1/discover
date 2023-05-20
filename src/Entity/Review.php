@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReviewRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,8 +34,22 @@ class Review
     /** @ORM\Column(type="boolean") */
     private bool $public;
 
+    /** @ORM\Column(type="boolean") */
+    private bool $showMainPage;
+
     /** @ORM\Column(type="string", length=255, nullable=true) */
     private string $answer;
+
+    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="reviews") */
+    private $tour;
+
+    /** @ORM\OneToMany(targetEntity=ReviewPhoto::class, mappedBy="reviews") */
+    private $reviewPhotos;
+
+    public function __construct()
+    {
+        $this->reviewPhotos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,6 +112,48 @@ class Review
     public function setAnswer(string $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getTour(): ?Tour
+    {
+        return $this->tour;
+    }
+
+    public function setTour(?Tour $tour): self
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReviewPhoto>
+     */
+    public function getReviewPhotos(): Collection
+    {
+        return $this->reviewPhotos;
+    }
+
+    public function addReviewPhoto(ReviewPhoto $reviewPhoto): self
+    {
+        if (!$this->reviewPhotos->contains($reviewPhoto)) {
+            $this->reviewPhotos[] = $reviewPhoto;
+            $reviewPhoto->setReviews($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviewPhoto(ReviewPhoto $reviewPhoto): self
+    {
+        if ($this->reviewPhotos->removeElement($reviewPhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($reviewPhoto->getReviews() === $this) {
+                $reviewPhoto->setReviews(null);
+            }
+        }
 
         return $this;
     }
