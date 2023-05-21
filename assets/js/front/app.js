@@ -7,7 +7,9 @@ import Trailer from "./components/Trailer";
 import VueYouTube from 'vue-youtube'
 import Tourbuilder from "./components/Tourbuilder";
 import Feedback from "./components/Feedback";
+import VTooltip from 'v-tooltip'
 
+Vue.use(VTooltip)
 Vue.use(VueYouTube)
 
 Vue.use(Vuetify)

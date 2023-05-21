@@ -16,22 +16,19 @@
 
       </div>
 
-      <v-tooltip
-          bottom
-          close-delay="500"
-          z-index="3"
+      <v-popover
+          offset="16"
       >
-        <template v-slot:activator="{ on, attrs }">
-            <svg class="trip-builder__tooltip icon"
-                 v-bind="attrs"
-                 v-on="on">
-              <use xlink:href="#tooltip"></use>
-            </svg>
-        </template>
-          <span>Тур в горы <br>
-          <a href="#" class="trip-builder__link">Посмотрет больше</a></span>
-      </v-tooltip>
+        <svg class="tooltip-target trip-builder__tooltip icon">
+          <use xlink:href="#tooltip"></use>
+        </svg>
 
+        <template slot="popover">
+          <span class="tooltip-content">Тур в горы <br>
+          <a href="#" class="trip-builder__link">Посмотрет больше</a></span>
+
+        </template>
+      </v-popover>
     </div>
   </v-app>
 </template>
