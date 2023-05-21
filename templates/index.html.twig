@@ -269,24 +269,10 @@
                 <a href="#" class="gallery__filter-link">Гастрономия</a>
                 <a href="#" class="gallery__filter-link">Необычное</a>
             </div>
-            <div class="gallery__list">
-                <div class="gallery__photo ">
-                    <img src="{{ asset('build/images/photos/photo1.jpeg') }}" alt="">
-                </div>
-                <div class="gallery__photo bigsize">
-                    <img src="{{ asset('build/images/photos/photo2.jpeg') }}" alt="">
-                </div>
-                <div class="gallery__photo empty">
-                    <span>Здесь может быть ваше фото!</span>
-                </div>
-                <div class="gallery__photo bigsize">
-                    <img src="{{ asset('build/images/photos/photo.png') }}" alt="">
-                </div>
-                <div class="gallery__photo">
-                    <img src="{{ asset('build/images/photos/photo3.jpeg') }}" alt="">
-                </div>
-            </div>
+            <Gallery />
         </div>
     </section>
-    <section class="feedback"></section>
+    <section class="feedback">
+
+    </section>
 {% endblock %}
