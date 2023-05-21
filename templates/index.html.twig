@@ -248,24 +248,7 @@
         </div>
     </section>
     <section class="trip-builder">
-        <img src="{{ asset('build/images/cloud_bg_trip_builder.png') }}" alt="cloud" class="trip-builder__cloud">
-        <div class="wrap">
-            <div class="trip-builder__content">
-                <div class="trip-builder__header">
-                    НЕТ ПОДХОДЯЩЕГО ТУРА? СОЗДАЙТЕ СВОЙ!
-                </div>
-                <svg class="icon">
-                    <use xlink:href="#lightning"></use>
-                </svg>
-                <div class="trip-builder__title">
-                    Выберите интересующие темы и укажите ваш номер телефона. Мы подберем экскурсию и свяжемся с вами!
-                </div>
-                <a class="trip-builder__button_chose-tour" href="#">Собрать тур</a>
-            </div>
-            <svg class="trip-builder__tooltip icon">
-                <use xlink:href="#tooltip"></use>
-            </svg>
-        </div>
+        <TourBuilder />
     </section>
     <section class="gallery">
         <div class="wrap">
@@ -291,7 +274,6 @@
         </div>
     </section>
     <section class="feedback">
-
         <Feedback />
     </section>
 {% endblock %}

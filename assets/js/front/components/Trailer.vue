@@ -9,15 +9,13 @@
         @click="openVideoPopup"
     >
       <i class="fa fa-sharp fa-solid fa-circle-play"></i>
-
     </v-btn>
 
     <v-dialog v-model="showPopup" :max-width="900"  @click:outside="closeVideoPopup">
       <div class="trailer__video">
-          <youtube ref="youtube" :fitParent="true" :resize="true"  :video-id="videoId" :player-vars="playerVars" />
+          <youtube ref="youtube" :fitParent="true" :resize="true"  :video-id="videoId" />
       </div>
     </v-dialog>
-
   </div>
   </v-app>
 </template>
@@ -31,9 +29,6 @@ export default {
   data() {
     return {
       showPopup: false,
-      playerVars: {
-
-      },
     };
   },
   methods: {
