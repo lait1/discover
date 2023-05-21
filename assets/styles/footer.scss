@@ -1,0 +1,62 @@
+.footer{
+  height: 292px;
+  background: #1C1D20;
+  color: #FFFFFF;
+  a{
+    color: #fff;
+  }
+  .wrap{
+    justify-content: space-between;
+  }
+  &__top-content{
+    border-bottom: 1px solid #898998;
+  }
+  &__social{
+    display: flex;
+    flex-direction: column;
+    padding: 52px 0;
+    span{
+      line-height: 24px;
+    }
+    &-links{
+      margin-top: 20px;
+      display: flex;
+      gap: 16px;
+      .icon{
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+  &__contacts{
+    padding: 52px 0;
+    &-phone{
+      font-family: 'Oswald', sans-serif;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 50px;
+      margin-bottom: 10px;
+    }
+    &-email{
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      span{
+        font-weight: 600;
+      }
+    }
+  }
+  &__info {
+    padding: 36px 0;
+  }
+  &__rules{
+    a{
+      margin-left: 24px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+  }
+  .footer__designer:hover{
+    color: #898998;
+  }
+}

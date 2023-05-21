@@ -43,10 +43,16 @@
     &_chose-tour{
       background: #0062FB;
       color: #ffffff;
+      &:hover{
+        background: #0051D0;
+      }
     }
     &_do-your{
       background: #E5EFFF;
       color: #0062FB;
+      &:hover{
+        background: #CDE0FF;
+      }
     }
   }
 }
