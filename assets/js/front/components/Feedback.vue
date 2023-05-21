@@ -35,12 +35,12 @@
         </swiper>
         <div class="feedback__arrow button-prev">
           <svg class="icon">
-            <use xlink:href="#arrow-right"></use>
+            <use xlink:href="#arrow-feedback"></use>
           </svg>
         </div>
         <div class="feedback__arrow button-next">
           <svg class="icon">
-            <use xlink:href="#arrow-right"></use>
+            <use xlink:href="#arrow-feedback"></use>
           </svg>
         </div>
       </div>

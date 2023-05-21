@@ -63,8 +63,8 @@
     .icon {
       width: 30px;
       height: 30px;
+      fill: #0062FB;
     }
-
   }
 
   .button-prev {
@@ -76,5 +76,9 @@
   .button-next {
     top: 2%;
     right: 0;
+  }
+
+  [aria-disabled=true] svg{
+    fill: #898998;
   }
 }
