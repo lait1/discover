@@ -7,9 +7,12 @@ import Trailer from "./components/Trailer";
 import VueYouTube from 'vue-youtube'
 import Tourbuilder from "./components/Tourbuilder";
 import Feedback from "./components/Feedback";
-import VTooltip from 'v-tooltip'
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
 
-Vue.use(VTooltip)
+Vue.directive('tooltip', VTooltip)
+Vue.directive('close-popover', VClosePopover)
+Vue.component('v-popover', VPopover)
+
 Vue.use(VueYouTube)
 
 Vue.use(Vuetify)

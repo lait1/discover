@@ -16,19 +16,10 @@
 
       </div>
 
-      <v-popover
-          offset="16"
-      >
-        <svg class="tooltip-target trip-builder__tooltip icon">
-          <use xlink:href="#tooltip"></use>
-        </svg>
+      <svg class="trip-builder__tooltip icon" v-tooltip="{content: contentTooltip, delay:{ hide: 500 }}" >
+        <use xlink:href="#tooltip"></use>
+      </svg>
 
-        <template slot="popover">
-          <span class="tooltip-content">Тур в горы <br>
-          <a href="#" class="trip-builder__link">Посмотрет больше</a></span>
-
-        </template>
-      </v-popover>
     </div>
   </v-app>
 </template>
@@ -38,6 +29,12 @@
 
 export default {
   name: "Tourbuilder",
+  data () {
+    return {
+      contentTooltip: '<span class="tooltip-content">Тур в горы <br>\n' +
+          ' <a href="#" class="trip-builder__link">Посмотрет больше</a></span>',
+    }
+  }
 };
 </script>
 
