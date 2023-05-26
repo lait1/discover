@@ -29,22 +29,30 @@ class DefaultController extends AbstractController
      */
     public function tourAction(): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('trip.html.twig');
     }
 
     /**
-     * @Route("/tours")
+     * @Route("/tours", name="tour-list")
      */
     public function toursAction(): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('trips.html.twig');
     }
 
     /**
-     * @Route("/corporate")
+     * @Route("/corporate", name="corporate")
      */
     public function corporateAction(): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('corporate.html.twig');
+    }
+
+    /**
+     * @Route("/about", name="about-us")
+     */
+    public function aboutAction(): Response
+    {
+        return $this->render('about.html.twig');
     }
 }
