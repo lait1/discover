@@ -1,0 +1,24 @@
+.tours {
+  position: relative;
+  &__header {
+    color: #FFFFFF;
+    display: flex;
+    background: url('../images/tours_bg.png');
+    background-size: cover;
+    height: 398px;
+    h2 {
+      text-shadow: 0px 0px 4px rgba(0, 10, 31, 0.06), 0px 0px 32px rgba(0, 10, 31, 0.08);
+      margin-top: 24px;
+      font-size: 42px;
+      line-height: 50px;
+    }
+    p{
+      margin-top: 16px;
+    }
+    .wrap{
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 120px 0;
+    }
+  }
+}

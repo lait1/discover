@@ -1,4 +1,19 @@
-@import 'main', 'welcome', 'traiter', 'advantages', 'trips', 'trip-builder', 'gallery', 'feedback', 'footer';
+@import
+'main',
+'welcome',
+'traiter',
+'advantages',
+'trips',
+'trip-builder',
+'gallery',
+'feedback',
+'footer',
+'tour',
+'corporate',
+'tours';
+html {
+  scroll-behavior: smooth;
+}
 body{
   font-family: 'Manrope', sans-serif;
   font-style: normal;
@@ -10,7 +25,7 @@ body{
     text-decoration: none;
   }
   a:hover{
-    transition: color .3s, background-color .3s;
+    transition: color .3s, background-color .3s, box-shadow .4s;
   }
   .icon:hover{
     transition: fill .3s;
@@ -32,7 +47,10 @@ h1,h2,h3,h4,h5{
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
 }
-
+.currency{
+  height: 40px;
+  width: 40px;
+}
 .header {
   position: absolute;
   display: flex;
@@ -43,6 +61,7 @@ h1,h2,h3,h4,h5{
   line-height: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
   height: 64px;
+  z-index: 1;
   .wrap{
     justify-content: space-between;
   }

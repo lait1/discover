@@ -3,33 +3,41 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Domain\TourService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    private TourService $tourService;
+
+    public function __construct(TourService $tourService)
+    {
+        $this->tourService = $tourService;
+    }
+
     /**
      * @Route("/")
      */
     public function indexAction(): Response
     {
         return $this->render('index.html.twig', [
-            'galleryImages' => json_encode([
-                'build/images/photos/photo1.jpeg',
-                'build/images/photos/photo2.jpeg',
-                'build/images/photos/photo.png',
-                'build/images/photos/photo3.jpeg',
-            ]),
+            'galleryImages' => json_encode([]),
         ]);
     }
 
     /**
      * @Route("/tour/{slug}")
      */
-    public function tourAction(): Response
+    public function tourAction(Request $request, string $slug): Response
     {
-        return $this->render('trip.html.twig');
+        $tour = $this->tourService->getTourBySlug($slug);
+
+        return $this->render('tour.html.twig', [
+            'tour' => $tour,
+        ]);
     }
 
     /**
@@ -37,7 +45,7 @@ class DefaultController extends AbstractController
      */
     public function toursAction(): Response
     {
-        return $this->render('trips.html.twig');
+        return $this->render('tours.html.twig');
     }
 
     /**
@@ -46,13 +54,5 @@ class DefaultController extends AbstractController
     public function corporateAction(): Response
     {
         return $this->render('corporate.html.twig');
-    }
-
-    /**
-     * @Route("/about", name="about-us")
-     */
-    public function aboutAction(): Response
-    {
-        return $this->render('about.html.twig');
     }
 }

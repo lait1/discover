@@ -5,5 +5,117 @@
 {% block page_description %}Gamardjoba!{% endblock %}
 
 {% block main %}
+    <header class="corporate__header">
+        <div class="wrap">
+            <h2>Корпоративные мероприятия</h2>
+            <p>Мы поможем вам провести ваше мероприятие весело, в любом месте <br> и с грузинским колоритом! Проведите ваш яркий уикенд вместе с нами!</p>
+            <a class="corporate__button_chose-tour" href="#">ОСТАВИТЬ ЗАЯВКУ</a>
+        </div>
+    </header>
+    <section class="advantages corporate">
+        <div class="wrap">
+            <div class="advantages__header">
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+                <h2>ЧТО МЫ МОЖЕМ ПРЕДЛОЖИТЬ??</h2>
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+            </div>
+            <div class="advantages__cards">
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Активные туры
+                        </h3>
+                        <p class="advantages__card-description">
+                            Организуем приключения:рафтинг, трекинг, походы, джип-туры, конные туры. Мы можем воплотить в жизнь любую вашу задумку!
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_1.jpg') }}" alt="Удобство передвижения">
+                </article>
 
+                <article class="advantages__card reverse">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Экскурсии
+                        </h3>
+                        <p class="advantages__card-description">
+                            Можем провести любой из наших туров для большой компании.
+                            Позвоните - мы подберем отличный формат!</p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_2.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Развлечения
+                        </h3>
+                        <p class="advantages__card-description">
+                            Подберем подрядчиков и артистов, напишем незабываемый сценарий, организуем мастер-классов и экскурсий
+                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_3.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Питание
+                        </h3>
+                        <p class="advantages__card-description">
+                            Возьмем на себя согласования с ресторанами, выбор и утверждение меню, финансовые расчёты с банкетными службами                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_4.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card reverse">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Транспорт
+                        </h3>
+                        <p class="advantages__card-description">
+                            Организуем передвижения внутри страны, встретим в аэропорту, предоставим трансферы. У нас есть большие автобусы. Вместимся все!                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_5.jpg') }}" alt="Удобство передвижения">
+                </article>
+
+                <article class="advantages__card">
+                    <div class="advantages__card-info">
+                        <h3 class="advantages__card-title">
+                            Личный менеджер
+                        </h3>
+                        <p class="advantages__card-description">
+                            Оперативно реагировать на любые задачи будет ваш личный консультант. Он поможет с решением возникающих вопросов                        </p>
+                    </div>
+                    <img src="{{ asset('build/images/advantages_6.jpg') }}" alt="Удобство передвижения">
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="gallery">
+        <div class="wrap">
+            <div class="gallery__header">
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+                <h2>КАК ЭТО БЫЛО?</h2>
+                <svg class="icon">
+                    <use xlink:href="#lightning"></use>
+                </svg>
+            </div>
+            <Gallery />
+        </div>
+    </section>
+    <section class="order">
+        <div class="wrap">
+            <div class="order__banner">
+                <h2>Создайте незабываемый вечер</h2>
+                <p>Планируете корпоративный праздник? Напишите нам, и мы учтем ваши <br> пожелания, предложим концепты, и составим смету</p>
+                <a class="corporate__button_chose-tour" href="#">ОСТАВИТЬ ЗАЯВКУ</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

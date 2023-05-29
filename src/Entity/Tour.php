@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -26,29 +25,29 @@ class Tour
     /** @ORM\Column(type="string") */
     private string $slug;
 
-    /** @ORM\Column(type="string") */
-    private string $title;
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $title;
 
-    /** @ORM\Column(type="string") */
-    private string $description;
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $description;
 
-    /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
-    private string $price;
+    /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true, "default": 0}) */
+    private int $price;
 
-    /** @ORM\Column(type="string") */
-    private string $longTime;
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $longTime;
 
-    /** @ORM\Column(type="string") */
-    private string $complexity;
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $complexity;
 
-    /** @ORM\Column(name="band_size", type="integer", nullable=false, options={"unsigned": true}) */
-    private int $bandSize;
+    /** @ORM\Column(name="group_size", type="integer", nullable=true, options={"unsigned": true}) */
+    private ?int $groupSize;
 
-    /** @ORM\Column(name="content", type="json") */
-    private array $content;
+    /** @ORM\Column(name="details", type="json", nullable=true) */
+    private ?array $details;
 
-    /** @ORM\Column(name="details", type="json") */
-    private array $details;
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $keyWords;
 
     /** @ORM\Column(name="created_at", type="integer", nullable=false, options={"unsigned": true}) */
     private int $createdAt;
@@ -57,13 +56,16 @@ class Tour
     private bool $public;
 
     /** @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tours") */
-    private ArrayCollection $categories;
+    private $categories;
 
     /** @ORM\OneToMany(targetEntity=TourPhoto::class, mappedBy="tour") */
-    private ArrayCollection $photos;
+    private $photos;
 
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
     private $reviews;
+
+    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour") */
+    private $tourDescriptions;
 
     public function __construct(
         string $name
@@ -73,7 +75,6 @@ class Tour
         $this->slug = $slugger->slug($name);
         $this->createdAt = time();
         $this->public = false;
-        u('спасибо')->ascii();
     }
 
     /**
@@ -148,6 +149,104 @@ class Tour
             // set the owning side to null (unless already changed)
             if ($review->getTour() === $this) {
                 $review->setTour(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string|\Symfony\Component\String\AbstractUnicodeString
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    public function getLongTime(): ?string
+    {
+        return $this->longTime;
+    }
+
+    public function getComplexity(): ?string
+    {
+        return $this->complexity;
+    }
+
+    public function getGroupSize(): ?int
+    {
+        return $this->groupSize;
+    }
+
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    public function getKeyWords(): string
+    {
+        return $this->keyWords ?? 'туризм, грузия, веселье, вино, горы';
+    }
+
+    public function getCreatedAt(): int
+    {
+        return $this->createdAt;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->public;
+    }
+
+    /**
+     * @return Collection<int, TourDescription>
+     */
+    public function getTourDescriptions(): Collection
+    {
+        return $this->tourDescriptions;
+    }
+
+    public function addTourDescription(TourDescription $tourDescription): self
+    {
+        if (!$this->tourDescriptions->contains($tourDescription)) {
+            $this->tourDescriptions[] = $tourDescription;
+            $tourDescription->setTour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTourDescription(TourDescription $tourDescription): self
+    {
+        if ($this->tourDescriptions->removeElement($tourDescription)) {
+            // set the owning side to null (unless already changed)
+            if ($tourDescription->getTour() === $this) {
+                $tourDescription->setTour(null);
             }
         }
 

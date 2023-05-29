@@ -1,114 +1,116 @@
-<section class="trips">
-    <div class="wrap">
-        <div class="trips__header">
-            <svg class="icon">
-                <use xlink:href="#lightning"></use>
-            </svg>
-            <h2>ВЫБЕРИТЕ ТУР, А ДАЛЬШЕ ДЕЛО ЗА НАМИ</h2>
+<div class="trips-list">
+    <article class="trip">
+        <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
+        <div class="trip__info">
+            <h3 class="trip__info-title">
+                Экскурсия от шефа
+            </h3>
+            <p class="trip__info-description">
+                Хотите интересное путешествие, но нет времени выбирать туры? Доверьтесь нашим гидам! Укажите, что вам не
+                нравится или что вас интересует, и мы устроим вам незабываемую экскурсию-сюрприз!
+            </p>
+            <div class="trip__footer">
+                <h5 class="trip__footer-amount">
+                    По запросу
+                </h5>
+                <div class="trip__footer-book">
+                    <div class="trip__footer-duration">
+                        Длительность:
+                        <span><i class="fa fa-regular fa-clock"></i> 7 часов</span>
+                    </div>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
         </div>
-        <div class="trips-list">
-
-            <article class="trip">
-                <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
-                <div class="trip__info">
-                    <h3 class="trip__info-title">
-                        Экскурсия от шефа
-                    </h3>
-                    <p class="trip__info-description">
-                        Хотите интересное путешествие, но нет времени выбирать туры? Доверьтесь нашим гидам! Укажите, что вам не нравится или что вас интересует, и мы устроим вам незабываемую экскурсию-сюрприз!
-                    </p>
-                    <div class="trip__footer">
-                        <h5 class="trip__footer-amount">
-                            По запросу
-                        </h5>
-                        <div class="trip__footer-book">
-                            <div class="trip__footer-duration">
-                                Длительность:
-                                <span><i class="fa fa-regular fa-clock"></i> 7 часов</span>
-                            </div>
-                            <a href="#">Забронировать</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trip__tags">
-                    <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>4.9</span>
-                    <span class="tag">Необычное</span>
-                    <span class="tag">Природа</span>
-                </div>
-            </article>
-
-            <article class="trip">
-                <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
-                <div class="trip__info">
-                    <h3 class="trip__info-title">
-                        Рафтинг по горной реке
-                    </h3>
-                    <p class="trip__info-description">
-                        На рафте вы покорите красивейшую реку Риони, любуясь окружающими пейзажами со скалами и водопадами, а я обеспечу безопасность и комфорт. Помимо потрясающего приключенческого опыта, еще до сплава вы побываете на горном озере Шаори, попробуете местные вкусности и прикоснетесь к старине в монастыре Гелати. Обещаю — этот день подарит вам новые знания и вихрь эмоций и точно украсит путешествие по радушной Грузии! </p>
-                    <div class="trip__footer">
-                        <h5 class="trip__footer-amount">
-                            500 <svg class="icon currency">
-                                <use xlink:href="#EUR"></use>
-                            </svg>
-                        </h5>
-                        <div class="trip__footer-book">
-                            <div class="trip__footer-duration">
-                                Длительность:
-                                <span><i class="fa fa-regular fa-clock"></i> 2 недели</span>
-                            </div>
-                            <a href="#">Забронировать</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article class="trip">
-                <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
-                <div class="trip__info">
-                    <h3 class="trip__info-title">
-                        Древняя Мцхета и Уплисцихе
-                    </h3>
-                    <p class="trip__info-description">
-                        Мы совершим путешествие в доисторическое прошлое Грузии. Вы посетите древние храмы, монастыри и крепости, которые сыграли важную роль в истории страны, узнаете о зарождении христианства в Грузии и познакомитесь с культурой и обычаями народа. </p>
-                    <div class="trip__footer">
-                        <h5 class="trip__footer-amount">
-                            500 <svg class="icon currency">
-                                <use xlink:href="#USD"></use>
-                            </svg>
-                        </h5>
-                        <div class="trip__footer-book">
-                            <div class="trip__footer-duration">
-                                Длительность:
-                                <span><i class="fa fa-regular fa-clock"></i> 3 часа</span>
-                            </div>
-                            <a href="#">Забронировать</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article class="trip">
-                <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
-                <div class="trip__info">
-                    <h3 class="trip__info-title">
-                        Гамарджоба, Кахетия, винный край!
-                    </h3>
-                    <p class="trip__info-description">
-                        Кахетия из тех мест, которым сложно подобрать эпитеты... Этот край надо видеть своими глазами, чувствовать многовековые традиции и пробовать вино. Просторы Алазанской долины, древние камни крепостной стены и монастыря Бодбе, сцены из «Мимино», резные балконы Сигнахи, история княжеского рода, дегустации и секреты виноделия — приглашаю в путешествие в радушную восточную Грузию!</p>
-                    <div class="trip__footer">
-                        <h5 class="trip__footer-amount">
-                            455  <svg class="icon currency">
-                                <use xlink:href="#GEL"></use>
-                            </svg>
-                        </h5>
-                        <div class="trip__footer-book">
-                            <div class="trip__footer-duration">
-                                Длительность:
-                                <span><i class="fa fa-regular fa-clock"></i> 7 часов</span>
-                            </div>
-                            <a href="#">Забронировать</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        <div class="trip__tags">
+            <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>4.9</span>
+            <span class="tag">Необычное</span>
+            <span class="tag">Природа</span>
         </div>
-    </div>
-</section>
+    </article>
+
+    <article class="trip">
+        <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
+        <div class="trip__info">
+            <h3 class="trip__info-title">
+                Рафтинг по горной реке
+            </h3>
+            <p class="trip__info-description">
+                На рафте вы покорите красивейшую реку Риони, любуясь окружающими пейзажами со скалами и водопадами, а я
+                обеспечу безопасность и комфорт. Помимо потрясающего приключенческого опыта, еще до сплава вы побываете
+                на горном озере Шаори, попробуете местные вкусности и прикоснетесь к старине в монастыре Гелати. Обещаю
+                — этот день подарит вам новые знания и вихрь эмоций и точно украсит путешествие по радушной Грузии! </p>
+            <div class="trip__footer">
+                <h5 class="trip__footer-amount">
+                    500
+                    <svg class="icon currency">
+                        <use xlink:href="#EUR"></use>
+                    </svg>
+                </h5>
+                <div class="trip__footer-book">
+                    <div class="trip__footer-duration">
+                        Длительность:
+                        <span><i class="fa fa-regular fa-clock"></i> 2 недели</span>
+                    </div>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="trip">
+        <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
+        <div class="trip__info">
+            <h3 class="trip__info-title">
+                Древняя Мцхета и Уплисцихе
+            </h3>
+            <p class="trip__info-description">
+                Мы совершим путешествие в доисторическое прошлое Грузии. Вы посетите древние храмы, монастыри и
+                крепости, которые сыграли важную роль в истории страны, узнаете о зарождении христианства в Грузии и
+                познакомитесь с культурой и обычаями народа. </p>
+            <div class="trip__footer">
+                <h5 class="trip__footer-amount">
+                    500
+                    <svg class="icon currency">
+                        <use xlink:href="#USD"></use>
+                    </svg>
+                </h5>
+                <div class="trip__footer-book">
+                    <div class="trip__footer-duration">
+                        Длительность:
+                        <span><i class="fa fa-regular fa-clock"></i> 3 часа</span>
+                    </div>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="trip">
+        <img src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
+        <div class="trip__info">
+            <h3 class="trip__info-title">
+                Гамарджоба, Кахетия, винный край!
+            </h3>
+            <p class="trip__info-description">
+                Кахетия из тех мест, которым сложно подобрать эпитеты... Этот край надо видеть своими глазами,
+                чувствовать многовековые традиции и пробовать вино. Просторы Алазанской долины, древние камни крепостной
+                стены и монастыря Бодбе, сцены из «Мимино», резные балконы Сигнахи, история княжеского рода, дегустации
+                и секреты виноделия — приглашаю в путешествие в радушную восточную Грузию!</p>
+            <div class="trip__footer">
+                <h5 class="trip__footer-amount">
+                    455
+                    <svg class="icon currency">
+                        <use xlink:href="#GEL"></use>
+                    </svg>
+                </h5>
+                <div class="trip__footer-book">
+                    <div class="trip__footer-duration">
+                        Длительность:
+                        <span><i class="fa fa-regular fa-clock"></i> 7 часов</span>
+                    </div>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
