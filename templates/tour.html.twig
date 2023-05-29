@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ tour.name }} {% endblock %}
+{% block page_keywords %} {{ tour.keyWords ?? 'test' }} {% endblock %}
+{% block page_description %} {{ tour.description }} {% endblock %}
+
+{% block main %}
+    <header class="tour__header" style="background: url({{ asset('build/images/tour_bg.jpg') }})">
+        <div class="wrap">
+            <h1>{{ tour.name }}</h1>
+            <p class="tour__title">{{ tour.title }}</p>
+            <div class="tour__tags">
+                <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>4.9</span>
+                {% for category in tour.categories %}
+                    <span class="tag">{{ category.name }}</span>
+                {% endfor %}
+            </div>
+            <a href="#" class="tour__button_make-order">Заказать тур</a>
+        </div>
+    </header>
+    <section class="tour__description">
+        <div class="wrap">
+            <h2 class="tour__description_header">КУДА МЫ ЕДЕМ?</h2>
+            <p class="tour__description_info">{{ tour.description }}</p>
+            <div class="tour__properties-list">
+                <div class="tour__properties_item">
+                    <div class="tour__properties_item-name">
+                        Длительность
+                    </div>
+                    <div class="tour__properties_item-info">
+                        <span class="tour__properties_item-icon">
+                            <svg class="icon">
+                              <use xlink:href="#Clock"></use>
+                            </svg>
+                            {{ tour.longTime }}
+                        </span>
+                    </div>
+                </div>
+                <div class="tour__properties_item">
+                    <div class="tour__properties_item-name">
+                        Сложность
+                    </div>
+                    <div class="tour__properties_item-info">
+                    <span class="tour__properties_item-icon">
+                         <svg class="icon">
+                          <use xlink:href="#Сomplexity"></use>
+                        </svg>
+                        {{ tour.complexity }}
+                    </span>
+                    </div>
+                </div>
+                <div class="tour__properties_item">
+                    <div class="tour__properties_item-name">
+                        Размер группы
+                    </div>
+                    <div class="tour__properties_item-info">
+                    <span class="tour__properties_item-icon">
+                         <svg class="icon">
+                          <use xlink:href="#Group"></use>
+                        </svg>
+                        До {{ tour.groupSize }} человек
+                    </span>
+                    </div>
+                </div>
+                <div class="tour__properties_item">
+                    <div class="tour__properties_item-name">
+                        Литры вина
+                    </div>
+                    <div class="tour__properties_item-info">
+                    <span class="tour__properties_item-icon">
+                          <svg class="icon">
+                          <use xlink:href="#Glass"></use>
+                        </svg>
+                        Много
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="tour__gallery">
+                <TourGallery/>
+            </div>
+        </div>
+    </section>
+    <section class="tour__info">
+        <div class="wrap">
+            <h1 class="tour__info-header">ЧТО ВАС ОЖИДАЕТ?</h1>
+            <div class="tour__info-list">
+                {% for desc in tour.tourDescriptions %}
+                    <div class="tour__info-list-item
+                {% if desc.id is even %}
+                 reverse
+                {% endif %}">
+                        <div class="tour__info-list-item__content">
+                            <h2>{{ desc.header }}</h2>
+                            <p>{{ desc.content }}</p>
+                        </div>
+                        <img class="tour__info-list-item__image" src="{{ asset("build/images/tour/" ~ desc.image) }}"
+                             alt="">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="tour__details">
+        <div class="wrap">
+            <header class="tour__details-header">
+                <h1>СТОИМОСТЬ - <span class="tour__details-header-price">{{ tour.price }}
+                    <svg class="icon currency"><use xlink:href="#GEL"></use></svg>
+                </span>
+                </h1>
+                <p>Цена за 1-4 человек. Для большего количества участников цена обговаривается индивидуально</p>
+            </header>
+            <div class="tour__details-info">
+                <div class="tour__details-info__block">
+                    <h3>Цена включает</h3>
+                    <ul class="tour__details-info__list">
+                        <li><svg class="icon"><use xlink:href="#Plus"></use></svg>Комфортабельный транспорт</li>
+                        <li><svg class="icon"><use xlink:href="#Plus"></use></svg>Гид-экскурсовод</li>
+                        <li><svg class="icon"><use xlink:href="#Plus"></use></svg>Встреча у места проживания</li>
+                    </ul>
+                </div>
+                <div class="tour__details-info__block">
+                    <h3>Дополнительные расходы</h3>
+                    <ul class="tour__details-info__list">
+                        <li><svg class="icon"><use xlink:href="#Minus"></use></svg>Питание</li>
+                        <li><svg class="icon"><use xlink:href="#Minus"></use></svg>Входные билеты</li>
+                        <li><svg class="icon"><use xlink:href="#Minus"></use></svg>Фото и видеосъемка (по желанию)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tour__details-prepayment">
+                <svg class="icon"><use xlink:href="#Wallet"></use></svg>
+                <div class="tour__details-prepayment_content">
+                    <h3>Предоплата 20%</h3>
+                    <p>Остальные деньги — гиду на месте. Вы можете задать гиду любые вопросы до оплаты.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="tour__calendar">
+        <div class="wrap">
+            <h1 class="tour__calendar-header">ВЫБЕРИТЕ ЛЮБОЙ ДЕНЬ И ЗАБРОНИРУЙТЕ</h1>
+            <div class="tour__calendar-wrap">
+
+            </div>
+            <div class="tour__calendar-info">
+                <span class="close">День занят</span>
+                <span class="free">День свободен</span>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

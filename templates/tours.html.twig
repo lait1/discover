@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gamardjoba!{% endblock %}
+{% block page_keywords %}Gamardjoba!{% endblock %}
+{% block page_description %}Gamardjoba!{% endblock %}
+
+{% block main %}
+    <header class="tours__header">
+        <div class="wrap">
+            <h2>Выберите свое путешествие</h2>
+            <p>Погрузитесь в культуру и историю Грузии с экскурсиями Discover Georgia!</p>
+        </div>
+    </header>
+    <section class="trips">
+        <div class="wrap">
+            {% include 'tour-list.html.twig' %}
+        </div>
+    </section>
+    <section class="trip-builder">
+        <TourBuilder />
+    </section>
+{% endblock %}
