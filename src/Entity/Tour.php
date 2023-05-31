@@ -28,7 +28,7 @@ class Tour
     /** @ORM\Column(type="string", nullable=true) */
     private ?string $title;
 
-    /** @ORM\Column(type="string", nullable=true) */
+    /** @ORM\Column(type="text", nullable=true) */
     private ?string $description;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true, "default": 0}) */

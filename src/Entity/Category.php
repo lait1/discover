@@ -22,7 +22,7 @@ class Category
     /** @ORM\Column(name="name", type="string", length=255) */
     private string $name;
 
-    /** @ORM\Column(name="priority", type="integer", options={"default": null, "unsigned": true}) */
+    /** @ORM\Column(name="priority", type="integer", nullable=true, options={"default": null, "unsigned": true}) */
     private ?int $priority;
 
     /** @ORM\ManyToMany(targetEntity=Tour::class, mappedBy="categories") */
