@@ -342,4 +342,81 @@
             }
         }
     }
+    &__reviews{
+        padding: 120px 0;
+        .wrap{
+            display: flex;
+            flex-direction: column;
+        }
+        &-header{
+            color: var(--content-dark, #1C1D20);
+            text-align: center;
+            font-size: 42px;
+            line-height: 50px;
+            margin-bottom: 52px;
+        }
+    }
+    &__review{
+        display: flex;
+        padding: 32px;
+        flex-direction: column;
+        border-radius: 24px;
+        border: 2px solid var(--border-primary, #E3E6EE);
+
+        &-top {
+            display: flex;
+            margin-bottom: 16px;
+            align-items: center;
+            justify-content: space-between;
+
+            &__userinfo {
+                display: flex;
+                align-items: center;
+            }
+
+            &__username {
+                font-size: 24px;
+                line-height: 28px;
+                margin-right: 32px;
+            }
+
+            &__stars {
+                display: flex;
+                gap: 8px;
+            }
+
+            &__date {
+                color: var(--content-accent-disable, #898998);
+                line-height: 24px;
+                letter-spacing: 0.12px;
+            }
+        }
+        &-list{
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        &-actions{
+            margin-top: 32px;
+        }
+        &-add-comment{
+            padding: 16px 24px;
+            width: 192px;
+            background: #0062FB;
+            box-shadow: 0px 2px 4px rgba(0, 10, 31, 0.08), 0px 0px 32px rgba(0, 10, 31, 0.12);
+            border-radius: 100px;
+            font-size: 20px;
+            line-height: 28px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            &:hover{
+                background: #0051D0;
+            }
+        }
+        .icon {
+            width: 41px;
+            height: 41px;
+        }
+    }
 }

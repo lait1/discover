@@ -55,4 +55,23 @@ class DefaultController extends AbstractController
     {
         return $this->render('corporate.html.twig');
     }
+
+    /**
+     * @Route("/comment/add", name="add-comment", methods={"POST"})
+     */
+    public function addCommentAction(Request $request): Response
+    {
+        $content = $request->getContent() ?: '';
+        dd(json_decode($content, true));
+    }
+
+    /**
+     * @Route("/comment/get-comments/{id}", name="get-comment")
+     */
+    public function listCommentAction(Request $request, int $id): Response
+    {
+        dd($id);
+
+        return $this->render('corporate.html.twig');
+    }
 }
