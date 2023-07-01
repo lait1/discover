@@ -12,6 +12,9 @@ import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
 import Tourgallery from "./components/TourGallery";
 import Lightbox from '@morioh/v-lightbox'
 import Calendar from "./components/Calendar";
+import TourFAQ from "./components/Faq";
+import FAQ from "./components/Faq";
+import Faq from "./components/Faq";
 
 
 Vue.use(Lightbox);
@@ -25,7 +28,7 @@ Vue.use(Vuetify)
 
 new Vue({
     vuetify: new Vuetify(),
-    components: {App, Calendar, Gallery, Trailer, Tourbuilder, Feedback, Tourgallery}
+    components: {App, Calendar, Gallery, Trailer, Tourbuilder, Feedback, Tourgallery, Faq}
 }).$mount('#app')
 
 

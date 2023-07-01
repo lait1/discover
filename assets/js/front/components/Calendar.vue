@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     choseDate(date) {
-console.log(date.date)
+      console.log(date.date)
     },
   },
 }
