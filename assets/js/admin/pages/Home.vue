@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ message }}</h1>
+    <h1>This is home</h1>
   </div>
 </template>
 
@@ -8,14 +8,10 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  computed: {
-    ...mapState(['message'])
-  },
+
   methods: {
-    ...mapActions(['fetchMessage'])
+
   },
-  created() {
-    this.fetchMessage()
-  }
+
 }
 </script>

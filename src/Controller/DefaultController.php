@@ -29,6 +29,19 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/admin/login", name="app_admin_login")
+     * @Route("/admin/dashboard", name="app_admin_dashboard")
+     * @Route("/admin/home", name="app_admin_home")
+     * @Route("/admin/about", name="app_admin_about")
+     */
+    public function loginAction(): Response
+    {
+        $this->getUser();
+
+        return $this->render('admin/index.html.twig');
+    }
+
+    /**
      * @Route("/tour/{slug}")
      */
     public function tourAction(Request $request, string $slug): Response
@@ -70,8 +83,6 @@ class DefaultController extends AbstractController
      */
     public function listCommentAction(Request $request, int $id): Response
     {
-        dd($id);
-
         return $this->render('corporate.html.twig');
     }
 }

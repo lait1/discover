@@ -1,48 +1,23 @@
 <template>
-
-  <main v-if="this.isAuth">
-    <nav>
-      <ul>
-        <li><router-link to="/admin/home">Home</router-link></li>
-        <li><router-link to="/admin/about">About</router-link></li>
-        <li> <button @click="logout">Logout</button></li>
-      </ul>
-    </nav>
-    <div>Here message</div>
-    <router-view></router-view>
-  </main>
-
-  <div v-else>
+  <div>
     <input v-model="username" type="text" placeholder="Username">
     <input v-model="password" type="password" placeholder="Password">
     <button @click="login">Login</button>
     <button @click="logout">Logout</button>
   </div>
-
 </template>
 
 <script>
-
-import AuthService from "./auth.service";
+import AuthService from "../auth.service";
 
 export default {
   data() {
     return {
       username: '',
-      password: '',
-      isAuth: false
+      password: ''
     };
   },
-  mounted() {
-    this.isAuth = AuthService.isAuthenticated()
-  },
-  computed: {
-    // isAuth() {
-    //   this.isAuth
-    // },
-  },
   methods: {
-
     login() {
       const credentials = {
         username: this.username,
@@ -53,8 +28,6 @@ export default {
           .then(token => {
             // Аутентификация прошла успешно
             console.log('Logged in with token:', token);
-            this.isAuth = true
-            this.$router.push({path: '/admin/home'});
           })
           .catch(error => {
             // Обработка ошибок аутентификации
@@ -64,8 +37,6 @@ export default {
     logout() {
       AuthService.logout();
       console.log('Logged out');
-      this.isAuth = false
-      this.$router.push({path: '/admin/login'});
     }
   }
 };

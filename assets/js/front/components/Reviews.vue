@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="tour__review-actions">
-      <button @click="addComment" class="tour__review-add-comment">Заказать тур</button>
+      <button @click="addComment" class="tour__review-add-comment">Добавить отзыв</button>
     </div>
     <Commentdialog v-model="this.showPopup" @closeDialog="closeDialog"/>
   </div>
