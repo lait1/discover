@@ -33,4 +33,14 @@ class TourRepository extends ServiceEntityRepository
 
         return $tour;
     }
+
+    public function getById(int $id): Tour
+    {
+        $tour = $this->findOneBy(['id' => $id]);
+        if ($tour === null) {
+            throw new NotFoundResourceException("Tour not found {$id}");
+        }
+
+        return $tour;
+    }
 }

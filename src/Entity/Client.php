@@ -27,6 +27,9 @@ class Client implements PasswordAuthenticatedUserInterface
     /** @ORM\Column(type="string", length=180, nullable=true) */
     private ?string $email = null;
 
+    /** @ORM\Column(type="string", length=50, nullable=true) */
+    private ?string $name = null;
+
     /**
      * @var string The hashed password
      *
@@ -115,36 +118,6 @@ class Client implements PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Review>
      */
-    public function getAssessment(): Collection
-    {
-        return $this->assessment;
-    }
-
-    public function addAssessment(Review $assessment): self
-    {
-        if (!$this->assessment->contains($assessment)) {
-            $this->assessment[] = $assessment;
-            $assessment->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAssessment(Review $assessment): self
-    {
-        if ($this->assessment->removeElement($assessment)) {
-            // set the owning side to null (unless already changed)
-            if ($assessment->getAuthor() === $this) {
-                $assessment->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Review>
-     */
     public function getReviews(): Collection
     {
         return $this->reviews;
@@ -170,5 +143,10 @@ class Client implements PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 }

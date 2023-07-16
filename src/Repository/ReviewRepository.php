@@ -39,6 +39,11 @@ class ReviewRepository extends ServiceEntityRepository
         }
     }
 
+    public function getByTourId(int $id): array
+    {
+        return $this->findBy(['tour' => $id]);
+    }
+
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */

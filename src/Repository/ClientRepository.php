@@ -42,6 +42,16 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         }
     }
 
+    public function findClientByPhone(string $phone): Client
+    {
+        $client = $this->findOneBy(['phone' => $phone]);
+        if ($client === null) {
+            throw new \Exception("Client with phone {$phone} not found");
+        }
+
+        return $client;
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

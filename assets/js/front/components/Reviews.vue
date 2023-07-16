@@ -30,7 +30,7 @@
     <div class="tour__review-actions">
       <button @click="addComment" class="tour__review-add-comment">Добавить отзыв</button>
     </div>
-    <Commentdialog v-model="this.showPopup" @closeDialog="closeDialog"/>
+    <Commentdialog v-model="this.showPopup" :trip-id="this.tripId"  @closeDialog="closeDialog"/>
   </div>
 </template>
 
@@ -40,6 +40,7 @@ import Commentdialog from "./CommentDialog";
 export default {
   name: "Reviews",
   components: {Commentdialog},
+  props:['tripId'],
   data: () => ({
     showPopup: false,
     comments: [

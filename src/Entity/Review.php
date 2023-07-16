@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ReviewRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,10 +33,10 @@ class Review
     private int $assessment;
 
     /** @ORM\Column(type="boolean") */
-    private bool $public;
+    private bool $public = false;
 
     /** @ORM\Column(type="boolean") */
-    private bool $showMainPage;
+    private bool $showMainPage = false;
 
     /** @ORM\Column(type="string", length=255, nullable=true) */
     private string $answer;
@@ -46,8 +47,14 @@ class Review
     /** @ORM\OneToMany(targetEntity=ReviewPhoto::class, mappedBy="reviews") */
     private $reviewPhotos;
 
-    public function __construct()
+    /** @ORM\Column(name="created_at", type="integer", nullable=false, options={"unsigned": true}) */
+    private int $createdAt;
+
+    public function __construct(string $text, int $assessment)
     {
+        $this->text = $text;
+        $this->assessment = $assessment;
+        $this->createdAt = time();
         $this->reviewPhotos = new ArrayCollection();
     }
 
@@ -156,5 +163,10 @@ class Review
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return (new \DateTimeImmutable())->setTimestamp($this->createdAt);
     }
 }

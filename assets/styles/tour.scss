@@ -419,3 +419,52 @@
         }
     }
 }
+
+.comment__dialog{
+    .wrap{
+        display: flex;
+        gap: 24px;
+    }
+    &-row{
+        display: flex;
+        gap: 24px;
+    }
+    &-col{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    &-header{
+        font-size: 42px;
+        line-height: 50px;
+        margin-bottom: 32px;
+    }
+    &-input{
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 16px;
+        background: var(--background-primary, #F6F6FA);
+    }
+    &-label{
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 8px;
+    }
+    &-button{
+        padding: 16px 24px;
+        background: #0062FB;
+        box-shadow: 0px 2px 4px rgba(0, 10, 31, 0.08), 0px 0px 32px rgba(0, 10, 31, 0.12);
+        border-radius: 100px;
+        font-size: 20px;
+        line-height: 28px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        &:hover{
+            background: #0051D0;
+        }
+    }
+    textarea{
+        height: 140px;
+    }
+}
