@@ -4,6 +4,12 @@
       ОТЗЫВЫ НАШИХ ПУТЕШЕСТВЕННИКОВ
     </h1>
     <div class="tour__review-list">
+      <LoaderLocal
+          v-if="loading"
+          class="tour__review-loader"
+          :size="100"
+          :min-width="100"
+      />
       <div class="tour__review"
            v-for="comment in comments"
       >
@@ -30,50 +36,79 @@
     <div class="tour__review-actions">
       <button @click="addComment" class="tour__review-add-comment">Добавить отзыв</button>
     </div>
-    <Commentdialog v-model="this.showPopup" :trip-id="this.tripId"  @closeDialog="closeDialog"/>
+    <Commentdialog
+        v-model="this.showCommentDialog"
+        :trip-id="this.tripId"
+        @closeDialog="closeDialog"
+        @showSuccessMessage="showSuccessMessage"
+        @showErrorMessage="showErrorMessage"
+    />
+    <Alertdialog
+        v-model="this.showAlert"
+        :message="this.alertMessage"
+        :hasError="this.hasError"
+        @closeAlert="closeAlert"
+    />
   </div>
 </template>
 
 <script>
 import Commentdialog from "./CommentDialog";
+import axios from "axios";
+import Alertdialog from "./AlertDialog";
+import LoaderLocal from "./LoaderLocal";
 
 export default {
   name: "Reviews",
-  components: {Commentdialog},
+  components: {Alertdialog, Commentdialog, LoaderLocal },
   props:['tripId'],
   data: () => ({
-    showPopup: false,
-    comments: [
-      {
-        id: 1,
-        author: 'Александр Еремеев',
-        text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-        stars: 5,
-        date: '23 апреля 2023'
-      },
-      {
-        id: 2,
-        author: 'Ксюша Малышееееева',
-        text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-        stars: 4,
-        date: '23 апреля 2023'
-      },
-      {
-        id: 3,
-        author: 'Ииииииииииигорь',
-        text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-        stars: 3,
-        date: '23 апреля 2023'
-      },
-    ]
+    loading: false,
+    showCommentDialog: false,
+    showAlert: false,
+    alertMessage: '',
+    hasError: false,
+    comments: []
   }),
+  mounted() {
+    this.getCommentsByTourId();
+  },
   methods: {
     addComment() {
-      this.showPopup = true
+      this.showCommentDialog = true
     },
-    closeDialog(){
-      this.showPopup = false
-    }
+    closeDialog() {
+      this.showCommentDialog = false
+    },
+    closeAlert(){
+      this.showAlert = false
+    },
+    showSuccessMessage(message) {
+      this.closeDialog()
+
+      this.showAlert = true
+      this.alertMessage = message
+    },
+    showErrorMessage(errorMessage) {
+      this.closeDialog()
+
+      this.showAlert = true
+      this.hasError = true
+      this.alertMessage = errorMessage
+    },
+    getCommentsByTourId() {
+      this.loading = true
+      axios.get(`/comment/get-comments/${this.tripId}/`)
+          .then((response) => {
+            this.comments = response.data
+          })
+          .catch((response) => {
+            alert("Ошибка загрузки комментов");
+          })
+          .finally(() => {
+            this.loading = false
+          })
+    },
   },
 };
 </script>

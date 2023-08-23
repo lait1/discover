@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Domain\ReviewService;
 use App\DTO\ReviewDTO;
+use App\Exception\ValidationErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,8 @@ class CommentController extends AbstractController
             $this->reviewService->createReview($dto);
 
             return $this->json(['message' => 'success']);
+        } catch (ValidationErrorException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }
@@ -47,6 +50,7 @@ class CommentController extends AbstractController
      */
     public function listCommentAction(Request $request, int $id): Response
     {
+        sleep(2);
         try {
             return $this->json($this->reviewService->getReviewByTourId($id));
         } catch (\Throwable $e) {

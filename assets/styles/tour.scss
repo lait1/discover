@@ -391,6 +391,10 @@
                 letter-spacing: 0.12px;
             }
         }
+        &-loader{
+            display: flex;
+            justify-content: center;
+        }
         &-list{
             display: flex;
             flex-direction: column;

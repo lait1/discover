@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Exception\ValidationErrorException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -46,7 +47,7 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
     {
         $client = $this->findOneBy(['phone' => $phone]);
         if ($client === null) {
-            throw new \Exception("Client with phone {$phone} not found");
+            throw new ValidationErrorException('На ваш номер телефона не была забронирована экскурсия, на которую вы оставляли отзыв. Если это не так, пожалуйста, свяжитесь с нами');
         }
 
         return $client;

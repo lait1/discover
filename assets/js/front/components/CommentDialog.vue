@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <v-dialog v-model="showPopup" @click:outside="closeDialog" max-width="600px">
+    <v-dialog v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="comment__dialog">
         <h1 class="comment__dialog-header">Добавить отзыв</h1>
         <div class="wrap">
@@ -15,7 +15,6 @@
             </div>
             <div class="comment__dialog-col">
               <label for="userPhone" class="comment__dialog-label">Номер телефона</label>
-<!--              <input v-model="review.phone" class="comment__dialog-input" type="text" name="userPhone" id="userPhone">-->
               <phone-mask-input
                   id="userPhone"
                   v-model="review.phone"
@@ -66,27 +65,43 @@ export default {
     }
   },
   computed: {
-    showPopup: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      }
-    }
+    showCommentDialog() {
+      return this.value
+    },
   },
   methods: {
+    closeDialog() {
+      this.$emit('closeDialog');
+    },
+    clearForm() {
+      this.review.name = ''
+      this.review.phone = ''
+      this.review.rating = 5
+      this.review.text = ''
+    },
+    successComment() {
+      this.$emit('showSuccessMessage', 'Спасибо! Совсем скоро ваш отзыв будет опубликован');
+    },
+    errorComment(error) {
+      console.log(error)
+      this.$emit('showErrorMessage', error);
+    },
     addComment(){
       axios.post('/comment/add', this.review)
           .then((response) => {
-              console.log(response.data)
+            if (response.data.message === 'success'){
+              this.successComment()
+              this.clearForm()
+            }
           })
-          .catch((response) => {
-            alert("Ошибка");
+          .catch((error) => {
+            if (error.response.status === 400){
+              this.errorComment(error.response.data.error)
+              return
+            }
+
+            this.errorComment('У нас технические трудности, попробуйте позднее')
           });
-    },
-    closeDialog() {
-      this.$emit('closeDialog');
     },
   },
 };
