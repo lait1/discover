@@ -11,18 +11,25 @@
         :selected-date="this.selectedDate"
         :price="this.price"
         @closeDialog="closeDialog"
+        @showSuccessMessage="showSuccessMessage"
     />
+    <AlertDialog
+        v-model="this.showAlert"
+        :message="this.alertMessage"
+        @closeAlert="this.showAlert = false"
+      />
   </div>
 </template>
 
 <script>
 import {FunctionalCalendar} from "vue-functional-calendar";
 import OrderDialog from "./OrderDialog";
+import AlertDialog from "./AlertDialog";
 
 export default {
   name: "Calendar",
   components: {
-    FunctionalCalendar, OrderDialog
+    FunctionalCalendar, OrderDialog, AlertDialog
   },
   props:['tripId', 'price'],
   data: () => ({
@@ -35,7 +42,9 @@ export default {
       isDatePicker: true,
       isMultiple: true,
       disabledDates: ['beforeToday']
-    }
+    },
+    showAlert: false,
+    alertMessage: ''
   }),
   mounted () {
 
@@ -46,6 +55,12 @@ export default {
     },
     closeDialog() {
       this.showOrderDialog = false
+    },
+    showSuccessMessage(message) {
+      this.closeDialog()
+
+      this.showAlert = true
+      this.alertMessage = message
     },
   },
 }

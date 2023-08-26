@@ -4,9 +4,8 @@
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Заказать тур</h1>
         <div class="wrap">
-          <div class="tour__dialog-row">
+          <div v-if="errors.length" class="tour__dialog-row">
             <v-alert
-                v-if="errors.length"
                 outlined
                 text
                 type="error"
@@ -162,7 +161,7 @@ export default {
       this.$emit('closeDialog');
     },
     choseDate(date) {
-     console.log(date)
+      this.order.date = date.date
     },
     clearForm() {
       this.order.name = ''
@@ -184,9 +183,9 @@ export default {
       }
       return this.errors.length === 0
     },
-    // successComment() {
-    //   this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
-    // },
+    successComment() {
+      this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
+    },
     sendOrder(){
       if (! this.validation()){
         return
@@ -194,9 +193,8 @@ export default {
       axios.post('/order/book', this.order)
           .then((response) => {
             if (response.data.message === 'success'){
-              // this.successComment()
-              // this.clearForm()
-              //close form
+              this.successComment()
+              this.clearForm()
             }
           })
           .catch((error) => {
@@ -219,7 +217,7 @@ export default {
     }
     &-input-date{
       width: 100%;
-      padding: 5px 16px;
+      padding: 5px 5px;
       border-radius: 16px;
       background: var(--background-primary, #F6F6FA);
     }
@@ -256,6 +254,9 @@ export default {
       color: var(--gray-3, #828282);
     }
   }
+}
+::v-deep .vfc-single-input{
+  text-align: left;
 }
 ::v-deep .v-dialog{
   max-height: 100%;
