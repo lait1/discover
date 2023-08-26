@@ -5,6 +5,18 @@
         <h1 class="tour__dialog-header">Заказать тур</h1>
         <div class="wrap">
           <div class="tour__dialog-row">
+            <v-alert
+                v-if="errors.length"
+                outlined
+                text
+                type="error"
+            >
+              <ul>
+                <li v-for="error in errors">{{ error }}</li>
+              </ul>
+            </v-alert>
+          </div>
+          <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="userName" class="tour__dialog-label">Выбранная Дата</label>
               <FunctionalCalendar
@@ -237,6 +249,10 @@ export default {
   padding: 5px 16px;
   border-radius: 16px;
   background: var(--background-primary, #F6F6FA);
+}
+::v-deep .theme--light.v-btn.v-btn--has-bg{
+  background-color: #E5EFFF;
+  color: #0062FB;
 }
 ::v-deep .vfc-single-input{
   border: none;
