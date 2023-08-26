@@ -1,0 +1,257 @@
+<template>
+  <v-app >
+    <v-dialog v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+      <v-card class="tour__dialog">
+        <h1 class="tour__dialog-header">Заказать тур</h1>
+        <div class="wrap">
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="userName" class="tour__dialog-label">Выбранная Дата</label>
+              <FunctionalCalendar
+                  class="tour__dialog-input-date"
+                  v-model="calendarData"
+                  :configs="calendarConfigs"
+                  @choseDay="choseDate"
+              ></FunctionalCalendar>
+            </div>
+          </div>
+
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="userName" class="tour__dialog-label">Ваше имя</label>
+              <input v-model="order.name" placeholder="Имя" class="tour__dialog-input" type="text" name="userName" id="userName">
+            </div>
+            <div class="tour__dialog-col">
+              <label for="userPhone" class="tour__dialog-label">Номер телефона</label>
+              <phone-mask-input
+                  id="userPhone"
+                  v-model="order.phone"
+                  autoDetectCountry
+                  wrapperClass="tour__dialog-input-wrap"
+                  inputClass="tour__dialog-input"
+              />
+            </div>
+          </div>
+          <div class="tour__dialog-row order__people-row">
+              Количество человек:
+            <div class="order__people__count-block">
+              <v-btn
+                  class="order__people-btn"
+                  fab
+                  depressed
+                  :disabled="isDisableDecrementCounter"
+                  @click="decrementCountPeople"
+              >
+                <i class="fa fa-minus"></i>
+              </v-btn>
+              <span class="order__people-counter">{{ this.order.countPeople }}</span>
+              <v-btn
+                  class="order__people-btn"
+                  fab
+                  depressed
+                  :disabled="isDisableIncrementCounter"
+                  @click="incrementCountPeople"
+              >
+                <i class="fa fa-plus"></i>
+              </v-btn>
+            </div>
+          </div>
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="textComment" class="tour__dialog-label order__description">Коментарий <span>(не обязательно)</span></label>
+              <textarea v-model="order.text" placeholder="Напишите здесь ваши пожелания или вопросы" class="tour__dialog-input" name="textComment"
+                        id="textComment"></textarea>
+            </div>
+          </div>
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <div class="order__price">Цена: {{ this.price }} GEL</div>
+            </div>
+          </div>
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <button class="tour__dialog-button" @click="sendOrder" >
+                Заказать
+              </button>
+            </div>
+          </div>
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <div class="order__question">
+                <strong>Остались вопросы?</strong> Напишите к нам в <a href="#">Telegram</a>, <a href="#">WhatsApp</a> или напишите в чат
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-card>
+    </v-dialog>
+  </v-app>
+</template>
+
+<script>
+import axios from "axios";
+import 'vue-tel-input/dist/vue-tel-input.css';
+import PhoneMaskInput from  "vue-phone-mask-input";
+import {FunctionalCalendar} from "vue-functional-calendar";
+export default {
+  name: "OrderDialog",
+  components: {
+    PhoneMaskInput, FunctionalCalendar
+  },
+  props:['value', 'tripId', 'selectedDate', 'price'],
+  data: function () {
+    return {
+      order:{
+        tourId: this.tripId,
+        date: '',
+        name: '',
+        countPeople: 1,
+        phone: '',
+        text: '',
+      },
+      calendarData: {},
+      calendarConfigs: {
+        isModal: true,
+        monthNames: ["Янв.", "Фев.", "Март", "Aпр.", "May", "Июнь", "Июль", "Авг.", "Сен.", "Октябрь", "Ноя.", "Дек."],
+        dayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+        isDatePicker: true,
+        disabledDates: ['beforeToday']
+      },
+      errors: []
+    }
+  },
+  watch: {
+    selectedDate: function(newVal) {
+      console.log(newVal)
+      this.calendarData = newVal
+      this.order.date = newVal.selectedDate
+    }
+  },
+  computed: {
+    showCommentDialog() {
+      return this.value
+    },
+    isDisableIncrementCounter(){
+      return this.order.countPeople >= 4
+    },
+    isDisableDecrementCounter(){
+      return this.order.countPeople <= 1
+    }
+  },
+  methods: {
+    incrementCountPeople(){
+      this.order.countPeople++
+    },
+    decrementCountPeople(){
+      this.order.countPeople--
+    },
+    closeDialog() {
+      this.$emit('closeDialog');
+    },
+    choseDate(date) {
+     console.log(date)
+    },
+    clearForm() {
+      this.order.name = ''
+      this.order.date = ''
+      this.order.phone = ''
+      this.order.text = ''
+    },
+    validation() {
+      if (this.order.phone.length < 10){
+        this.errors.push('Длина номера телефона маловато будет')
+      }
+      if (this.order.name.length < 3){
+        this.errors.push('Длина имени маловато будет')
+      }
+      return this.errors.length === 0
+    },
+    // successComment() {
+    //   this.$emit('showSuccessMessage', 'Спасибо! Совсем скоро ваш отзыв будет опубликован');
+    // },
+    // errorComment(error) {
+    //   console.log(error)
+    //   this.$emit('showErrorMessage', error);
+    // },
+    sendOrder(){
+      if (! this.validation()){
+        return
+      }
+      axios.post('/order/book', this.order)
+          .then((response) => {
+            if (response.data.message === 'success'){
+              // this.successComment()
+              this.clearForm()
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 400){
+              this.errorComment(error.response.data.error)
+              return
+            }
+
+            // this.errorComment('У нас технические трудности, попробуйте позднее')
+          });
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.order{
+  &__people{
+    &__count-block{
+      width: 100px;
+      display: flex;
+      justify-content: space-between;
+    }
+    &-row{
+      gap: 16px;
+      align-items: center;
+    }
+    &-btn{
+      width: 32px;
+      height: 32px;
+    }
+    &-counter{
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      letter-spacing: 0.12px;
+    }
+  }
+  &__price{
+    color: var(--content-dark, #1C1D20);
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  &__description{
+    span{
+      color: var(--gray-3, #828282);
+    }
+  }
+}
+.tour__dialog-input-date{
+  width: 100%;
+  padding: 5px 16px;
+  border-radius: 16px;
+  background: var(--background-primary, #F6F6FA);
+}
+::v-deep .vfc-single-input{
+  border: none;
+}
+::v-deep .v-card {
+  display: flex;
+  padding: 32px;
+  flex-direction: column;
+}
+::v-deep .v-application--wrap {
+  min-height: fit-content;
+}
+::v-deep .v-dialog{
+  border-radius: 32px;
+  background: #FFF;
+}
+
+</style>

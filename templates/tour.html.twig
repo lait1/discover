@@ -141,7 +141,7 @@
         <div class="wrap">
             <h1 class="tour__calendar-header">ВЫБЕРИТЕ ЛЮБОЙ ДЕНЬ И ЗАБРОНИРУЙТЕ</h1>
             <div class="tour__calendar-wrap">
-                <Calendar :trip-id="{{ tour.id }}" />
+                <Calendar :trip-id="{{ tour.id }}" :price="{{ tour.price }}" />
             </div>
             <div class="tour__calendar-info">
                 <span class="close">День занят</span>
