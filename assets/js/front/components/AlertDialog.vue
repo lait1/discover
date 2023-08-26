@@ -12,11 +12,6 @@
 export default {
   name: "Alertdialog",
   props:['value', 'message', 'hasError'],
-  data: function () {
-    return {
-      preferredCountries: ['ge', 'ru'],
-    }
-  },
   computed: {
     showAlert() {
       return this.value

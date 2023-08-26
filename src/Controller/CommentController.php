@@ -50,7 +50,6 @@ class CommentController extends AbstractController
      */
     public function listCommentAction(Request $request, int $id): Response
     {
-        sleep(2);
         try {
             return $this->json($this->reviewService->getReviewByTourId($id));
         } catch (\Throwable $e) {

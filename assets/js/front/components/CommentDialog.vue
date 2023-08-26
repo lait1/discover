@@ -1,37 +1,37 @@
 <template>
   <v-app >
     <v-dialog v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
-      <v-card class="comment__dialog">
-        <h1 class="comment__dialog-header">Добавить отзыв</h1>
+      <v-card class="tour__dialog">
+        <h1 class="tour__dialog-header">Добавить отзыв</h1>
         <div class="wrap">
-          <div class="comment__dialog-col">
-            <label class="comment__dialog-label">Поставьте оценку</label>
+          <div class="tour__dialog-col">
+            <label class="tour__dialog-label">Поставьте оценку</label>
             <StarRating v-model="review.rating" :star-size="40" :show-rating="false"/>
           </div>
-          <div class="comment__dialog-row">
-            <div class="comment__dialog-col">
-              <label for="userName" class="comment__dialog-label">Ваше имя</label>
-              <input v-model="review.name" class="comment__dialog-input" type="text" name="userName" id="userName">
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="userName" class="tour__dialog-label">Ваше имя</label>
+              <input v-model="review.name" class="tour__dialog-input" type="text" name="userName" id="userName">
             </div>
-            <div class="comment__dialog-col">
-              <label for="userPhone" class="comment__dialog-label">Номер телефона</label>
+            <div class="tour__dialog-col">
+              <label for="userPhone" class="tour__dialog-label">Номер телефона</label>
               <phone-mask-input
                   id="userPhone"
                   v-model="review.phone"
                   autoDetectCountry
-                  wrapperClass="comment__dialog-input-wrap"
-                  inputClass="comment__dialog-input"
+                  wrapperClass="tour__dialog-input-wrap"
+                  inputClass="tour__dialog-input"
               />
             </div>
           </div>
-          <div class="comment__dialog-row">
-            <div class="comment__dialog-col">
-              <label for="textComment" class="comment__dialog-label">Отзыв</label>
-              <textarea v-model="review.text" class="comment__dialog-input" name="textComment"
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="textComment" class="tour__dialog-label">Отзыв</label>
+              <textarea v-model="review.text" class="tour__dialog-input" name="textComment"
                         id="textComment"></textarea>
             </div>
           </div>
-          <button class="comment__dialog-button" @click="addComment" >
+          <button class="tour__dialog-button" @click="addComment" >
             Отправить
           </button>
         </div>
@@ -61,7 +61,6 @@ export default {
         phone: '',
         text: '',
       },
-      preferredCountries: ['ge', 'ru'],
     }
   },
   computed: {
