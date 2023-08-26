@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <v-dialog v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+    <v-dialog class="order__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Заказать тур</h1>
         <div class="wrap">
@@ -10,6 +10,7 @@
                 outlined
                 text
                 type="error"
+                class="order__dialog-alert"
             >
               <ul>
                 <li v-for="error in errors">{{ error }}</li>
@@ -20,7 +21,7 @@
             <div class="tour__dialog-col">
               <label for="userName" class="tour__dialog-label">Выбранная Дата</label>
               <FunctionalCalendar
-                  class="tour__dialog-input-date"
+                  class="order__dialog-input-date"
                   v-model="calendarData"
                   :configs="calendarConfigs"
                   @choseDay="choseDate"
@@ -148,7 +149,7 @@ export default {
     },
     isDisableDecrementCounter(){
       return this.order.countPeople <= 1
-    }
+    },
   },
   methods: {
     incrementCountPeople(){
@@ -170,20 +171,21 @@ export default {
       this.order.text = ''
     },
     validation() {
-      if (this.order.phone.length < 10){
+      this.errors = []
+
+      if (this.order.phone.slice(0, 4) === '+995' && this.order.phone.length < 13) {
         this.errors.push('Длина номера телефона маловато будет')
       }
-      if (this.order.name.length < 3){
+      if (this.order.phone.slice(0, 2) === '+7' && this.order.phone.length < 12) {
+        this.errors.push('Длина номера телефона маловато будет')
+      }
+      if (this.order.name.length < 3) {
         this.errors.push('Длина имени маловато будет')
       }
       return this.errors.length === 0
     },
     // successComment() {
-    //   this.$emit('showSuccessMessage', 'Спасибо! Совсем скоро ваш отзыв будет опубликован');
-    // },
-    // errorComment(error) {
-    //   console.log(error)
-    //   this.$emit('showErrorMessage', error);
+    //   this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
     // },
     sendOrder(){
       if (! this.validation()){
@@ -193,13 +195,13 @@ export default {
           .then((response) => {
             if (response.data.message === 'success'){
               // this.successComment()
-              this.clearForm()
+              // this.clearForm()
+              //close form
             }
           })
           .catch((error) => {
             if (error.response.status === 400){
-              this.errorComment(error.response.data.error)
-              return
+              //show error, change date
             }
 
             // this.errorComment('У нас технические трудности, попробуйте позднее')
@@ -211,6 +213,17 @@ export default {
 
 <style scoped lang="scss">
 .order{
+  &__dialog{
+    &-alert{
+      width: 100%;
+    }
+    &-input-date{
+      width: 100%;
+      padding: 5px 16px;
+      border-radius: 16px;
+      background: var(--background-primary, #F6F6FA);
+    }
+  }
   &__people{
     &__count-block{
       width: 100px;
@@ -244,11 +257,8 @@ export default {
     }
   }
 }
-.tour__dialog-input-date{
-  width: 100%;
-  padding: 5px 16px;
-  border-radius: 16px;
-  background: var(--background-primary, #F6F6FA);
+::v-deep .v-dialog{
+  max-height: 100%;
 }
 ::v-deep .theme--light.v-btn.v-btn--has-bg{
   background-color: #E5EFFF;

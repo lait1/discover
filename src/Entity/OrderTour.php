@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
+use App\Repository\OrderTourRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OrderRepository::class)
+ * @ORM\Entity(repositoryClass=OrderTourRepository::class)
  */
-class Order
+class OrderTour
 {
     /**
      * @ORM\Id
@@ -22,9 +22,11 @@ class Order
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Client $author;
+    private Client $client;
 
-    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="orders") */
+    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="orders")
+     *  @ORM\JoinColumn(nullable=false)
+     */
     private Tour $tour;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
@@ -34,10 +36,10 @@ class Order
     private int $countPeople;
 
     /** @ORM\Column(type="text", nullable=true) */
-    private ?string $description;
+    private ?string $comment;
 
     /** @ORM\Column(type="boolean") */
-    private bool $confirmed = false;
+    private bool $confirmedTour;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
     private int $createdAt;
@@ -46,17 +48,14 @@ class Order
     private int $updatedAt;
 
     public function __construct(
-        Client $author,
-        Tour $tour,
         int $reservationDate,
         int $countPeople,
         ?string $description = null
     ) {
-        $this->author = $author;
-        $this->tour = $tour;
         $this->reservationDate = $reservationDate;
         $this->countPeople = $countPeople;
-        $this->description = $description;
+        $this->comment = $description;
+        $this->confirmedTour = false;
         $this->createdAt = time();
         $this->updatedAt = time();
     }
@@ -66,9 +65,9 @@ class Order
         return $this->id;
     }
 
-    public function getDescription(): ?string
+    public function getComment(): ?string
     {
-        return $this->description;
+        return $this->comment;
     }
 
     public function getTour(): ?Tour
@@ -76,15 +75,42 @@ class Order
         return $this->tour;
     }
 
-    public function setTour(?Tour $tour): self
+    public function setTour(Tour $tour): self
     {
         $this->tour = $tour;
 
         return $this;
     }
 
+    public function setClient(Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getReservationDate(): DateTimeImmutable
+    {
+        return (new \DateTimeImmutable())->setTimestamp($this->reservationDate);
+    }
+
+    public function getFormattedReservationDate(): string
+    {
+        return $this->getReservationDate()->format('d-m-Y');
+    }
+
     public function getCreatedAt(): DateTimeImmutable
     {
         return (new \DateTimeImmutable())->setTimestamp($this->createdAt);
+    }
+
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    public function getCountPeople(): int
+    {
+        return $this->countPeople;
     }
 }

@@ -1,0 +1,49 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Domain;
+
+use App\Entity\OrderTour;
+use App\Infrastructure\TelegramApiClient;
+use App\Repository\UserRepository;
+
+class Notificator
+{
+    public TelegramApiClient $apiClient;
+
+    public UserRepository $userRepository;
+
+    public function __construct(TelegramApiClient $apiClient, UserRepository $userRepository)
+    {
+        $this->apiClient = $apiClient;
+        $this->userRepository = $userRepository;
+    }
+
+    public function sendNotification(OrderTour $order): void
+    {
+        $admins = $this->userRepository->findAll();
+
+        foreach ($admins as $admin) {
+            if ($admin->getTelegramToken() !== null) {
+                $this->apiClient->sendMessage(
+                    $admin->getTelegramToken(),
+                    $this->buildOrderMessage($order)
+                );
+            }
+        }
+    }
+
+    private function buildOrderMessage(OrderTour $order): string
+    {
+        $comment = $order->getComment() ? "<b>Комментарий:</b> {$order->getComment()}" : '';
+
+        return <<<HTML
+        <b>Тур:</b> {$order->getTour()->getName()}
+        <b>Дата бронирования:</b> {$order->getFormattedReservationDate()}
+        
+        <b>Клиент:</b> {$order->getClient()->getName()}, {$order->getCountPeople()} шт.
+        <b>Телефон:</b> {$order->getClient()->getPhone()}
+        $comment    
+        HTML;
+    }
+}

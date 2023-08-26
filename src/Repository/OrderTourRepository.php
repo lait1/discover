@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Order;
+use App\Entity\OrderTour;
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,23 +15,21 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Review[]    findAll()
  * @method Review[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrderRepository extends ServiceEntityRepository
+class OrderTourRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Order::class);
+        parent::__construct($registry, OrderTour::class);
     }
 
-    public function add(Order $entity, bool $flush = false): void
+    public function save(OrderTour $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
+//        $this->getEntityManager()->flush();
     }
 
-    public function remove(Order $entity, bool $flush = false): void
+    public function remove(OrderTour $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

@@ -25,6 +25,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** @ORM\Column(type="json") */
     private array $roles = [];
 
+    /** @ORM\Column(type="string", length=180, nullable=true) */
+    private ?string $telegramToken;
+
     /**
      * @var string The hashed password
      *
@@ -119,5 +122,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getTelegramToken(): ?string
+    {
+        return $this->telegramToken;
     }
 }

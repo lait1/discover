@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -14,6 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Client implements PasswordAuthenticatedUserInterface
 {
+    public const DEFAULT_PASSWORD = '123123';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -40,9 +41,10 @@ class Client implements PasswordAuthenticatedUserInterface
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="author", orphanRemoval=true) */
     private $reviews;
 
-    public function __construct()
+    public function __construct(string $phone, string $name)
     {
-        $this->reviews = new ArrayCollection();
+        $this->phone = $phone;
+        $this->name = $name;
     }
 
     public function getId(): ?int
@@ -50,7 +52,7 @@ class Client implements PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getPhone(): ?string
+    public function getPhone(): string
     {
         return $this->phone;
     }

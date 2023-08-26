@@ -34,14 +34,14 @@ class OrderController extends AbstractController
             OrderDTO::class,
             'json'
         );
-        try {
-            $this->orderService->bookAnOrder($dto);
+//        try {
+        $this->orderService->bookAnOrder($dto);
 
-            return $this->json(['message' => 'success']);
-        } catch (ValidationErrorException $e) {
-            return $this->json(['error' => $e->getMessage()], 400);
-        } catch (\Throwable $e) {
-            return $this->json(['error' => $e->getMessage()], 500);
-        }
+        return $this->json(['message' => 'success']);
+//        } catch (ValidationErrorException $e) {
+//            return $this->json(['error' => $e->getMessage()], 400);
+//        } catch (\Throwable $e) {
+//            return $this->json(['error' => $e->getMessage()], 500);
+//        }
     }
 }

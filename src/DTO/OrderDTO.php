@@ -15,5 +15,5 @@ class OrderDTO
 
     public string $phone;
 
-    public string $text;
+    public ?string $text;
 }

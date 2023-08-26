@@ -25,13 +25,10 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         parent::__construct($registry, Client::class);
     }
 
-    public function add(Client $entity, bool $flush = false): void
+    public function save(Client $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Client $entity, bool $flush = false): void
@@ -43,7 +40,12 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         }
     }
 
-    public function findClientByPhone(string $phone): Client
+    public function findClientByPhone(string $phone): ?Client
+    {
+        return $this->findOneBy(['phone' => $phone]);
+    }
+
+    public function getClientByPhone(string $phone): Client
     {
         $client = $this->findOneBy(['phone' => $phone]);
         if ($client === null) {

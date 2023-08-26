@@ -42,7 +42,7 @@ class ReviewService
 
     public function createReview(ReviewDTO $dto): void
     {
-        $client = $this->clientRepository->findClientByPhone($dto->phone);
+        $client = $this->clientRepository->getClientByPhone($dto->phone);
         $tour = $this->tourRepository->getById($dto->tourId);
 
         $review = new Review($dto->text, $dto->rating);
