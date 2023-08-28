@@ -252,8 +252,10 @@
                 }
             }
             .close:before{
+                background: #F6F6FA;
+            }
+            .today:before{
                 background: #FF9393;
-
             }
             .free:before{
                 border: 2px solid #E3E6EE;

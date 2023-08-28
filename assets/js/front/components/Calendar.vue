@@ -10,7 +10,6 @@
         v-else
         v-model="selectedDate"
         :configs="calendarConfigs"
-        :disabled-dates="disabledDates"
         @choseDay="choseDate"
     ></FunctionalCalendar>
     <OrderDialog
@@ -50,14 +49,13 @@ export default {
     showOrderDialog: false,
     selectedDate: {},
     calendarConfigs: {
-      monthNames: ["Янв.", "Фев.", "Март", "Aпр.", "May", "Июнь", "Июль", "Авг.", "Сен.", "Октябрь", "Ноя.", "Дек."],
+      monthNames: ["Январь", "Февраль", "Март", "Апрель", "May", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
       dayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
       calendarsCount: 2,
       isDatePicker: true,
       isMultiple: true,
-      disabledDates: []
+      disabledDates: ['beforeToday']
     },
-    disabledDates: ['beforeToday'],
     showAlert: false,
     hasError: false,
     loading: false,
@@ -65,6 +63,7 @@ export default {
   }),
   created () {
     this.getUnavailableDates()
+    this.calendarConfigs.calendarsCount = this.$vuetify.breakpoint.width > 1024 ? 2 : 1 ;
   },
   methods: {
     choseDate(date) {
@@ -112,6 +111,56 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
+::v-deep .vfc-week {
+  gap: 8px;
+  height: 70px;
+  .vfc-day{
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px solid var(--border-primary, #E3E6EE);
+    span.vfc-span-day{
+      color: var(--content-dark, #1C1D20);
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 28px;
+      border-radius: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    .vfc-disabled{
+      background: var(--background-primary, #F6F6FA);
+    }
+  }
+}
+::v-deep .vfc-top-date {
+  color: var(--content-dark, #1C1D20);
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+}
+::v-deep .vfc-dayNames {
+  margin-bottom: 4px;
+
+  span {
+    text-transform: uppercase;
+    color: var(--content-accent-disable, #898998);
+    font-family: Manrope, sans-serif;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.12px;
+  }
+}
 </style>
