@@ -1,15 +1,25 @@
 <template>
   <div>
+    <LoaderLocal
+        v-if="loading"
+        class="tour__review-loader"
+        :size="100"
+        :min-width="100"
+    />
     <FunctionalCalendar
+        v-else
         v-model="selectedDate"
         :configs="calendarConfigs"
+        :disabled-dates="disabledDates"
         @choseDay="choseDate"
     ></FunctionalCalendar>
     <OrderDialog
+        v-if="! loading"
         v-model="this.showOrderDialog"
         :trip-id="this.tripId"
         :selected-date="this.selectedDate"
         :price="this.price"
+        :disable-date="calendarConfigs.disabledDates"
         @closeDialog="closeDialog"
         @showSuccessMessage="showSuccessMessage"
         @showErrorMessage="showErrorMessage"
@@ -27,11 +37,13 @@
 import {FunctionalCalendar} from "vue-functional-calendar";
 import OrderDialog from "./OrderDialog";
 import AlertDialog from "./AlertDialog";
+import axios from "axios";
+import LoaderLocal from "./LoaderLocal";
 
 export default {
   name: "Calendar",
   components: {
-    FunctionalCalendar, OrderDialog, AlertDialog
+    FunctionalCalendar, OrderDialog, AlertDialog, LoaderLocal
   },
   props:['tripId', 'price'],
   data: () => ({
@@ -43,14 +55,16 @@ export default {
       calendarsCount: 2,
       isDatePicker: true,
       isMultiple: true,
-      disabledDates: ['beforeToday']
+      disabledDates: []
     },
+    disabledDates: ['beforeToday'],
     showAlert: false,
     hasError: false,
+    loading: false,
     alertMessage: ''
   }),
-  mounted () {
-
+  created () {
+    this.getUnavailableDates()
   },
   methods: {
     choseDate(date) {
@@ -74,6 +88,25 @@ export default {
       this.showAlert = true
       this.hasError = true
       this.alertMessage = errorMessage
+    },
+    getUnavailableDates() {
+      this.loading = true
+      axios.get('/order/get-unavailable-dates')
+          .then((response) => {
+            console.log(response.data)
+            this.calendarConfigs.disabledDates = response.data
+          })
+          .catch((error) => {
+            if (error.response.status === 400) {
+              this.errorRequest(error.response.data.error)
+              return
+            }
+
+            this.errorRequest('У нас технические трудности, попробуйте позднее')
+          })
+          .finally(() => {
+            this.loading = false
+          });
     },
   },
 }

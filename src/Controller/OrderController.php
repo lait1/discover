@@ -27,7 +27,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/reservation", name="reservation-order", methods={"POST"})
      */
-    public function addCommentAction(Request $request): Response
+    public function reservationAction(Request $request): Response
     {
         $dto = $this->serializer->deserialize(
             $request->getContent(),
@@ -36,9 +36,22 @@ class OrderController extends AbstractController
         );
         try {
             $this->orderService->bookAnOrder($dto);
-            throw new \Exception('qweqwe');
 
             return $this->json(['message' => 'success']);
+        } catch (ValidationErrorException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/order/get-unavailable-dates", name="reservation-order", methods={"GET"})
+     */
+    public function getUnavailableDates(): Response
+    {
+        try {
+            return $this->json($this->orderService->getUnavailableDates());
         } catch (ValidationErrorException $e) {
             return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {

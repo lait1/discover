@@ -26,7 +26,6 @@ class OrderTourRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
-//        $this->getEntityManager()->flush();
     }
 
     public function remove(OrderTour $entity, bool $flush = false): void
@@ -36,6 +35,15 @@ class OrderTourRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getOrdersOlderToday(): array
+    {
+        return $this->createQueryBuilder('ord')
+            ->where('ord.reservationDate > :bookTime')
+            ->setParameter('bookTime', time())
+            ->getQuery()->getResult()
+        ;
     }
 
     public function hasOrderSameDate(int $timestamp): bool

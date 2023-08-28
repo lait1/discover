@@ -67,6 +67,18 @@ class OrderService
         }
     }
 
+    public function getUnavailableDates(): array
+    {
+        $orders = $this->orderRepository->getOrdersOlderToday();
+        $dates = ['beforeToday'];
+        /** @var OrderTour $order */
+        foreach ($orders as $order) {
+            $dates[] = $order->getReservationDate()->format('d/n/Y');
+        }
+
+        return $dates;
+    }
+
     private function getDateTime(string $date): DateTimeInterface
     {
         return \DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $date . '00:00:00');

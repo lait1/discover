@@ -110,7 +110,7 @@ export default {
   components: {
     PhoneMaskInput, FunctionalCalendar
   },
-  props:['value', 'tripId', 'selectedDate', 'price'],
+  props:['value', 'tripId', 'selectedDate', 'price', 'disableDate'],
   data: function () {
     return {
       order:{
@@ -127,7 +127,7 @@ export default {
         monthNames: ["Янв.", "Фев.", "Март", "Aпр.", "May", "Июнь", "Июль", "Авг.", "Сен.", "Октябрь", "Ноя.", "Дек."],
         dayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
         isDatePicker: true,
-        disabledDates: ['beforeToday']
+        disabledDates: this.disableDate
       },
       errors: []
     }
