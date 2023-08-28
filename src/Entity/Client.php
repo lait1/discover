@@ -43,8 +43,8 @@ class Client implements PasswordAuthenticatedUserInterface
 
     public function __construct(string $phone, string $name)
     {
-        $this->phone = $phone;
-        $this->name = $name;
+        $this->phone = trim(strip_tags($phone));
+        $this->name = trim(strip_tags($name));
     }
 
     public function getId(): ?int

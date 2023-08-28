@@ -40,6 +40,9 @@ class ReviewService
         return $reviewList;
     }
 
+    /**
+     * @throws \App\Exception\ValidationErrorException
+     */
     public function createReview(ReviewDTO $dto): void
     {
         $client = $this->clientRepository->getClientByPhone($dto->phone);
@@ -48,6 +51,6 @@ class ReviewService
         $review = new Review($dto->text, $dto->rating);
         $review->setAuthor($client);
         $review->setTour($tour);
-        $this->reviewRepository->add($review, true);
+        $this->reviewRepository->save($review);
     }
 }

@@ -42,6 +42,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function getAdmin(): User
+    {
+        return $this->findOneBy(['email' => 'admin@example.com']);
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

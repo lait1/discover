@@ -4,51 +4,80 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use App\DTO\OrderDTO;
-use App\Entity\Client;
 use App\Entity\OrderTour;
-use App\Repository\ClientRepository;
+use App\Exception\ValidationErrorException;
 use App\Repository\OrderTourRepository;
 use App\Repository\TourRepository;
+use DateTimeInterface;
+use Psr\Log\LoggerInterface;
 
 class OrderService
 {
-    public OrderTourRepository $orderRepository;
+    private OrderTourRepository $orderRepository;
 
-    public TourRepository $tourRepository;
+    private TourRepository $tourRepository;
 
-    public ClientRepository $clientRepository;
+    private Notificator $notificator;
 
-    public Notificator $notificator;
+    private ClientService $clientService;
+
+    private LoggerInterface $logger;
 
     public function __construct(
         OrderTourRepository $orderRepository,
         TourRepository $tourRepository,
-        ClientRepository $clientRepository,
-        Notificator $notificator
+        ClientService $clientService,
+        Notificator $notificator,
+        LoggerInterface $logger
     ) {
         $this->orderRepository = $orderRepository;
         $this->tourRepository = $tourRepository;
-        $this->clientRepository = $clientRepository;
+        $this->clientService = $clientService;
         $this->notificator = $notificator;
+        $this->logger = $logger;
     }
 
+    /**
+     * @throws ValidationErrorException
+     */
     public function bookAnOrder(OrderDTO $dto): void
     {
-        $client = $this->clientRepository->findClientByPhone($dto->phone);
-        if ($client === null) {
-            $client = new Client($dto->phone, $dto->name);
-            $client->setPassword(Client::DEFAULT_PASSWORD);
-            $this->clientRepository->save($client);
+        $reservationDate = $this->getDateTime($dto->date);
+        $this->checkAvailableDate($reservationDate);
+
+        try {
+            $tour = $this->tourRepository->getById($dto->tourId);
+            $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
+
+            $order = new OrderTour($reservationDate->getTimestamp(), $dto->countPeople, $dto->text);
+            $order->setTour($tour);
+            $order->setClient($client);
+
+            $this->orderRepository->save($order);
+
+            $this->notificator->sendNotification($order);
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Fail book tour',
+                [
+                    'message' => $e->getMessage(),
+                ]
+            );
+            $this->notificator->sendErrorNotification($e->getMessage());
         }
-        $tour = $this->tourRepository->getById($dto->tourId);
-        $reservationDate = \DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $dto->date . '00:00:00');
+    }
 
-        $order = new OrderTour($reservationDate->getTimestamp(), $dto->countPeople, $dto->text);
-        $order->setTour($tour);
-        $order->setClient($client);
+    private function getDateTime(string $date): DateTimeInterface
+    {
+        return \DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $date . '00:00:00');
+    }
 
-        $this->orderRepository->save($order);
-
-        $this->notificator->sendNotification($order);
+    private function checkAvailableDate(DateTimeInterface $date): void
+    {
+        if ($this->orderRepository->hasOrderSameDate($date->getTimestamp())) {
+            throw new ValidationErrorException(
+                'Просим прощения, эта дата уже зарезервирована! Пожалуйста, выберите другую'
+            );
+        }
     }
 }

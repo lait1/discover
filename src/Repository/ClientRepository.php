@@ -47,7 +47,7 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
 
     public function getClientByPhone(string $phone): Client
     {
-        $client = $this->findOneBy(['phone' => $phone]);
+        $client = $this->findClientByPhone($phone);
         if ($client === null) {
             throw new ValidationErrorException('На ваш номер телефона не была забронирована экскурсия, на которую вы оставляли отзыв. Если это не так, пожалуйста, свяжитесь с нами');
         }

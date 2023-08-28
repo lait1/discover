@@ -8,9 +8,12 @@ class TelegramApiClient
 {
     private BotApi $telegramBot;
 
-    public function __construct(string $telegramToken)
+    private BotApi $telegramErrorChannel;
+
+    public function __construct(string $telegramToken, string $telegramErrorChannelToken)
     {
         $this->telegramBot = new BotApi($telegramToken);
+        $this->telegramErrorChannel = new BotApi($telegramErrorChannelToken);
     }
 
     public function sendMessage(string $recipient, string $message): void
@@ -18,6 +21,15 @@ class TelegramApiClient
         $this->telegramBot->sendMessage(
             $recipient,
             $message,
+            'HTML',
+        );
+    }
+
+    public function sendError(string $recipient, string $error): void
+    {
+        $this->telegramErrorChannel->sendMessage(
+            $recipient,
+            $error,
             'HTML',
         );
     }

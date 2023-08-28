@@ -54,7 +54,7 @@ class OrderTour
     ) {
         $this->reservationDate = $reservationDate;
         $this->countPeople = $countPeople;
-        $this->comment = $description;
+        $this->comment = $description ? trim(strip_tags($description)) : null;
         $this->confirmedTour = false;
         $this->createdAt = time();
         $this->updatedAt = time();

@@ -183,26 +183,31 @@ export default {
       }
       return this.errors.length === 0
     },
-    successComment() {
+    successRequest() {
       this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
+    },
+    errorRequest(error) {
+      console.log(error)
+      this.$emit('showErrorMessage', error);
     },
     sendOrder(){
       if (! this.validation()){
         return
       }
-      axios.post('/order/book', this.order)
+      axios.post('/order/reservation', this.order)
           .then((response) => {
             if (response.data.message === 'success'){
-              this.successComment()
+              this.successRequest()
               this.clearForm()
             }
           })
           .catch((error) => {
             if (error.response.status === 400){
-              //show error, change date
+              this.errorRequest(error.response.data.error)
+              return
             }
 
-            // this.errorComment('У нас технические трудности, попробуйте позднее')
+            this.errorRequest('У нас технические трудности, попробуйте позднее')
           });
     },
   },

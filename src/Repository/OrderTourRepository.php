@@ -37,4 +37,14 @@ class OrderTourRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function hasOrderSameDate(int $timestamp): bool
+    {
+        return (bool) $this->createQueryBuilder('ord')
+            ->where('ord.reservationDate = :bookTime')
+            ->setParameter('bookTime', $timestamp)
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult()
+        ;
+    }
 }

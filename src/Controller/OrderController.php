@@ -25,7 +25,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/book", name="add-comment", methods={"POST"})
+     * @Route("/order/reservation", name="reservation-order", methods={"POST"})
      */
     public function addCommentAction(Request $request): Response
     {
@@ -36,6 +36,7 @@ class OrderController extends AbstractController
         );
         try {
             $this->orderService->bookAnOrder($dto);
+            throw new \Exception('qweqwe');
 
             return $this->json(['message' => 'success']);
         } catch (ValidationErrorException $e) {

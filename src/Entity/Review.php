@@ -52,7 +52,7 @@ class Review
 
     public function __construct(string $text, int $assessment)
     {
-        $this->text = $text;
+        $this->text = trim(strip_tags($text));
         $this->assessment = $assessment;
         $this->createdAt = time();
         $this->reviewPhotos = new ArrayCollection();

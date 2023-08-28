@@ -33,6 +33,18 @@ class Notificator
         }
     }
 
+    public function sendErrorNotification(string $message): void
+    {
+        $admin = $this->userRepository->getAdmin();
+
+        if ($admin->getTelegramToken() !== null) {
+            $this->apiClient->sendError(
+                $admin->getTelegramToken(),
+                $message
+            );
+        }
+    }
+
     private function buildOrderMessage(OrderTour $order): string
     {
         $comment = $order->getComment() ? "<b>Комментарий:</b> {$order->getComment()}" : '';

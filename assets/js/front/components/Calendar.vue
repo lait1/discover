@@ -12,11 +12,13 @@
         :price="this.price"
         @closeDialog="closeDialog"
         @showSuccessMessage="showSuccessMessage"
+        @showErrorMessage="showErrorMessage"
     />
     <AlertDialog
         v-model="this.showAlert"
         :message="this.alertMessage"
-        @closeAlert="this.showAlert = false"
+        :has-error="this.hasError"
+        @closeAlert="closeAlert"
       />
   </div>
 </template>
@@ -44,6 +46,7 @@ export default {
       disabledDates: ['beforeToday']
     },
     showAlert: false,
+    hasError: false,
     alertMessage: ''
   }),
   mounted () {
@@ -56,11 +59,21 @@ export default {
     closeDialog() {
       this.showOrderDialog = false
     },
+    closeAlert(){
+      this.showAlert = false
+    },
     showSuccessMessage(message) {
       this.closeDialog()
 
       this.showAlert = true
       this.alertMessage = message
+    },
+    showErrorMessage(errorMessage) {
+      this.closeDialog()
+
+      this.showAlert = true
+      this.hasError = true
+      this.alertMessage = errorMessage
     },
   },
 }
