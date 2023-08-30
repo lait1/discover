@@ -6,8 +6,9 @@
     position: relative;
   }
   &__info {
-    width: 50%;
+    width: 588px;
     display: flex;
+    margin-right: 20px;
     flex-direction: column;
     justify-content: center;
 
@@ -28,13 +29,80 @@
     }
   }
   &__photo{
-    width: 50%;
+    width: 588px;
+    img{
+      width: 100%;
+    }
   }
   .arrow-icon{
     position: absolute;
-    width: 152px;
+    width: 115px;
     height: 144px;
     bottom: -20%;
-    left: 33%;
+    right: 53%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .welcome{
+    &__info{
+      h2{
+        font-size: 32px;
+        line-height: 48px;
+      }
+      P{
+        font-size: 16px;
+        line-height: 24px
+      }
+    }
+    &__photo{
+
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .welcome{
+    padding: 72px 0 0;
+  }
+  .arrow-icon{
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+.welcome .wrap{
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+  .welcome{
+    &__info{
+      margin: 0;
+      width: 100%;
+      h2{
+        font-size: 24px;
+        line-height: 28px;
+      }
+    }
+    &__photo{
+      width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .welcome .wrap{
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+  }
+  .welcome{
+    padding: 40px 0 0;
+    &__info{
+      margin: 0;
+      width: 100%;
+    }
+    &__photo{
+      width: 100%;
+    }
   }
 }

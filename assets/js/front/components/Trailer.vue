@@ -47,4 +47,11 @@ export default {
 ::v-deep .v-application--wrap {
   min-height: fit-content;
 }
+::v-deep .container{
+  padding: 0;
+  @media screen and (max-width: 1024px) {
+    padding: 0 20px;
+  }
+}
+
 </style>

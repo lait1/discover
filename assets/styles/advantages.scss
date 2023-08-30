@@ -64,8 +64,16 @@
 }
 @media screen and (max-width: 1024px) {
   .advantages{
+    padding: 72px 0;
     &__card {
       width: 45%;
+    }
+    &__header {
+      padding-bottom: 40px;
+      h2{
+        font-size: 32px;
+        line-height: 48px;
+      }
     }
     .reverse{
       flex-direction: column;
@@ -75,8 +83,17 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .advantages__header {
+    h2 {
+      font-size: 24px;
+    }
+  }
+}
 @media screen and (max-width: 576px) {
   .advantages{
+    padding: 40px 0;
     &__cards {
       justify-content: center;
       gap: 24px;
@@ -86,9 +103,7 @@
       overflow-y: hidden;
     }
     &__header{
-      h2{
-        font-size: 24px;
-      }
+      padding-bottom: 32px;
       .icon{
         display: none;
       }

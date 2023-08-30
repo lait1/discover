@@ -35,14 +35,19 @@ body{
      font-family: 'Manrope', sans-serif !important;
      background: transparent !important;
    }
+
   .wrap {
-      display: flex;
-      position: relative;
-      max-width: 1200px;
-      width: 100%;
-      margin-right: auto;
-      margin-left: auto;
+    display: flex;
+    position: relative;
+    max-width: 1280px;
+    padding: 0 40px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    @media screen and (max-width: 576px) {
+      padding: 0 24px;
     }
+  }
 }
 h1,h2,h3,h4,h5{
   font-family: 'Oswald', sans-serif;
@@ -273,19 +278,23 @@ h1,h2,h3,h4,h5{
     }
   }
 }
+
 @media screen and (max-width: 1024px) {
-.header{
-  height: 72px;
-  &__menu{
-    display: none;
+  .header {
+    height: 72px;
+
+    &__menu {
+      display: none;
+    }
+
+    &__social-media {
+      display: none;
+    }
+
+    &__hamburger-menu {
+      display: block;
+    }
   }
-  &__social-media{
-    display: none;
-  }
-  &__hamburger-menu{
-    display: block;
-  }
-}
 }
 @media screen and (max-width: 576px) {
   .header__hamburger-menu{
