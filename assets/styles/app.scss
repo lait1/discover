@@ -63,6 +63,9 @@ h1,h2,h3,h4,h5{
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
   height: 64px;
   z-index: 1;
+  &__hamburger-menu{
+    display: none;
+  }
   .wrap{
     justify-content: space-between;
   }
@@ -143,9 +146,24 @@ h1,h2,h3,h4,h5{
   }
 }
 
-@media screen and (max-width: 1440px) {
-
-}
 @media screen and (max-width: 1024px) {
-
+.header{
+  height: 72px;
+  &__menu{
+    display: none;
+  }
+  &__social-media{
+    display: none;
+  }
+  &__hamburger-menu{
+    display: block;
+  }
+}
+}
+@media screen and (max-width: 576px) {
+  .header__hamburger-menu{
+    .menu__box{
+      width: 100%;
+    }
+  }
 }

@@ -45,7 +45,7 @@
                     </svg>
                 </a>
             </div>
-            <div class="header__currencies">
+            <div class="header__currencies" style="display: none;">
                 <svg class="icon">
                     <use xlink:href="#flag-ge"></use>
                 </svg>
@@ -54,7 +54,57 @@
                 </a>
             </div>
         </div>
-
+        <div class="header__hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+                <span></span>
+            </label>
+            <div class="menu__box">
+                <ul class="menu__list">
+                    <li><a class="menu__item" href="{{path('main-page')}}">О нас</a></li>
+                    <li><a class="menu__item" href="{{path('tour-list')}}">Туры</a></li>
+                    <li><a class="menu__item" href="{{path('corporate')}}">Компаниям</a></li>
+                </ul>
+                <div class="menu__divider"></div>
+                <div class="header__currencies" style="display: none">
+                    <svg class="icon">
+                        <use xlink:href="#flag-ge"></use>
+                    </svg>
+                    <a href="#">
+                        GEL ^
+                    </a>
+                </div>
+                <div class="menu__social-media">
+                    <a class="menu__social-media__phone" href="tel:+9951234567">+995 123-45-67</a>
+                    <div class="menu__social-media__links">
+                        <a href="https://t.me/your_name" target="_blank"
+                           title="Написать в Telegram">
+                            <svg class="icon">
+                                <use xlink:href="#telegram-black"></use>
+                            </svg>
+                        </a>
+                        <a href="https://t.me/your_name" target="_blank"
+                           title="Написать в Whatsapp">
+                            <svg class="icon">
+                                <use xlink:href="#whatsapp-black"></use>
+                            </svg>
+                        </a>
+                        <a href="https://t.me/your_name" target="_blank"
+                           title="Написать в Instagram">
+                            <svg class="icon">
+                                <use xlink:href="#instagram-black"></use>
+                            </svg>
+                        </a>
+                        <a href="https://t.me/your_name" target="_blank"
+                           title="Написать в YouTube">
+                            <svg class="icon">
+                                <use xlink:href="#youtube-black"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -123,5 +173,5 @@
 </body>
 </html>
 <script>
-
+console.log(123123)
 </script>
