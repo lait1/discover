@@ -2,18 +2,26 @@
 
 namespace App\Controller\Admin;
 
+use App\Domain\TourService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
+    private TourService $tourService;
+
+    public function __construct(TourService $tourService)
+    {
+        $this->tourService = $tourService;
+    }
+
     /**
      * @Route("/get-tour-list", methods={"GET"})
      */
     public function tourListAction(): Response
     {
-        return $this->json(['get tour list']);
+        return $this->json($this->tourService->getAllTours());
     }
 
     /**

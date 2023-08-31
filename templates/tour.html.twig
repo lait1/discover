@@ -5,7 +5,7 @@
 {% block page_description %} {{ tour.description }} {% endblock %}
 
 {% block main %}
-    <header class="tour__header" style="background: url({{ asset('build/images/tour_bg.jpg') }})">
+    <header class="tour__header" style="background: url({{ asset(tour.mainImage) }})">
         <div class="wrap">
             <h1>{{ tour.name }}</h1>
             <p class="tour__title">{{ tour.title }}</p>
@@ -15,7 +15,7 @@
                     <span class="tag">{{ category.name }}</span>
                 {% endfor %}
             </div>
-            <a href="#" class="tour__button_make-order">Заказать тур</a>
+            <a href="#tour__calendar" class="tour__button_make-order">Заказать тур</a>
         </div>
     </header>
     <section class="tour__description">
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="tour__gallery">
-                <TourGallery/>
+                <TourGallery :image-list="{{ tour.getPhotosPaths }}"/>
             </div>
         </div>
     </section>
@@ -139,7 +139,7 @@
     </section>
     <section class="tour__calendar">
         <div class="wrap">
-            <h1 class="tour__calendar-header">ВЫБЕРИТЕ ЛЮБОЙ ДЕНЬ И ЗАБРОНИРУЙТЕ</h1>
+            <h1 id="tour__calendar" class="tour__calendar-header">ВЫБЕРИТЕ ЛЮБОЙ ДЕНЬ И ЗАБРОНИРУЙТЕ</h1>
             <div class="tour__calendar-wrap">
                 <Calendar :trip-id="{{ tour.id }}" :price="{{ tour.price }}" />
             </div>

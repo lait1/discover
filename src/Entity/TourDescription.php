@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tour_descriptions")
  * @ORM\Entity(repositoryClass="App\Repository\TourPhotoRepository")
  */
-class TourDescription
+class TourDescription implements \JsonSerializable
 {
     /**
      * @ORM\Column(type="integer", options={"unsigned": true})
@@ -59,5 +59,15 @@ class TourDescription
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'      => $this->id,
+            'header'  => $this->header,
+            'content' => $this->content,
+            'image'   => $this->image,
+        ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
@@ -31,6 +32,9 @@ class Tour
     /** @ORM\Column(type="text", nullable=true) */
     private ?string $description;
 
+    /** @ORM\Column(type="string") */
+    private string $mainImage;
+
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true, "default": 0}) */
     private int $price;
 
@@ -56,16 +60,16 @@ class Tour
     private bool $public;
 
     /** @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tours") */
-    private $categories;
+    private PersistentCollection $categories;
 
     /** @ORM\OneToMany(targetEntity=TourPhoto::class, mappedBy="tour") */
-    private $photos;
+    private PersistentCollection $photos;
 
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
-    private $reviews;
+    private PersistentCollection $reviews;
 
     /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour") */
-    private $tourDescriptions;
+    private PersistentCollection $tourDescriptions;
 
     public function __construct(
         string $name
@@ -83,6 +87,15 @@ class Tour
     public function getPhotos(): Collection
     {
         return $this->photos;
+    }
+
+    public function getPhotosPaths(): string
+    {
+        $paths = array_map(function (TourPhoto $photo) {
+            return $photo->getPath();
+        }, $this->photos->toArray());
+
+        return json_encode($paths);
     }
 
     public function addPhoto(TourPhoto $photo): self
@@ -251,5 +264,15 @@ class Tour
         }
 
         return $this;
+    }
+
+    public function getMainImage(): string
+    {
+        return "build/images/{$this->mainImage}";
+    }
+
+    public function setMainImage(string $mainImage): void
+    {
+        $this->mainImage = $mainImage;
     }
 }

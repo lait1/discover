@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="categories")
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Category
+class Category implements \JsonSerializable
 {
     /**
      * @ORM\Column(name="id", type="smallint")
@@ -65,5 +65,14 @@ class Category
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'       => $this->id,
+            'name'     => $this->name,
+            'priority' => $this->priority,
+        ];
     }
 }

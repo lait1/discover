@@ -34,6 +34,11 @@ class TourRepository extends ServiceEntityRepository
         return $tour;
     }
 
+    public function getAllTours(): array
+    {
+        return $this->findAll();
+    }
+
     public function getById(int $id): Tour
     {
         $tour = $this->findOneBy(['id' => $id]);

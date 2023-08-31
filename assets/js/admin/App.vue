@@ -34,9 +34,8 @@ export default {
     login(credentials) {
       AuthService.login(credentials)
           .then(token => {
-            console.log('Logged in with token:', token);
             this.isAuth = true
-            // this.$router.push({path: '/admin/home'});
+            this.$router.push({path: '/admin/tours'});
           })
           .catch(error => {
             console.error(error);
