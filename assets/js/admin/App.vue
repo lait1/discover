@@ -1,63 +1,44 @@
 <template>
 
-  <main v-if="this.isAuth">
-    <nav>
-      <ul>
-        <li><router-link to="/admin/home">Home</router-link></li>
-        <li><router-link to="/admin/about">About</router-link></li>
-        <li> <button @click="logout">Logout</button></li>
-      </ul>
-    </nav>
-    <div>Here message</div>
-    <router-view></router-view>
-  </main>
-
-  <div v-else>
-    <input v-model="username" type="text" placeholder="Username">
-    <input v-model="password" type="password" placeholder="Password">
-    <button @click="login">Login</button>
-    <button @click="logout">Logout</button>
-  </div>
+  <LayoutComponent
+      v-if="this.isAuth"
+      @logout="logout"
+  >
+  </LayoutComponent>
+  <AuthComponent
+      v-else
+      @login="login"
+  />
 
 </template>
 
 <script>
 
 import AuthService from "./auth.service";
+import AuthComponent from "./components/AuthComponent";
+import LayoutComponent from "./components/LayoutComponent";
 
 export default {
+  components: {
+    AuthComponent, LayoutComponent
+  },
   data() {
     return {
-      username: '',
-      password: '',
       isAuth: false
     };
   },
   mounted() {
     this.isAuth = AuthService.isAuthenticated()
   },
-  computed: {
-    // isAuth() {
-    //   this.isAuth
-    // },
-  },
   methods: {
-
-    login() {
-      const credentials = {
-        username: this.username,
-        password: this.password
-      };
-
+    login(credentials) {
       AuthService.login(credentials)
           .then(token => {
-            // Аутентификация прошла успешно
             console.log('Logged in with token:', token);
             this.isAuth = true
-            this.$router.push({path: '/admin/home'});
+            // this.$router.push({path: '/admin/home'});
           })
           .catch(error => {
-            // Обработка ошибок аутентификации
             console.error(error);
           });
     },

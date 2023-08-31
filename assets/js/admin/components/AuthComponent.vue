@@ -1,43 +1,58 @@
 <template>
-  <div>
-    <input v-model="username" type="text" placeholder="Username">
-    <input v-model="password" type="password" placeholder="Password">
-    <button @click="login">Login</button>
-    <button @click="logout">Logout</button>
-  </div>
+  <v-app >
+  <v-sheet width="300" class="ma-auto">
+    <v-form fast-fail @submit.prevent>
+      <v-text-field
+          v-model="userLogin"
+          label="Login"
+          :rules="userLoginRules"
+      ></v-text-field>
+        <v-text-field
+            v-model="password"
+            :append-icon="'mdi-eye'"
+            :rules="[passwordRules.required, passwordRules.min]"
+            :type="'password'"
+            name="input-10-1"
+            label="Password"
+            hint="At least 8 characters"
+            counter
+        ></v-text-field>
+
+      <v-btn type="submit" block class="mt-2" @click="login">Enter</v-btn>
+    </v-form>
+  </v-sheet>
+  </v-app>
 </template>
 
 <script>
-import AuthService from "../auth.service";
-
 export default {
-  data() {
-    return {
-      username: '',
-      password: ''
-    };
-  },
+  name: "AuthComponent",
+  data: () => ({
+    userLogin: 'admin@example.com',
+    userLoginRules: [
+      value => {
+        if (value?.length > 3) return true
+
+        return 'First name must be at least 3 characters.'
+      },
+    ],
+    password: '123123',
+    passwordRules: {
+      required: value => !!value || 'Required.',
+      min: v => v.length >= 6 || 'Min 6 characters',
+      emailMatch: () => (`The email and password you entered don't match`),
+    },
+  }),
   methods: {
     login() {
       const credentials = {
-        username: this.username,
+        username: this.userLogin,
         password: this.password
       };
 
-      AuthService.login(credentials)
-          .then(token => {
-            // Аутентификация прошла успешно
-            console.log('Logged in with token:', token);
-          })
-          .catch(error => {
-            // Обработка ошибок аутентификации
-            console.error(error);
-          });
+      this.$emit('login', credentials);
     },
-    logout() {
-      AuthService.logout();
-      console.log('Logged out');
-    }
+
   }
 };
 </script>

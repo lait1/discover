@@ -29,10 +29,14 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/admin/", name="app_admin")
      * @Route("/admin/login", name="app_admin_login")
      * @Route("/admin/dashboard", name="app_admin_dashboard")
-     * @Route("/admin/home", name="app_admin_home")
-     * @Route("/admin/about", name="app_admin_about")
+     * @Route("/admin/tours", name="app_admin_tours")
+     * @Route("/admin/orders", name="app_admin_orders")
+     * @Route("/admin/clients", name="app_admin_clients")
+     * @Route("/admin/users", name="app_admin_users")
+     * @Route("/admin/settings", name="app_admin_settings")
      */
     public function loginAction(): Response
     {

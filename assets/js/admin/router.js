@@ -12,16 +12,40 @@ const routes = [
         component: () => import('./App.vue')
     },
     {
-        path: '/admin/home',
-        name: 'home',
+        path: '/admin/dashboard',
+        name: 'dashboard',
         authGuard: true,
-        component: () => import('./pages/Home.vue')
+        component: () => import('./pages/Dashboard.vue')
     },
     {
-        path: '/admin/about',
-        name: 'about',
+        path: '/admin/tours',
+        name: 'tours',
         authGuard: true,
-        component: () => import('./pages/About.vue')
+        component: () => import('./pages/Tours.vue')
+    },
+    {
+        path: '/admin/orders',
+        name: 'orders',
+        authGuard: true,
+        component: () => import('./pages/Orders.vue')
+    },
+    {
+        path: '/admin/clients',
+        name: 'clients',
+        authGuard: true,
+        component: () => import('./pages/Clients.vue')
+    },
+    {
+        path: '/admin/users',
+        name: 'users',
+        authGuard: true,
+        component: () => import('./pages/Users.vue')
+    },
+    {
+        path: '/admin/settings',
+        name: 'settings',
+        authGuard: true,
+        component: () => import('./pages/Settings.vue')
     }
 ]
 
