@@ -18,10 +18,12 @@ class TourRepository extends ServiceEntityRepository
         parent::__construct($registry, Tour::class);
     }
 
-    public function save(Tour $tour): void
+    public function save(Tour $tour): Tour
     {
         $this->getEntityManager()->persist($tour);
         $this->getEntityManager()->flush();
+
+        return $tour;
     }
 
     public function getTourBySlug(string $slug): Tour

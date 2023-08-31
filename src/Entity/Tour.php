@@ -32,11 +32,11 @@ class Tour
     /** @ORM\Column(type="text", nullable=true) */
     private ?string $description;
 
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string", nullable=true) */
     private string $mainImage;
 
-    /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true, "default": 0}) */
-    private int $price;
+    /** @ORM\Column(type="integer", nullable=true, options={"unsigned": true, "default": 0}) */
+    private int $price = 0;
 
     /** @ORM\Column(type="string", nullable=true) */
     private ?string $longTime;
@@ -181,7 +181,7 @@ class Tour
     /**
      * @return string|\Symfony\Component\String\AbstractUnicodeString
      */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -196,7 +196,7 @@ class Tour
         return $this->description;
     }
 
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
         return $this->price;
     }

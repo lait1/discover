@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use App\DTO\TourCreateDTO;
 use App\Entity\Tour;
 use App\Repository\TourRepository;
 use App\View\TourList;
@@ -30,5 +31,19 @@ class TourService
     public function getTourBySlug(string $slug): Tour
     {
         return $this->tourRepository->getTourBySlug($slug);
+    }
+
+    public function getTourById(int $id): TourView
+    {
+        $tour = $this->tourRepository->getById($id);
+
+        return new TourView($tour);
+    }
+
+    public function createTour(TourCreateDTO $dto): Tour
+    {
+        $tour = new Tour($dto->name);
+
+        return $this->tourRepository->save($tour);
     }
 }

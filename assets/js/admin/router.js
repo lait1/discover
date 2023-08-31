@@ -24,6 +24,12 @@ const routes = [
         component: () => import('./pages/Tours.vue')
     },
     {
+        path: '/admin/tour/:id/edit',
+        name: 'tours',
+        authGuard: true,
+        component: () => import('./pages/TourEdit.vue')
+    },
+    {
         path: '/admin/orders',
         name: 'orders',
         authGuard: true,
