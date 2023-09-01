@@ -1,29 +1,24 @@
 <template>
   <div class="tour-form__photos">
-    <h3 class="tour-form__header">Фотографии:</h3>
     <v-file-input
         small-chips
-        multiple
         show-size
+        outlined
         accept="image/png, image/jpeg, image/jpg"
-        label="Фотографии для галлереи"
+        label="Фото из шапки тура"
         @change="previewImages"
     ></v-file-input>
-    <draggable
-        :list="imagesList"
-        class="tour-form__photo add-photo"
-    >
-      <div class="tour-form__photo-thumbnail" v-for="(image, index) in imagesList">
-        <img :title="image.name" :src="image.path" :alt="image.name">
+
+    <div class="tour-form__photo">
+      <div class="tour-form__photo-thumbnail" v-if="image">
+        <img :src="/uploads/ + image">
         <button
-            @click.prevent="removePhoto(image.id, index)"
-            v-bind:data-id="image.id"
+            @click.prevent="removePhoto()"
             type="button"
             class="delete fa fa-remove">
         </button>
       </div>
-
-    </draggable>
+    </div>
   </div>
 </template>
 
@@ -32,48 +27,44 @@ import axiosInstance from "../requestService";
 import draggable from 'vuedraggable'
 
 export default {
-  name: "TourFormPhotos",
+  name: "TourFormMainPhoto",
   components: {
     draggable,
   },
-  props:['tourId', 'imagesData'],
+  props:['tourId', 'mainPhoto'],
   data: function () {
     return {
-      imagesList: this.imagesData,
+      image: this.mainPhoto,
     }
   },
   methods: {
-    previewImages(files) {
-      if (files.length === 0){
+    previewImages(file) {
+      if (file.length === 0){
         return
       }
 
       let formData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        formData.append(`file${i}`, files[i]);
-      }
+      formData.append(`file`, file);
 
       this.createPhoto(formData);
     },
     createPhoto(formData) {
-      axiosInstance.post(`/api/tour/upload-photo/${this.tourId}`, formData)
+      axiosInstance.post(`/api/tour/upload-main-photo/${this.tourId}`, formData)
           .then((response) => {
             if (response.data.message === 'success'){
-              response.data.photos.forEach(item => {
-                this.imagesList.push(item);
-              });
+              this.image = response.data.path
             }
           })
           .catch((response) => {
             console.error(response)
-            alert("Ошибка загрузки фотографий");
+            // alert("Ошибка загрузки фотографий");
           });
     },
-    removePhoto(id, index) {
-      axiosInstance.post(`/api/tour/remove-photo/${id}`)
+    removePhoto() {
+      axiosInstance.post(`/api/tour/unset-main-photo/${this.tourId}`)
           .then((response) => {
             if (response.data.message === 'success'){
-              this.imagesList.splice(index, 1)
+              this.image = null
             }
           })
           .catch((response) => {

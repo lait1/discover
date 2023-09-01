@@ -26,6 +26,16 @@ class UploadService
         $this->tourRepository = $tourRepository;
     }
 
+    public function uploadMainPhoto(UploadedFile $photo, int $tourId): string
+    {
+        $path = $this->fileUploader->upload($photo);
+        $tour = $this->tourRepository->getById($tourId);
+        $tour->setMainImage($path);
+        $this->tourRepository->save($tour);
+
+        return $path;
+    }
+
     public function uploadTourPhoto(array $photos, int $tourId): array
     {
         $protoList = [];
@@ -43,6 +53,13 @@ class UploadService
     {
         $photo = $this->photoRepository->getById($photoId);
         $this->photoRepository->remove($photo);
+    }
+
+    public function unsetMainPhoto(int $tourId): void
+    {
+        $tour = $this->tourRepository->getById($tourId);
+        $tour->setMainImage('');
+        $this->tourRepository->save($tour);
     }
 
     private function saveTourPhoto(string $originalName, string $path, int $tourId, int $priority): TourPhoto

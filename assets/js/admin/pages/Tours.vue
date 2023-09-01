@@ -85,7 +85,7 @@
             color="primary"
             small
         >
-          {{ category.name }}
+          {{ category.text }}
         </v-chip>
       </template>
       <template v-slot:item.public="{ item }">

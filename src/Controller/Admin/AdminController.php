@@ -71,6 +71,34 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/tour/upload-main-photo/{tourId}", methods={"POST"})
+     */
+    public function uploadMainPhotoAction(Request $request, int $tourId): Response
+    {
+        try {
+            $photos = $this->uploadService->uploadMainPhoto($request->files->get('file'), $tourId);
+
+            return $this->json(['message' => 'success', 'path' => $photos]);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/tour/unset-main-photo/{tourId}", methods={"POST"})
+     */
+    public function unsetMainPhotoAction(Request $request, int $tourId): Response
+    {
+        try {
+            $this->uploadService->unsetMainPhoto($tourId);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
      * @Route("/tour/remove-photo/{photoId}", methods={"POST"})
      */
     public function removeTourPhotoAction(Request $request, int $photoId): Response

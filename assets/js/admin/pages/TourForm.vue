@@ -35,6 +35,10 @@
                 multiple
                 outlined
             ></v-select>
+            <TourFormMainPhoto
+                :tour-id="tour.id"
+                :main-photo="tour.mainPhoto"
+            />
 
             <h3 class="tour-form__header">Куда мы едем:</h3>
             <v-row>
@@ -62,6 +66,7 @@
                     v-model="tour.groupSize"
                     label="Размер группы"
                     type="number"
+                    outlined
                     value="1"
                 ></v-text-field>
               </v-col>
@@ -82,6 +87,15 @@
 
             <h3 class="tour-form__header">Что вас ожидает:</h3>
 
+            <h3 class="tour-form__header">Настройки:</h3>
+            <v-text-field
+                v-model="tour.keyWords"
+                label="Мета теги"
+                maxlength="50"
+                counter
+                outlined
+                required
+            ></v-text-field>
             <v-text-field
                 v-model="tour.price"
                 label="Цена"
@@ -117,11 +131,12 @@
 import axiosInstance from "../requestService";
 import draggable from 'vuedraggable'
 import TourFormPhotos from "./TourFormPhotos";
+import TourFormMainPhoto from "./TourFormMainPhoto";
 
 export default {
   name: "TourForm",
   components: {
-    draggable, TourFormPhotos
+    draggable, TourFormPhotos, TourFormMainPhoto
   },
   props:['tourId'],
   data: function () {
@@ -129,6 +144,7 @@ export default {
       tour: {
         id: this.tourId,
         name: '',
+        mainPhoto: '',
         title: '',
         description: '',
         price: 100,

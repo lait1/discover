@@ -25,7 +25,7 @@ const routes = [
     },
     {
         path: '/admin/tour/:id/edit',
-        name: 'tours',
+        name: 'tour-edit',
         authGuard: true,
         component: () => import('./pages/TourEdit.vue')
     },
