@@ -5,6 +5,7 @@ namespace App\Domain;
 
 use App\DTO\TourCreateDTO;
 use App\Entity\Tour;
+use App\Repository\CategoryRepository;
 use App\Repository\TourRepository;
 use App\View\TourList;
 use App\View\TourView;
@@ -13,9 +14,14 @@ class TourService
 {
     private TourRepository $tourRepository;
 
-    public function __construct(TourRepository $tourRepository)
-    {
+    private CategoryRepository $categoryRepository;
+
+    public function __construct(
+        TourRepository $tourRepository,
+        CategoryRepository $categoryRepository
+    ) {
         $this->tourRepository = $tourRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function getAllTours(): TourList
@@ -26,6 +32,11 @@ class TourService
         }
 
         return $tourList;
+    }
+
+    public function getCategories(): array
+    {
+        return $this->categoryRepository->findAll();
     }
 
     public function getTourBySlug(string $slug): Tour

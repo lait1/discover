@@ -34,7 +34,7 @@ class DefaultController extends AbstractController
      * @Route("/admin/dashboard", name="app_admin_dashboard")
      * @Route("/admin/tours", name="app_admin_tours")
      * @Route("/admin/orders", name="app_admin_orders")
-     * @Route("/admin/tour/{id}/edit}", name="app_admin_tour_edit")
+     * @Route("/admin/tour/{id}/edit", name="app_admin_tour_edit")
      * @Route("/admin/clients", name="app_admin_clients")
      * @Route("/admin/users", name="app_admin_users")
      * @Route("/admin/settings", name="app_admin_settings")

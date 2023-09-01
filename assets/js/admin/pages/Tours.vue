@@ -145,7 +145,7 @@ export default {
   methods: {
     getTours() {
       this.loading = true
-      axiosInstance.get(`/api/get-tour-list/`)
+      axiosInstance.get(`/api/tour/get-tour-list/`)
           .then((response) => {
             this.tours = response.data
           })
@@ -182,7 +182,7 @@ export default {
     },
 
     save () {
-      axiosInstance.post(`/api/create-tour`, this.tour)
+      axiosInstance.post(`/api/tour/create-tour`, this.tour)
           .then((response) => {
             if (response.data.message === 'success'){
               this.$router.push({path: `/admin/tour/${response.data.tourId}/edit`});

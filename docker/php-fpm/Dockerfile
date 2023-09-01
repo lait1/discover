@@ -5,8 +5,9 @@ RUN apt-get update && apt-get install -y \
     wget \
     zlib1g-dev \
     libmcrypt-dev \
-    libzip-dev
+    libzip-dev \
+    libpng-dev
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql gd
 
 WORKDIR /parse.tor

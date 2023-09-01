@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="tour_descriptions")
- * @ORM\Entity(repositoryClass="App\Repository\TourPhotoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TourDescriptionRepository")
  */
 class TourDescription implements \JsonSerializable
 {

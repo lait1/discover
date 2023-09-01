@@ -35,6 +35,11 @@ class Category implements \JsonSerializable
         $this->tours = $tours;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     /**
      * @return Collection<int, Tour>
      */
@@ -70,9 +75,8 @@ class Category implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'id'       => $this->id,
-            'name'     => $this->name,
-            'priority' => $this->priority,
+            'value' => $this->id,
+            'text'  => $this->name,
         ];
     }
 }

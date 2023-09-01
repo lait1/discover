@@ -17,8 +17,8 @@ class FileUploader
         string $targetDirectory,
         SluggerInterface $slugger
     ) {
-        $this->slugger = $this->slugger;
-        $this->targetDirectory = $this->targetDirectory;
+        $this->targetDirectory = $targetDirectory;
+        $this->slugger = $slugger;
     }
 
     public function upload(UploadedFile $file): string
@@ -28,16 +28,11 @@ class FileUploader
         $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->targetDirectory, $fileName);
         } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
+            throw $e;
         }
 
         return $fileName;
-    }
-
-    public function getTargetDirectory(): string
-    {
-        return $this->targetDirectory;
     }
 }

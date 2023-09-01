@@ -21,19 +21,19 @@ class TourPhoto implements \JsonSerializable
     private string $path;
 
     /** @ORM\Column(type="string") */
-    private string $name;
+    private string $originalName;
 
-    /** @ORM\Column(type="boolean") */
-    private bool $main;
+    /** @ORM\Column(type="integer") */
+    private int $priority;
 
-    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="photos") */
+    /** @ORM\ManyToOne(targetEntity=Tour::class,  inversedBy="photos") */
     private $tour;
 
-    public function __construct(string $path, string $name, bool $main = false)
+    public function __construct(string $name, string $path, int $priority)
     {
-        $this->path = $path;
-        $this->name = $name;
-        $this->main = $main;
+        $this->originalName = $name;
+        $this->path = "/uploads/{$path}";
+        $this->priority = $priority;
     }
 
     public function getPath(): string
@@ -41,13 +41,18 @@ class TourPhoto implements \JsonSerializable
         return $this->path;
     }
 
+    public function setTour(Tour $tour): void
+    {
+        $this->tour = $tour;
+    }
+
     public function jsonSerialize(): array
     {
         return [
-            'id'   => $this->id,
-            'path' => $this->path,
-            'name' => $this->name,
-            'main' => $this->main,
+            'id'       => $this->id,
+            'path'     => $this->path,
+            'name'     => $this->originalName,
+            'priority' => $this->priority,
         ];
     }
 }
