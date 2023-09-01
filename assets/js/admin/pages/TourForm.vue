@@ -86,7 +86,9 @@
             />
 
             <h3 class="tour-form__header">Что вас ожидает:</h3>
+              <TourFormDescription
 
+              />
             <h3 class="tour-form__header">Настройки:</h3>
             <v-text-field
                 v-model="tour.keyWords"
@@ -132,11 +134,12 @@ import axiosInstance from "../requestService";
 import draggable from 'vuedraggable'
 import TourFormPhotos from "./TourFormPhotos";
 import TourFormMainPhoto from "./TourFormMainPhoto";
+import TourFormDescription from "./TourFormDescription";
 
 export default {
   name: "TourForm",
   components: {
-    draggable, TourFormPhotos, TourFormMainPhoto
+    draggable, TourFormPhotos, TourFormMainPhoto, TourFormDescription
   },
   props:['tourId'],
   data: function () {
@@ -154,7 +157,11 @@ export default {
         keyWords: '',
         public: false,
         photos: [],
-        tourDescriptions: []
+        tourDescriptions: [
+          {
+
+          }
+        ]
       },
       complexity: [
         'hard',

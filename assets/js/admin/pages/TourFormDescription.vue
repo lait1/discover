@@ -1,7 +1,14 @@
 <template>
 <div class="tour-form__description">
   <v-row>
-    <v-col>
+    <v-col cols="12">
+      <v-text-field
+          label="Заголовок"
+          maxlength="50"
+          counter
+          outlined
+          required
+      ></v-text-field>
       <v-textarea
           label="Полное описание"
           maxlength="300"
@@ -9,8 +16,6 @@
           outlined
           required
       ></v-textarea>
-    </v-col>
-    <v-col>
       <v-file-input
           small-chips
           multiple
@@ -20,7 +25,6 @@
       ></v-file-input>
     </v-col>
   </v-row>
-
 </div>
 </template>
 
