@@ -46,7 +46,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/get-unavailable-dates", name="reservation-order", methods={"GET"})
+     * @Route("/order/get-unavailable-dates", name="unavailable-dates", methods={"GET"})
      */
     public function getUnavailableDates(): Response
     {

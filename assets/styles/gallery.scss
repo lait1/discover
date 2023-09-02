@@ -21,10 +21,11 @@
   }
 
   &__filter{
+    display: none;
     font-size: 20px;
     line-height: 28px;
     color: #898998;
-    display: flex;
+    //display: flex;
     column-gap: 24px;
     justify-content: center;
     margin-bottom: 32px;

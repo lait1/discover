@@ -196,6 +196,20 @@ class Tour
         return $this->description;
     }
 
+    public function getAdaptiveDescription(): string
+    {
+        $description = $this->description;
+
+        if ($description !== null && strlen($description) > 350) {
+            $string = substr($description, 0, 350);
+            $formattedText = substr($string, 0, strrpos($string, ' '));
+
+            return $formattedText . '...';
+        }
+
+        return $description ?? 'Нет описания';
+    }
+
     public function getPrice(): ?int
     {
         return $this->price;

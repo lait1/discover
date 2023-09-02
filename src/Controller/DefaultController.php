@@ -23,8 +23,10 @@ class DefaultController extends AbstractController
      */
     public function indexAction(): Response
     {
+        $tours = $this->tourService->getPublicTours();
+
         return $this->render('index.html.twig', [
-            'galleryImages' => json_encode([]),
+            'tours' => $tours,
         ]);
     }
 
@@ -47,7 +49,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/tour/{slug}")
+     * @Route("/tour/{slug}", name="tour-view")
      */
     public function tourAction(Request $request, string $slug): Response
     {
@@ -63,7 +65,11 @@ class DefaultController extends AbstractController
      */
     public function toursAction(): Response
     {
-        return $this->render('tours.html.twig');
+        $tours = $this->tourService->getPublicTours();
+
+        return $this->render('tours.html.twig', [
+            'tours' => $tours,
+        ]);
     }
 
     /**

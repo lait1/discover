@@ -34,6 +34,11 @@ class TourService
         return $tourList;
     }
 
+    public function getPublicTours(): array
+    {
+        return $this->tourRepository->getPublicTours();
+    }
+
     public function getCategories(): array
     {
         return $this->categoryRepository->findAll();
