@@ -68,6 +68,20 @@ class Review
         return $this->text;
     }
 
+    public function getShortText(): string
+    {
+        $text = $this->text;
+
+        if (strlen($text) > 400) {
+            $string = substr($text, 0, 400);
+            $formattedText = substr($string, 0, strrpos($string, ' '));
+
+            return $formattedText . '...';
+        }
+
+        return $text;
+    }
+
     public function setText(string $text): self
     {
         $this->text = $text;
@@ -126,6 +140,11 @@ class Review
     public function getTour(): ?Tour
     {
         return $this->tour;
+    }
+
+    public function getLintTour(): string
+    {
+        return '/tour/' . $this->tour->getSlug();
     }
 
     public function setTour(?Tour $tour): self

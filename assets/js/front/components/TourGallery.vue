@@ -20,9 +20,6 @@ export default {
       return 3
     }
   },
-  mounted() {
-    console.log(this.$vuetify.breakpoint)
-  },
 }
 
 </script>

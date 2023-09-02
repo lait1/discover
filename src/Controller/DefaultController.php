@@ -85,6 +85,15 @@ class DefaultController extends AbstractController
      */
     public function corporateAction(): Response
     {
-        return $this->render('corporate.html.twig');
+        return $this->render('corporate.html.twig', [
+            'photos' => json_encode([
+                'build/images/photos/photo1.jpeg',
+                'build/images/photos/photo.png',
+                'build/images/photos/photo2.jpeg',
+                'build/images/photos/photo.png',
+                'build/images/photos/photo1.jpeg',
+                'build/images/photos/photo2.jpeg',
+            ]),
+        ]);
     }
 }

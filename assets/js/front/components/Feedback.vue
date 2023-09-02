@@ -3,7 +3,13 @@
       <div class="feedback__header">
         Отзывы
       </div>
-      <div class="feedback__list">
+      <LoaderLocal
+          v-if="loading"
+          class="tour__review-loader"
+          :size="100"
+          :min-width="100"
+      />
+      <div v-else class="feedback__list">
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide
           v-for="comment in comments"
@@ -23,10 +29,13 @@
                 <div class="feedback__comment-author">
                   {{comment.author}}
                 </div>
-                <div class="feedback__comment-text">
-                  {{comment.text}}
-                  <a href="#" class="feedback__comment-link">читать полностью</a>
+                <div class="feedback__comment-date">
+                  {{comment.date}}
                 </div>
+                <div class="feedback__comment-text">
+                  {{comment.shortText}}
+                </div>
+                <a :href="comment.linkTour" class="feedback__comment-link">Посмотреть отзыв</a>
               </div>
             </div>
           </swiper-slide>
@@ -48,14 +57,16 @@
 <script>
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 
-// Import Swiper styles
 import 'swiper/css/swiper.css'
+import axios from "axios";
+import LoaderLocal from "./LoaderLocal";
 
 export default {
   name: "Feedback",
   components: {
     Swiper,
     SwiperSlide,
+    LoaderLocal
   },
   directives: {
     swiper: directive
@@ -63,6 +74,7 @@ export default {
   data() {
     return {
       showPopup: false,
+      loading: false,
       startItem: 1,
       swiperOptions: {
         slidesPerView: 3,
@@ -91,51 +103,31 @@ export default {
           }
         }
       },
+      comments:[],
       computed: {
         swiper() {
           return this.$refs.mySwiper.$swiper
         }
       },
-      mounted() {
-        console.log('Current Swiper instance object', this.swiper)
-        this.swiper.slideTo(3, 1000, false)
-      },
-      comments:[
-        {
-          id: 1,
-          author: 'Alex',
-          text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-          stars: 5
-        },
-        {
-          id: 2,
-          author: 'Alex',
-          text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-          stars: 4
-        },
-        {
-          id: 3,
-          author: 'Alex',
-          text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-          stars: 3
-        },
-        {
-          id: 4,
-          author: 'Alex',
-          text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-          stars: 4
-        },
-        {
-          id: 5,
-          author: 'Alex',
-          text: 'Давид - крутой рассказчик, который любит свою страну и ее историю. За день удалось увидеть сразу несколько интересных мест, познакомиться с местными колоритными жителями, а также (что самое интересное) ',
-          stars: 5
-        },
-      ]
     };
   },
+  mounted() {
+    this.getBestComments();
+  },
   methods: {
-
+    getBestComments() {
+      this.loading = true
+      axios.get(`/comment/get-best-comments/`)
+          .then((response) => {
+            this.comments = response.data
+          })
+          .catch((response) => {
+            alert("Ошибка загрузки комментов");
+          })
+          .finally(() => {
+            this.loading = false
+          })
+    }
   },
 };
 </script>

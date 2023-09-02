@@ -17,11 +17,13 @@ class ReviewView implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'id'     => $this->review->getId(),
-            'author' => $this->review->getAuthor()->getName() ?? $this->review->getAuthor()->getPhone(),
-            'text'   => $this->review->getText(),
-            'stars'  => $this->review->getAssessment(),
-            'date'   => $this->review->getCreatedAt()->format('d.m.Y'),
+            'id'        => $this->review->getId(),
+            'author'    => $this->review->getAuthor()->getName() ?? $this->review->getAuthor()->getPhone(),
+            'text'      => $this->review->getText(),
+            'shortText' => $this->review->getShortText(),
+            'linkTour'  => $this->review->getLintTour(),
+            'stars'     => $this->review->getAssessment(),
+            'date'      => $this->review->getCreatedAt()->format('d.m.Y'),
         ];
     }
 }

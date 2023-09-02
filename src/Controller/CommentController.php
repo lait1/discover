@@ -46,12 +46,24 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/comment/get-comments/{id}", name="get-comment")
+     * @Route("/comment/get-comments/{id}", name="get-comment", methods={"GET"})
      */
     public function listCommentAction(Request $request, int $id): Response
     {
         try {
             return $this->json($this->reviewService->getReviewByTourId($id));
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/comment/get-best-comments", name="get-best-comment", methods={"GET"})
+     */
+    public function getBestCommentAction(): Response
+    {
+        try {
+            return $this->json($this->reviewService->getReviewsForMainPage());
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }

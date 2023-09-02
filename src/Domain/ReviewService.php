@@ -29,17 +29,6 @@ class ReviewService
         $this->tourRepository = $tourRepository;
     }
 
-    public function getReviewByTourId(int $tourId): ReviewList
-    {
-        $reviewList = new ReviewList();
-        $reviews = $this->reviewRepository->getByTourId($tourId);
-        foreach ($reviews as $review) {
-            $reviewList->setReviewView(new ReviewView($review));
-        }
-
-        return $reviewList;
-    }
-
     /**
      * @throws \App\Exception\ValidationErrorException
      */
@@ -52,5 +41,25 @@ class ReviewService
         $review->setAuthor($client);
         $review->setTour($tour);
         $this->reviewRepository->save($review);
+    }
+
+    public function getReviewByTourId(int $tourId): ReviewList
+    {
+        return $this->buildReviewList($this->reviewRepository->getByTourId($tourId));
+    }
+
+    public function getReviewsForMainPage(): ReviewList
+    {
+        return $this->buildReviewList($this->reviewRepository->getReviewsForMainPage());
+    }
+
+    private function buildReviewList(array $reviews): ReviewList
+    {
+        $reviewList = new ReviewList();
+        foreach ($reviews as $review) {
+            $reviewList->setReviewView(new ReviewView($review));
+        }
+
+        return $reviewList;
     }
 }

@@ -41,6 +41,10 @@ class ReviewRepository extends ServiceEntityRepository
         return $this->findBy(['tour' => $id]);
     }
 
+    public function getReviewsForMainPage(): array
+    {
+        return $this->findBy(['showMainPage' => true]);
+    }
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */

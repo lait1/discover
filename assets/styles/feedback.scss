@@ -1,7 +1,7 @@
 .feedback{
   display: flex;
   flex-direction: column;
-  padding: 120px 0;
+  padding: 121px 0;
   background: url("../images/bg-feedback.jpg");
   background-size: cover;
   color: #1C1D20;
@@ -44,13 +44,23 @@
     background: #F6F6FA;
     border-radius: 16px;
     &-author{
+      font-size: 20px;
       font-weight: 600;
-      line-height: 24px;
+      line-height: 28px;
+    }
+    &-date{
+      color: var(--content-accent-disable, #898998);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      margin-bottom: 10px;
     }
     &-text{
       line-height: 24px;
     }
     &-link{
+      margin-top: 10px;
+      color: var(--content-accent, #0062FB);
       text-decoration: underline;
       font-weight: 600;
     }
@@ -80,4 +90,35 @@
   [aria-disabled=true] svg{
     fill: #898998;
   }
+}
+
+@media screen and (max-width: 1024px) {
+  .feedback {
+    padding: 73px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .feedback {
+
+  }
+}
+@media screen and (max-width: 576px) {
+  .feedback {
+    padding: 52px 0;
+    &__header{
+      font-size: 24px;
+      line-height: 28px;
+    }
+    &__list{
+      margin-top: 44px;
+    }
+    .button-next{
+      top: 0;
+    }
+    .button-prev{
+      top: 0;
+    }
+  }
+
 }
