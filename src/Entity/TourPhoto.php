@@ -26,7 +26,7 @@ class TourPhoto implements \JsonSerializable
     /** @ORM\Column(type="integer") */
     private int $priority;
 
-    /** @ORM\ManyToOne(targetEntity=Tour::class,  inversedBy="photos") */
+    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="photos") */
     private $tour;
 
     public function __construct(string $name, string $path, int $priority)
@@ -44,6 +44,11 @@ class TourPhoto implements \JsonSerializable
     public function setTour(Tour $tour): void
     {
         $this->tour = $tour;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
     }
 
     public function jsonSerialize(): array

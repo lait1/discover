@@ -92,7 +92,6 @@ export default {
       this.loading = true
       axios.get('/order/get-unavailable-dates')
           .then((response) => {
-            console.log(response.data)
             this.calendarConfigs.disabledDates = response.data
           })
           .catch((error) => {

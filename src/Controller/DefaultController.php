@@ -26,7 +26,15 @@ class DefaultController extends AbstractController
         $tours = $this->tourService->getPublicTours();
 
         return $this->render('index.html.twig', [
-            'tours' => $tours,
+            'tours'  => $tours,
+            'photos' => json_encode([
+                'build/images/photos/photo1.jpeg',
+                'build/images/photos/photo.png',
+                'build/images/photos/photo2.jpeg',
+                'build/images/photos/photo.png',
+                'build/images/photos/photo1.jpeg',
+                'build/images/photos/photo2.jpeg',
+            ]),
         ]);
     }
 

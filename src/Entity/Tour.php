@@ -91,9 +91,11 @@ class Tour
 
     public function getPhotosPaths(): string
     {
+        $photos = $this->photos->toArray();
+        usort($photos, fn (TourPhoto $a, TourPhoto $b) => $a->getPriority() <=> $b->getPriority());
         $paths = array_map(function (TourPhoto $photo) {
             return $photo->getPath();
-        }, $this->photos->toArray());
+        }, $photos);
 
         return json_encode($paths);
     }

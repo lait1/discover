@@ -96,17 +96,7 @@
         }
     }
     &__gallery{
-        .lb-grid{
-            height: 600px;
-        }
-        .lb-grid-3{
-            .lb-item:first-child{
-                width: 65%;
-            }
-            .lb-item{
-                width: 35%;
-            }
-        }
+
     }
     &__info{
         padding: 120px 0;

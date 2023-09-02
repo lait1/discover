@@ -134,7 +134,6 @@ export default {
   },
   watch: {
     selectedDate: function(newVal) {
-      console.log(newVal)
       this.calendarData = newVal
       this.order.date = newVal.selectedDate
     }
@@ -187,7 +186,6 @@ export default {
       this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
     },
     errorRequest(error) {
-      console.log(error)
       this.$emit('showErrorMessage', error);
     },
     sendOrder(){
