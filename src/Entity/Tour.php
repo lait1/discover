@@ -89,6 +89,16 @@ class Tour
         return $this->photos;
     }
 
+    public function getAssessment(): string
+    {
+        $reviewAssessment = array_map(function (Review $review) {
+            return $review->getAssessment();
+        }, ($this->reviews->toArray()));
+        $average = array_sum($reviewAssessment) / count($reviewAssessment);
+
+        return number_format($average, 1, '.', '');
+    }
+
     public function getPhotosPaths(): string
     {
         $photos = $this->photos->toArray();

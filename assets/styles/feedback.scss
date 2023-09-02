@@ -69,12 +69,12 @@
   .button-prev {
     top: 2%;
     transform: rotate(180deg);
-    left: 0;
+    left: 40px;
   }
 
   .button-next {
     top: 2%;
-    right: 0;
+    right: 40px;
   }
 
   [aria-disabled=true] svg{

@@ -10,7 +10,7 @@
             <h1>{{ tour.name }}</h1>
             <p class="tour__title">{{ tour.title }}</p>
             <div class="tour__tags">
-                <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>4.9</span>
+                <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>{{ tour.getAssessment }}</span>
                 {% for category in tour.categories %}
                     <span class="tag">{{ category.name }}</span>
                 {% endfor %}

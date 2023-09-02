@@ -1,6 +1,4 @@
 <template>
-  <v-app >
-
     <div class="wrap">
       <div class="feedback__header">
         Отзывы
@@ -45,8 +43,6 @@
         </div>
       </div>
     </div>
-
-  </v-app>
 </template>
 
 <script>
