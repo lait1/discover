@@ -75,8 +75,9 @@
     }
     &__properties-list{
         display: flex;
+        flex-wrap: wrap;
         gap: 40px;
-        padding-bottom: 50px;
+        margin-bottom: 50px;
     }
     &__properties_item{
         display: flex;
@@ -118,6 +119,7 @@
                 background: #F6F6FA;
                 &__content{
                     padding: 40px;
+                    width: 50%;
                     h2{
                         font-weight: 500;
                         line-height: 28px;
@@ -129,12 +131,14 @@
                 }
                 &__image{
                     border-radius: 24px;
+                    object-fit: cover;
+                    width: 50%;
                 }
             }
         }
     }
     &__details{
-        height: 770px;
+        min-height: 770px;
         display: flex;
         flex-direction: column;
         padding: 120px 0;
@@ -146,12 +150,16 @@
         &-header{
             &-price{
                 color: #1C1D20;
+                display: flex;
+                align-items: center;
             }
             h1{
                 color: #898998;
                 font-size: 42px;
                 line-height: 50px;
                 margin-bottom: 16px;
+                display: flex;
+                gap: 8px;
             }
             p{
                 line-height: 24px;
@@ -163,7 +171,7 @@
             display: flex;
             background: #FFFFFF;
             border-radius: 32px;
-            height: 252px;
+            min-height: 252px;
             margin-bottom: 24px;
             h3{
                 font-size: 24px;
@@ -178,11 +186,11 @@
                 .icon{
                     width: 32px;
                     height: 32px;
-                    margin-right: 16px;
                 }
                 li{
                     display: flex;
                     align-items: center;
+                    gap: 16px;
                 }
             }
             &__block{
@@ -219,7 +227,7 @@
               display: flex;
               flex-direction: column;
           }
-        h1{
+        &-header{
             font-size: 42px;
             line-height: 50px;
         }
@@ -229,12 +237,12 @@
             span{
                 display: flex;
                 align-items: center;
+                gap: 12px;
                 &:before {
                     content: "";
                     display: inline-block;
                     width: 32px;
                     height: 32px;
-                    margin-right: 5px;
                     border-radius: 8px;
                 }
             }
@@ -263,7 +271,7 @@
     }
     &__faq{
         background: #F6F6FA;
-        padding: 120px;
+        padding: 120px 0;
         .wrap{
             display: flex;
             gap: 24px;
@@ -271,7 +279,7 @@
 
         &-info {
             width: 33%;
-            h1 {
+            &-header {
                 font-size: 42px;
                 line-height: 50px;
                 text-transform: uppercase;
@@ -355,12 +363,16 @@
         &-top {
             display: flex;
             margin-bottom: 16px;
-            align-items: center;
             justify-content: space-between;
 
             &__userinfo {
                 display: flex;
                 align-items: center;
+                font-family: Oswald, sans-serif;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28px;
             }
 
             &__username {
@@ -372,6 +384,9 @@
             &__stars {
                 display: flex;
                 gap: 8px;
+                &-small{
+                    display: none;
+                }
             }
 
             &__date {
@@ -417,6 +432,7 @@
     .wrap{
         display: flex;
         gap: 24px;
+        flex-direction: column;
         padding: 0;
     }
     &-row{
@@ -460,5 +476,135 @@
     }
     textarea{
         height: 140px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .tour {
+        &__header, &__details-header {
+            h1 {
+                font-size: 32px;
+                line-height: 48px;
+            }
+        }
+        &__info-header, &__description_header, &__calendar-header, &__faq-info-header, &__reviews-header{
+            font-size: 32px;
+            line-height: 48px;
+        }
+        &__title{
+            font-size: 16px;
+            line-height: 24px;
+        }
+        &__info, &__calendar, &__description, &__details, &__faq, &__reviews{
+            padding: 72px 0;
+        }
+        &__review{
+            padding: 24px;
+            &-top{
+                flex-direction: column;
+                gap: 16px;
+                &__userinfo{
+                    justify-content: space-between;
+                }
+                &__stars{
+                    display: none;
+                    &-small{
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        .icon{
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+@media screen and (max-width: 900px) {
+    .tour__info-list-item {
+        flex-direction: column !important;
+        &__content{
+            width: 100%;
+        }
+        &__image{
+            width: 100%;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    .tour{
+        &__faq{
+            .wrap{
+                flex-direction: column;
+            }
+            &-info{
+                width: 100%;
+            }
+            &-content{
+                width: 100%;
+            }
+            &-item__title{
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+    }
+}
+@media screen and (max-width: 586px) {
+    .tour {
+        &__header {
+            h1 {
+                font-size: 24px;
+                line-height: 28px;
+            }
+        }
+        &__details-info{
+            flex-direction: column;
+            &__block{
+                width: 100%;
+                &:nth-child(1){
+                    border-bottom: 4px solid #F6F6FA;
+                }
+            }
+        }
+        &__details-header{
+            h1 {
+                font-size: 24px;
+                line-height: 28px;
+            }
+            p{
+                margin-bottom: 32px;
+            }
+        }
+        &__info-header{
+            font-size: 24px;
+            line-height: 28px;
+            margin-bottom: 32px;
+        }
+        &__description_info{
+            margin-bottom: 32px;
+        }
+        &__info-list-item__content{
+            padding: 24px;
+        }
+        &__properties-list{
+            margin-bottom: 32px;
+            gap: 32px;
+        }
+        &__description_header, &__calendar-header, &__faq-info-header, &__reviews-header{
+            font-size: 24px;
+            line-height: 28px;
+        }
+        &__info, &__description, &__details, &__faq, &__reviews{
+            padding: 40px 0;
+        }
+        &__calendar-info{
+            gap: 32px;
+            flex-direction: column;
+        }
     }
 }

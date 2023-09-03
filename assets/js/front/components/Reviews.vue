@@ -25,6 +25,12 @@
                 <use xlink:href="#star"></use>
               </svg>
             </div>
+            <div class="tour__review-top__stars-small">
+              <svg class="icon">
+                <use xlink:href="#star"></use>
+              </svg>
+              <span>{{ comment.stars }}</span>
+            </div>
           </div>
           <div class="tour__review-top__date">
             {{ comment.date }}

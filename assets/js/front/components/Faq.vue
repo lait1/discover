@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="tour__faq-info">
-      <h1>Гостям интересно</h1>
+      <h1 class="tour__faq-info-header">Гостям интересно</h1>
       <p>Не нашли ответа на свой вопрос? <br>
         Напишите к нам в чат или в наши социальные сети. Мы с радостью вам поможем!
       </p>
@@ -50,7 +50,7 @@ export default {
       },
       {
         id: 1,
-        title: 'Как забронировать?',
+        title: 'Нужно ли вносить предоплату?',
         description: 'A 20% prepayment is required for booking. To do this, select a tour and send an application. The date will already be yours! Then, our manager will contact you and send you a link for prepayment. And that\'s it, we will be looking forward to meeting you!',
         isActive: false,
       },
