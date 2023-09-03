@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\OrderTour;
 use App\Entity\Review;
+use App\Enum\OrderStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -41,7 +42,9 @@ class OrderTourRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('ord')
             ->where('ord.reservationDate > :bookTime')
+            ->andWhere('ord.status = :status')
             ->setParameter('bookTime', time())
+            ->setParameter('status', OrderStatusEnum::APPROVE())
             ->getQuery()->getResult()
         ;
     }

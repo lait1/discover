@@ -1,10 +1,10 @@
 <template>
-
-  <LayoutComponent
-      v-if="this.isAuth"
-      @logout="logout"
-  >
+    <LayoutComponent
+        v-if="this.isAuth"
+        @logout="logout"
+    >
   </LayoutComponent>
+
   <AuthComponent
       v-else
       @login="login"

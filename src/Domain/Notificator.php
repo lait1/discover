@@ -27,7 +27,8 @@ class Notificator
             if ($admin->getTelegramToken() !== null) {
                 $this->apiClient->sendMessage(
                     $admin->getTelegramToken(),
-                    $this->buildOrderMessage($order)
+                    $this->buildOrderMessage($order),
+                    $order->getId()
                 );
             }
         }

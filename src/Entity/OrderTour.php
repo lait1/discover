@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\OrderStatusEnum;
 use App\Repository\OrderTourRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,8 +39,8 @@ class OrderTour
     /** @ORM\Column(type="text", nullable=true) */
     private ?string $comment;
 
-    /** @ORM\Column(type="boolean") */
-    private bool $confirmedTour;
+    /** @ORM\Column(type="string", length=10) */
+    private string $status;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
     private int $createdAt;
@@ -55,7 +56,7 @@ class OrderTour
         $this->reservationDate = $reservationDate;
         $this->countPeople = $countPeople;
         $this->comment = $description ? trim(strip_tags($description)) : null;
-        $this->confirmedTour = false;
+        $this->status = OrderStatusEnum::WAIT;
         $this->createdAt = time();
         $this->updatedAt = time();
     }
@@ -112,5 +113,22 @@ class OrderTour
     public function getCountPeople(): int
     {
         return $this->countPeople;
+    }
+
+    public function getStatus(): OrderStatusEnum
+    {
+        return new OrderStatusEnum($this->status);
+    }
+
+    public function approve(): void
+    {
+        $this->status = OrderStatusEnum::APPROVE;
+        $this->updatedAt = time();
+    }
+
+    public function reject(): void
+    {
+        $this->status = OrderStatusEnum::REJECT;
+        $this->updatedAt = time();
     }
 }

@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Domain\OrderService;
 use App\DTO\OrderDTO;
 use App\Exception\ValidationErrorException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,16 @@ class OrderController extends AbstractController
 
     private SerializerInterface $serializer;
 
-    public function __construct(OrderService $orderService, SerializerInterface $serializer)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        OrderService $orderService,
+        SerializerInterface $serializer,
+        LoggerInterface $logger
+    ) {
         $this->orderService = $orderService;
         $this->serializer = $serializer;
+        $this->logger = $logger;
     }
 
     /**
@@ -57,5 +64,24 @@ class OrderController extends AbstractController
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    /**
+     * @Route("/telegram/webhook", name="telegram-webhook")
+     */
+    public function webhookAction(Request $request): Response
+    {
+        $postParams = $request->request->all();
+        $getParams = $request->query->all();
+        $content = $request->getContent() ?: '';
+
+        $this->logger->info('From telegram', [
+            'method'  => $request->getMethod(),
+            'post'    => $postParams,
+            'get'     => $getParams,
+            'content' => $content,
+        ]);
+
+        return new Response();
     }
 }
