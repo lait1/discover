@@ -6,6 +6,7 @@ namespace App\Domain;
 use App\DTO\OrderDTO;
 use App\Entity\OrderTour;
 use App\Exception\ValidationErrorException;
+use App\Repository\CategoryRepository;
 use App\Repository\OrderTourRepository;
 use App\Repository\TourRepository;
 use DateTimeInterface;
@@ -21,6 +22,8 @@ class OrderService
 
     private ClientService $clientService;
 
+    private CategoryRepository $categoryRepository;
+
     private LoggerInterface $logger;
 
     public function __construct(
@@ -28,12 +31,14 @@ class OrderService
         TourRepository $tourRepository,
         ClientService $clientService,
         Notificator $notificator,
+        CategoryRepository $categoryRepository,
         LoggerInterface $logger
     ) {
         $this->orderRepository = $orderRepository;
         $this->tourRepository = $tourRepository;
         $this->clientService = $clientService;
         $this->notificator = $notificator;
+        $this->categoryRepository = $categoryRepository;
         $this->logger = $logger;
     }
 
@@ -77,6 +82,11 @@ class OrderService
         }
 
         return $dates;
+    }
+
+    public function getCategories(): array
+    {
+        return $this->categoryRepository->findAll();
     }
 
     private function getDateTime(string $date): DateTimeInterface

@@ -44,13 +44,15 @@
               />
             </div>
           </div>
-          <div class="tour__dialog-row order__people-row">
+          <div class="order__people-row">
               Количество человек:
             <div class="order__people__count-block">
               <v-btn
                   class="order__people-btn"
                   fab
                   depressed
+                  max-height="32"
+                  max-width="32"
                   :disabled="isDisableDecrementCounter"
                   @click="decrementCountPeople"
               >
@@ -61,6 +63,8 @@
                   class="order__people-btn"
                   fab
                   depressed
+                  max-height="32"
+                  max-width="32"
                   :disabled="isDisableIncrementCounter"
                   @click="incrementCountPeople"
               >
@@ -213,51 +217,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.order{
-  &__dialog{
-    &-alert{
-      width: 100%;
-    }
-    &-input-date{
-      width: 100%;
-      padding: 5px 5px;
-      border-radius: 16px;
-      background: var(--background-primary, #F6F6FA);
-    }
-  }
-  &__people{
-    &__count-block{
-      width: 100px;
-      display: flex;
-      justify-content: space-between;
-    }
-    &-row{
-      gap: 16px;
-      align-items: center;
-    }
-    &-btn{
-      width: 32px;
-      height: 32px;
-    }
-    &-counter{
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 28px;
-      letter-spacing: 0.12px;
-    }
-  }
-  &__price{
-    color: var(--content-dark, #1C1D20);
-    font-family: 'Oswald', sans-serif;
-    font-size: 24px;
-    line-height: 28px;
-  }
-  &__description{
-    span{
-      color: var(--gray-3, #828282);
-    }
-  }
-}
 ::v-deep .vfc-single-input{
   text-align: left;
 }

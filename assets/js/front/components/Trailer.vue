@@ -1,6 +1,6 @@
 <template>
   <v-app >
-  <div class="container">
+  <div class="wrap">
     <img :src="image" alt="trailer" width="100%" class="trailer__banner" />
 
     <v-btn
@@ -46,12 +46,6 @@ export default {
 <style scoped lang="scss">
 ::v-deep .v-application--wrap {
   min-height: fit-content;
-}
-::v-deep .container{
-  padding: 0;
-  @media screen and (max-width: 1024px) {
-    padding: 0 20px;
-  }
 }
 
 </style>

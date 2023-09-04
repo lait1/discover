@@ -53,6 +53,14 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("/order/get-categories", methods={"GET"})
+     */
+    public function getCategoriesAction(): Response
+    {
+        return $this->json($this->orderService->getCategories());
+    }
+
+    /**
      * @Route("/order/get-unavailable-dates", name="unavailable-dates", methods={"GET"})
      */
     public function getUnavailableDates(): Response

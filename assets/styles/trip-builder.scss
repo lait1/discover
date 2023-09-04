@@ -1,5 +1,4 @@
 .trip-builder {
-  display: none;
   background: url('../images/trip-builder-bg.jpg');
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -48,14 +47,6 @@
     &:hover{
       background: #0051D0;
     }
-  }
-  &__tooltip{
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    top: 50%;
-    left: 50%;
   }
   &__link{
     font-weight: 600;
