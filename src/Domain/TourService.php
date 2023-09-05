@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use App\DTO\TourCreateDTO;
+use App\DTO\UpdateBannerInfoDTO;
 use App\Entity\Tour;
 use App\Repository\CategoryRepository;
 use App\Repository\TourRepository;
@@ -61,5 +62,17 @@ class TourService
         $tour = new Tour($dto->name);
 
         return $this->tourRepository->save($tour);
+    }
+
+    public function updateBannerInfo(UpdateBannerInfoDTO $bannerInfoDTO): void
+    {
+        $tour = $this->tourRepository->getById($bannerInfoDTO->id);
+        $categories = $this->categoryRepository->getByIds($bannerInfoDTO->categories);
+
+        $tour->setName($bannerInfoDTO->name);
+        $tour->setTitle($bannerInfoDTO->title);
+        $tour->setCategories($categories);
+
+        $this->tourRepository->save($tour);
     }
 }

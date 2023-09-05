@@ -58,7 +58,7 @@ class UploadService
     public function unsetMainPhoto(int $tourId): void
     {
         $tour = $this->tourRepository->getById($tourId);
-        $tour->setMainImage('');
+        $tour->setMainImage(null);
         $this->tourRepository->save($tour);
     }
 

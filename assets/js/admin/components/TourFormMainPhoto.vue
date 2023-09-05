@@ -5,13 +5,13 @@
         show-size
         outlined
         accept="image/png, image/jpeg, image/jpg"
-        label="Фото из шапки тура"
+        label="Добавить фото шапки тура"
         @change="previewImages"
     ></v-file-input>
 
     <div class="tour-form__photo">
       <div class="tour-form__photo-thumbnail" v-if="image">
-        <img :src="/uploads/ + image">
+        <img :src="image">
         <button
             @click.prevent="removePhoto()"
             type="button"
@@ -97,8 +97,6 @@ export default {
     }
 
     img {
-      max-height: 130px;
-      max-width: 170px;
       width: 100%;
       height: 100%;
       transition: .3s ease-in-out;

@@ -33,6 +33,7 @@ class TourView implements \JsonSerializable
             'categories'       => $this->tour->getCategories(),
             'photos'           => $this->tour->getPhotos(),
             'tourDescriptions' => $this->tour->getTourDescriptions(),
+            'mainPhoto'        => $this->tour->getMainImage(),
         ];
     }
 }

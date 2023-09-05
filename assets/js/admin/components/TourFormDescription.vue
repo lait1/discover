@@ -1,5 +1,6 @@
 <template>
 <div class="tour-form__description">
+  <h3 class="tour-form__header">Что вас ожидает:</h3>
   <v-row>
     <v-col cols="12">
       <v-text-field

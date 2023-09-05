@@ -33,7 +33,7 @@ class Tour
     private ?string $description;
 
     /** @ORM\Column(type="string", nullable=true) */
-    private string $mainImage;
+    private ?string $mainImage;
 
     /** @ORM\Column(type="integer", nullable=true, options={"unsigned": true, "default": 0}) */
     private int $price = 0;
@@ -292,13 +292,93 @@ class Tour
         return $this;
     }
 
-    public function getMainImage(): string
+    public function getMainImage(): ?string
     {
-        return "build/images/{$this->mainImage}";
+        if ($this->mainImage) {
+            return "/build/images/{$this->mainImage}";
+        }
+
+        return '';
     }
 
-    public function setMainImage(string $mainImage): void
+    public function setMainImage(?string $mainImage): void
     {
         $this->mainImage = $mainImage;
+    }
+
+    public function setName(string $name): void
+    {
+        $slugger = new AsciiSlugger('ru');
+        $this->name = $name;
+        $this->slug = $slugger->slug($name);
+    }
+
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setPrice(int $price): void
+    {
+        $this->price = $price;
+    }
+
+    public function setLongTime(?string $longTime): void
+    {
+        $this->longTime = $longTime;
+    }
+
+    public function setComplexity(?string $complexity): void
+    {
+        $this->complexity = $complexity;
+    }
+
+    public function setGroupSize(?int $groupSize): void
+    {
+        $this->groupSize = $groupSize;
+    }
+
+    public function setDetails(?array $details): void
+    {
+        $this->details = $details;
+    }
+
+    public function setKeyWords(?string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function setPublic(bool $public): void
+    {
+        $this->public = $public;
+    }
+
+    public function setCategories(array $categories): void
+    {
+        $this->categories->clear();
+
+        foreach ($categories as $category) {
+            $this->categories->add($category);
+        }
+    }
+
+    public function setPhotos(PersistentCollection $photos): void
+    {
+        $this->photos = $photos;
+    }
+
+    public function setReviews(PersistentCollection $reviews): void
+    {
+        $this->reviews = $reviews;
+    }
+
+    public function setTourDescriptions(PersistentCollection $tourDescriptions): void
+    {
+        $this->tourDescriptions = $tourDescriptions;
     }
 }
