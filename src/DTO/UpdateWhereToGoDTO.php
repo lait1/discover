@@ -11,7 +11,7 @@ class UpdateWhereToGoDTO
 
     public string $longTime;
 
-    public int $groupSize;
+    public string $groupSize;
 
     public string $description;
 }

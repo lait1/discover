@@ -49,6 +49,7 @@
                 :tour-group-size="tour.groupSize"
                 :tour-description="tour.description"
                 :tour-images-data="tour.photos"
+                :tour-youtube-link="tour.youtubeLink"
             />
           </template>
         </TourFormLayout>

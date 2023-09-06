@@ -83,7 +83,7 @@ class TourService
 
         $tour->setComplexity($whereToGoDTO->complexity);
         $tour->setLongTime($whereToGoDTO->longTime);
-        $tour->setGroupSize($whereToGoDTO->groupSize);
+        $tour->setGroupSize((int) $whereToGoDTO->groupSize);
         $tour->setDescription($whereToGoDTO->description);
 
         $this->tourRepository->save($tour);

@@ -30,19 +30,34 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-textarea
-        v-model="tour.description"
-        label="Полное описание"
-        maxlength="400"
-        counter
+
+      <v-textarea
+          v-model="tour.description"
+          label="Полное описание"
+          maxlength="400"
+          counter
+          outlined
+          required
+      ></v-textarea>
+
+    <v-text-field
+        v-model="tour.youtubeLink"
+        label="YoyTube link code"
         outlined
-        required
-    ></v-textarea>
+    ></v-text-field>
 
     <TourFormPhotos
         :tour-id="tour.id"
         :images-data="imagesData"
     />
+
+    <v-btn
+        class="mr-4"
+        color="success"
+        @click="updateInfo"
+    >
+      Сохранить
+    </v-btn>
   </form>
 </template>
 
@@ -55,10 +70,7 @@ export default {
   components: {
     TourFormPhotos
   },
-  props: ['tourId', 'tourComplexity', 'tourLongTime', 'tourGroupSize', 'tourDescription', 'tourImagesData'],
-  mounted() {
-    console.log('mounted tourFormWhereToGO')
-  },
+  props: ['tourId', 'tourComplexity', 'tourLongTime', 'tourGroupSize', 'tourDescription', 'tourImagesData', 'tourYoutubeLink'],
   data: function () {
     return {
       tour: {
@@ -67,6 +79,7 @@ export default {
         longTime: this.tourLongTime,
         groupSize: this.tourGroupSize,
         description: this.tourDescription,
+        youtubeLink: this.tourYoutubeLink,
       },
       imagesData: this.tourImagesData,
       complexity: [
