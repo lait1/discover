@@ -20,11 +20,12 @@
       :min-width="100"
   />
     <v-tabs-items v-else v-model="selectedTab">
+
       <v-tab-item>
         <TourFormLayout
             example-image="example-top.jpg"
         >
-          <template v-slot:content  >
+          <template #content  >
             <TourFormBanner
                 :tour-id="tour.id"
                 :tour-name="tour.name"
@@ -34,24 +35,67 @@
             />
           </template>
         </TourFormLayout>
+      </v-tab-item>
 
-      </v-tab-item>
       <v-tab-item>
-        <h1>Куда мы едем</h1>
+        <TourFormLayout
+            example-image="example-where.jpg"
+        >
+          <template #content  >
+            <TourFormWhereToGo
+                :tour-id="tour.id"
+                :tour-complexity="tour.complexity"
+                :tour-long-time="tour.longTime"
+                :tour-group-size="tour.groupSize"
+                :tour-description="tour.description"
+                :tour-images-data="tour.photos"
+            />
+          </template>
+        </TourFormLayout>
       </v-tab-item>
-      <v-tab-item>
-        <h1>что вас ждет</h1>
 
-      </v-tab-item>
       <v-tab-item>
-        <h1>стоимость</h1>
+        <TourFormLayout
+            example-image="example-waiting.jpg"
+        >
+          <template #content  >
+            <TourFormDescription
+                :tour-id="tour.id"
+            />
+          </template>
+        </TourFormLayout>
       </v-tab-item>
+
       <v-tab-item>
-        <h1>FAQ</h1>
+        <TourFormLayout
+            example-image="example-price.jpg"
+        >
+          <template #content  >
+
+          </template>
+        </TourFormLayout>
       </v-tab-item>
+
       <v-tab-item>
-        <h1>SEO</h1>
+        <TourFormLayout
+            example-image="example-faq.jpg"
+        >
+          <template #content  >
+
+          </template>
+        </TourFormLayout>
       </v-tab-item>
+
+      <v-tab-item>
+        <TourFormLayout
+            example-image=""
+        >
+          <template #content  >
+
+          </template>
+        </TourFormLayout>
+      </v-tab-item>
+
     </v-tabs-items>
   </v-card>
 </template>
@@ -61,13 +105,15 @@ import TourFormLayout from "../components/TourFormLayout";
 import axiosInstance from "../requestService";
 import TourFormBanner from "../components/TourFormBanner";
 import LoaderLocal from "../components/LoaderLocal";
+import TourFormDescription from "../components/TourFormDescription";
+import TourFormWhereToGo from "../components/TourFormWhereToGo";
 
 export default {
   name: "TourEdit",
-  components: {TourFormLayout, TourFormBanner, LoaderLocal},
+  components: {TourFormWhereToGo, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
   data: function () {
     return {
-      selectedTab: 0,
+      selectedTab: null,
       loading: false,
       tour: {}
     }
@@ -93,7 +139,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

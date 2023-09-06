@@ -5,6 +5,7 @@ namespace App\Domain;
 
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
+use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
 use App\Repository\CategoryRepository;
 use App\Repository\TourRepository;
@@ -72,6 +73,18 @@ class TourService
         $tour->setName($bannerInfoDTO->name);
         $tour->setTitle($bannerInfoDTO->title);
         $tour->setCategories($categories);
+
+        $this->tourRepository->save($tour);
+    }
+
+    public function updateWhereToGoInfo(UpdateWhereToGoDTO $whereToGoDTO): void
+    {
+        $tour = $this->tourRepository->getById($whereToGoDTO->id);
+
+        $tour->setComplexity($whereToGoDTO->complexity);
+        $tour->setLongTime($whereToGoDTO->longTime);
+        $tour->setGroupSize($whereToGoDTO->groupSize);
+        $tour->setDescription($whereToGoDTO->description);
 
         $this->tourRepository->save($tour);
     }

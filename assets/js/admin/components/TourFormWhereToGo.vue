@@ -1,6 +1,5 @@
 <template>
   <form>
-    <h3 class="tour-form__header">Куда мы едем:</h3>
     <v-row>
       <v-col cols="4">
         <v-text-field
@@ -34,7 +33,7 @@
     <v-textarea
         v-model="tour.description"
         label="Полное описание"
-        maxlength="300"
+        maxlength="400"
         counter
         outlined
         required
@@ -48,8 +47,49 @@
 </template>
 
 <script>
+import TourFormPhotos from "./TourFormPhotos";
+import axiosInstance from "../requestService";
+
 export default {
-  name: "TourFormWhereToGo"
+  name: "TourFormWhereToGo",
+  components: {
+    TourFormPhotos
+  },
+  props: ['tourId', 'tourComplexity', 'tourLongTime', 'tourGroupSize', 'tourDescription', 'tourImagesData'],
+  mounted() {
+    console.log('mounted tourFormWhereToGO')
+  },
+  data: function () {
+    return {
+      tour: {
+        id: this.tourId,
+        complexity: this.tourComplexity,
+        longTime: this.tourLongTime,
+        groupSize: this.tourGroupSize,
+        description: this.tourDescription,
+      },
+      imagesData: this.tourImagesData,
+      complexity: [
+        'hard',
+        'medium',
+        'easy',
+      ],
+    }
+  },
+  methods: {
+    updateInfo(){
+      axiosInstance.post(`/api/tour/update-where-to-go-info/`, this.tour)
+          .then((response) => {
+            if (response.data.message === 'success'){
+              alert("Данные успешно обновлены");
+            }
+          })
+          .catch((response) => {
+            console.error(response)
+            alert("Save tour failed");
+          })
+    }
+  }
 }
 </script>
 

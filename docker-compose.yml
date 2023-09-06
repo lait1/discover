@@ -42,7 +42,7 @@ services:
     links:
       - mysql:mysql
     ports:
-      - 8002:80
+      - "8002:80"
     environment:
       - "PMA_HOST=mysql"
       - "MYSQL_USER=${MYSQL_USER}"

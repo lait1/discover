@@ -61,7 +61,8 @@ export default {
       categories: []
     }
   },
-  created() {
+  mounted() {
+    console.log('mounted tourFormBanner')
     this.getCategories()
   },
   methods: {

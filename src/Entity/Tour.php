@@ -53,6 +53,9 @@ class Tour
     /** @ORM\Column(type="string", nullable=true) */
     private ?string $keyWords;
 
+    /** @ORM\Column(type="string", nullable=true) */
+    private ?string $youtubeLink;
+
     /** @ORM\Column(name="created_at", type="integer", nullable=false, options={"unsigned": true}) */
     private int $createdAt;
 
@@ -380,5 +383,15 @@ class Tour
     public function setTourDescriptions(PersistentCollection $tourDescriptions): void
     {
         $this->tourDescriptions = $tourDescriptions;
+    }
+
+    public function getYoutubeLink(): ?string
+    {
+        return $this->youtubeLink;
+    }
+
+    public function setYoutubeLink(?string $youtubeLink): void
+    {
+        $this->youtubeLink = $youtubeLink;
     }
 }

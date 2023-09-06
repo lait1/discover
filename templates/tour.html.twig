@@ -5,7 +5,7 @@
 {% block page_description %} {{ tour.description }} {% endblock %}
 
 {% block main %}
-    <header class="tour__header" style="background: url({{ asset(tour.mainImage) }})">
+    <header class="tour__header" style="background-image: url({{ asset(tour.mainImage) }})">
         <div class="wrap">
             <h1>{{ tour.name }}</h1>
             <p class="tour__title">{{ tour.title }}</p>
@@ -82,7 +82,12 @@
         </div>
     </section>
     <section class="trailer">
-        <Trailer image="{{ asset('build/images/trailer.jpg') }}" :video-id="'hB4kS3Ji-T0'" />
+        <div class="wrap">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ tour.youtubeLink }}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
     </section>
     <section class="tour__info">
         <div class="wrap">

@@ -6,6 +6,7 @@ use App\Domain\TourService;
 use App\Domain\UploadService;
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
+use App\DTO\UpdateWhereToGoDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,6 +85,26 @@ class AdminController extends AbstractController
 
         try {
             $this->tourService->updateBannerInfo($dto);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/tour/update-where-to-go-info/", methods={"POST"})
+     */
+    public function updateWhereToGoInfoAction(Request $request): Response
+    {
+        $dto = $this->serializer->deserialize(
+            $request->getContent(),
+            UpdateWhereToGoDTO::class,
+            'json'
+        );
+
+        try {
+            $this->tourService->updateWhereToGoInfo($dto);
 
             return $this->json(['message' => 'success']);
         } catch (\Throwable $e) {

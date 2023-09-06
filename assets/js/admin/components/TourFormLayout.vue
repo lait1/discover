@@ -57,19 +57,6 @@ export default {
     }
   },
   methods: {
-    submit () {
-
-    },
-    getCategories(){
-      axiosInstance.get(`/api/get-categories/`)
-          .then((response) => {
-            this.categories = response.data
-          })
-          .catch((response) => {
-            console.error(response)
-            alert("Ошибка загрузки категорий");
-          })
-    },
     previewImages(event) {
       let data = new FormData();
       let pictures = event.target.files;

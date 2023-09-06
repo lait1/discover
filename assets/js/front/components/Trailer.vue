@@ -11,7 +11,7 @@
       <i class="fa fa-sharp fa-solid fa-circle-play"></i>
     </v-btn>
 
-    <v-dialog v-model="showPopup" :max-width="900"  @click:outside="closeVideoPopup">
+    <v-dialog v-model="showPopup" :max-width="1400"  @click:outside="closeVideoPopup">
       <div class="trailer__video">
           <youtube ref="youtube" :fitParent="true" :resize="true"  :video-id="videoId" />
       </div>
@@ -47,5 +47,7 @@ export default {
 ::v-deep .v-application--wrap {
   min-height: fit-content;
 }
-
+::v-deep .v-dialog{
+  height: 80%;
+}
 </style>
