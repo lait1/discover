@@ -55,6 +55,16 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         return $client;
     }
 
+    public function getClientById(int $id): Client
+    {
+        return $this->find($id);
+    }
+
+    public function getAllClients(): array
+    {
+        return $this->findAll();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

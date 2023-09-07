@@ -118,11 +118,19 @@ class Review
         return $this->public;
     }
 
-    public function setPublic(bool $isPublic): self
+    public function showMainPage(): bool
     {
-        $this->public = $isPublic;
+        return $this->showMainPage;
+    }
 
-        return $this;
+    public function setPublic(): void
+    {
+        $this->public = true;
+    }
+
+    public function setUnPublic(): void
+    {
+        $this->public = true;
     }
 
     public function getAnswer(): ?string
@@ -140,11 +148,6 @@ class Review
     public function getTour(): ?Tour
     {
         return $this->tour;
-    }
-
-    public function getLintTour(): string
-    {
-        return '/tour/' . $this->tour->getSlug();
     }
 
     public function setTour(?Tour $tour): self

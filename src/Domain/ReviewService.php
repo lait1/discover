@@ -53,6 +53,25 @@ class ReviewService
         return $this->buildReviewList($this->reviewRepository->getReviewsForMainPage());
     }
 
+    public function getAllComments(): ReviewList
+    {
+        return $this->buildReviewList($this->reviewRepository->getAllComments());
+    }
+
+    public function publish(int $commentId): void
+    {
+        $review = $this->reviewRepository->getById($commentId);
+        $review->setPublic();
+        $this->reviewRepository->save($review);
+    }
+
+    public function unPublish(int $commentId): void
+    {
+        $review = $this->reviewRepository->getById($commentId);
+        $review->setUnPublic();
+        $this->reviewRepository->save($review);
+    }
+
     private function buildReviewList(array $reviews): ReviewList
     {
         $reviewList = new ReviewList();
