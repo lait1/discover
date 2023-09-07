@@ -45,7 +45,7 @@
           color="red"
           text-color="white"
           link
-          @click="approve(item)"
+          @click="reject(item)"
       >
         <v-avatar left>
           <v-icon>mdi-cancel</v-icon>

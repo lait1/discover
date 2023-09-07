@@ -5,6 +5,8 @@ namespace App\Domain;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
+use App\View\ClientList;
+use App\View\ClientView;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ClientService
@@ -30,5 +32,16 @@ class ClientService
         }
 
         return $client;
+    }
+
+    public function getAllClients(): ClientList
+    {
+        $list = new ClientList();
+
+        foreach ($this->clientRepository->getAllClients() as $client) {
+            $list->setClientView(new ClientView($client));
+        }
+
+        return $list;
     }
 }

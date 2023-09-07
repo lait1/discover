@@ -10,7 +10,6 @@
     <v-tab :value="3">Что вас ожидает</v-tab>
     <v-tab :value="4">Стоимость</v-tab>
     <v-tab :value="5">FAQ</v-tab>
-    <v-tab :value="6">SEO</v-tab>
   </v-tabs>
 
   <LoaderLocal
@@ -86,16 +85,6 @@
       <v-tab-item>
         <TourFormLayout
             example-image="example-faq.jpg"
-        >
-          <template #content  >
-
-          </template>
-        </TourFormLayout>
-      </v-tab-item>
-
-      <v-tab-item>
-        <TourFormLayout
-            example-image=""
         >
           <template #content  >
 

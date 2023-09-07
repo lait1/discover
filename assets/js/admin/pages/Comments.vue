@@ -29,11 +29,13 @@
     <template v-slot:item.isPublic="{ item }">
       <v-simple-checkbox
           v-model="item.isPublic"
+          @click="togglePublicComment(item)"
       ></v-simple-checkbox>
     </template>
     <template v-slot:item.showMainPage="{ item }">
       <v-simple-checkbox
           v-model="item.showMainPage"
+          @click="togglePublicToMainComment(item)"
       ></v-simple-checkbox>
     </template>
   </v-data-table>
@@ -74,8 +76,20 @@ export default {
             this.loading = false
           })
     },
-    approve(item){
+    togglePublicComment(item){
+      if (item.isPublic){
+        alert("Коммент №" + item.id + " опубликован")
+      }else{
+        alert("Коммент №" + item.id + " спрятан от глаз долой")
+      }
 
+    },
+    togglePublicToMainComment(item){
+      if (item.showMainPage){
+        alert("Коммент №" + item.id + " опубликован на главной")
+      }else{
+        alert("Коммент №" + item.id + " спрятан от глаз долой")
+      }
     },
   }
 }
