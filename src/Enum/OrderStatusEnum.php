@@ -12,7 +12,7 @@ use MyCLabs\Enum\Enum;
  */
 final class OrderStatusEnum extends Enum
 {
-    public const WAIT = 'wait';
-    public const APPROVE = 'approve';
-    public const REJECT = 'reject';
+    public const WAIT = 'WAIT';
+    public const APPROVE = 'APPROVE';
+    public const REJECT = 'REJECT';
 }

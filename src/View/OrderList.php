@@ -7,7 +7,7 @@ class OrderList implements \JsonSerializable
 {
     private array $order = [];
 
-    public function setReviewView(OrderView $view): void
+    public function setOrderView(OrderView $view): void
     {
         $this->order[] = $view;
     }

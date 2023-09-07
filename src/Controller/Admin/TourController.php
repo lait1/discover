@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class AdminController extends AbstractController
+class TourController extends AbstractController
 {
     private TourService $tourService;
 
@@ -29,22 +29,6 @@ class AdminController extends AbstractController
         $this->tourService = $tourService;
         $this->uploadService = $uploadService;
         $this->serializer = $serializer;
-    }
-
-    /**
-     * @Route("/get-categories", methods={"GET"})
-     */
-    public function getCategoriesAction(): Response
-    {
-        return $this->json($this->tourService->getCategories());
-    }
-
-    /**
-     * @Route("/get-options", methods={"GET"})
-     */
-    public function getOptionsAction(): Response
-    {
-        return $this->json($this->tourService->getOptions());
     }
 
     /**
@@ -176,13 +160,5 @@ class AdminController extends AbstractController
     public function tourInfoAction($id): Response
     {
         return $this->json($this->tourService->getTourById($id));
-    }
-
-    /**
-     * @Route("/get-reservations", methods={"GET"})
-     */
-    public function reservationsAction(): Response
-    {
-        return $this->json(['get reservations']);
     }
 }

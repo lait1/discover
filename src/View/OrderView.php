@@ -9,9 +9,9 @@ class OrderView implements \JsonSerializable
 {
     private OrderTour $entity;
 
-    public function __construct(OrderTour $review)
+    public function __construct(OrderTour $orderTour)
     {
-        $this->entity = $review;
+        $this->entity = $orderTour;
     }
 
     public function jsonSerialize(): array

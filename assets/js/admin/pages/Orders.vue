@@ -5,8 +5,32 @@
 </template>
 
 <script>
+import axiosInstance from "../requestService";
+
 export default {
-  name: "Orders"
+  name: "Orders",
+  data: () => ({
+    loading: false,
+    orders: []
+  }),
+  mounted() {
+    this.getOrders()
+  },
+  methods:{
+    getOrders(){
+      this.loading = true
+      axiosInstance.get(`/api/order/get-orders/`)
+          .then((response) => {
+            this.orders = response.data
+          })
+          .catch((response) => {
+            alert("Ошибка загрузки заказов");
+          })
+          .finally(() => {
+            this.loading = false
+          })
+    }
+  }
 }
 </script>
 

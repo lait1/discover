@@ -9,6 +9,8 @@ use App\Exception\ValidationErrorException;
 use App\Repository\CategoryRepository;
 use App\Repository\OrderTourRepository;
 use App\Repository\TourRepository;
+use App\View\OrderList;
+use App\View\OrderView;
 use DateTimeInterface;
 use Psr\Log\LoggerInterface;
 
@@ -87,6 +89,16 @@ class OrderService
     public function getCategories(): array
     {
         return $this->categoryRepository->findAll();
+    }
+
+    public function getOrders(): OrderList
+    {
+        $list = new OrderList();
+        foreach ($this->orderRepository->getAllOrders() as $order) {
+            $list->setOrderView(new OrderView($order));
+        }
+
+        return $list;
     }
 
     private function getDateTime(string $date): DateTimeInterface

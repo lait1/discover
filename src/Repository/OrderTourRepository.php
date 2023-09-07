@@ -11,10 +11,10 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Review>
  *
- * @method Review|null find($id, $lockMode = null, $lockVersion = null)
- * @method Review|null findOneBy(array $criteria, array $orderBy = null)
- * @method Review[]    findAll()
- * @method Review[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OrderTour|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OrderTour|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OrderTour[]    findAll()
+ * @method OrderTour[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class OrderTourRepository extends ServiceEntityRepository
 {
@@ -57,5 +57,10 @@ class OrderTourRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult()
         ;
+    }
+
+    public function getAllOrders(): array
+    {
+        return $this->findAll();
     }
 }
