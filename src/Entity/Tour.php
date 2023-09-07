@@ -394,4 +394,8 @@ class Tour
     {
         $this->youtubeLink = $youtubeLink;
     }
+
+    public function getIncludePrice()
+    {
+    }
 }

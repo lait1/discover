@@ -62,6 +62,7 @@
           <template #content  >
             <TourFormDescription
                 :tour-id="tour.id"
+                :tour-descriptions="tour.tourDescriptions"
             />
           </template>
         </TourFormLayout>
@@ -72,7 +73,12 @@
             example-image="example-price.jpg"
         >
           <template #content  >
-
+            <TourFormDetails
+                :tour-id="tour.id"
+                :tour-price="tour.price"
+                :tour-include-price="tour.includePrice"
+                :tour-exclude-price="tour.excludePrice"
+            />
           </template>
         </TourFormLayout>
       </v-tab-item>
@@ -108,10 +114,11 @@ import TourFormBanner from "../components/TourFormBanner";
 import LoaderLocal from "../components/LoaderLocal";
 import TourFormDescription from "../components/TourFormDescription";
 import TourFormWhereToGo from "../components/TourFormWhereToGo";
+import TourFormDetails from "../components/TourFormDetails";
 
 export default {
   name: "TourEdit",
-  components: {TourFormWhereToGo, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
+  components: {TourFormWhereToGo, TourFormDetails, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
   data: function () {
     return {
       selectedTab: null,

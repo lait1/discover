@@ -40,6 +40,14 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/get-options", methods={"GET"})
+     */
+    public function getOptionsAction(): Response
+    {
+        return $this->json($this->tourService->getOptions());
+    }
+
+    /**
      * @Route("/tour/create-tour", methods={"POST"})
      */
     public function createTourAction(Request $request): Response

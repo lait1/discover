@@ -71,9 +71,9 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard', link: '/admin/dashboard' },
         { title: 'Туры', icon: 'mdi-view-list', link: '/admin/tours' },
         { title: 'Заказы', icon: 'mdi-cash', link: '/admin/orders' },
+        { title: 'Коментарии', icon: 'mdi-view-dashboard', link: '/admin/comments' },
         { title: 'Клиенты', icon: 'mdi-account-group', link: '/admin/clients' },
         { title: 'Users', icon: 'mdi-account-box', link: '/admin/users' },
         { title: 'Setting site', icon: 'mdi-security', link: '/admin/settings' },

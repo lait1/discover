@@ -9,13 +9,7 @@
         outlined
         required
     ></v-text-field>
-    <v-text-field
-        v-model="tour.price"
-        label="Цена"
-        type="number"
-        value="100"
-        prefix="GEL"
-    ></v-text-field>
+
     <v-checkbox
         v-model="tour.public"
         label="Показать на сайте"

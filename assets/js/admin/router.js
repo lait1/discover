@@ -12,10 +12,10 @@ const routes = [
         component: () => import('./App.vue')
     },
     {
-        path: '/admin/dashboard',
-        name: 'dashboard',
+        path: '/admin/comments',
+        name: 'comments',
         authGuard: true,
-        component: () => import('./pages/Dashboard.vue')
+        component: () => import('./pages/Comments.vue')
     },
     {
         path: '/admin/tours',

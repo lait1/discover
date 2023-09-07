@@ -1,10 +1,10 @@
 <template>
 <div class="tour-form__description">
-  <h3 class="tour-form__header">Что вас ожидает:</h3>
-  <v-row>
+  <v-row v-for="description in tour.descriptions" :key="description.id">
     <v-col cols="12">
       <v-text-field
           label="Заголовок"
+          v-model="description.header"
           maxlength="50"
           counter
           outlined
@@ -12,11 +12,22 @@
       ></v-text-field>
       <v-textarea
           label="Полное описание"
-          maxlength="300"
+          v-model="description.content"
+          maxlength="550"
           counter
           outlined
           required
       ></v-textarea>
+      <div class="tour-form__photo">
+        <div class="tour-form__photo-thumbnail" v-if="description.image">
+          <img :src="'/build/images/tour/' + description.image">
+          <button
+              type="button"
+              class="delete fa fa-remove">
+          </button>
+        </div>
+      </div>
+
       <v-file-input
           small-chips
           multiple
@@ -26,15 +37,85 @@
       ></v-file-input>
     </v-col>
   </v-row>
+
+  <v-btn
+      class="mr-4"
+      color="success"
+      @click="updateInfo"
+  >
+    Сохранить
+  </v-btn>
+
 </div>
 </template>
 
 <script>
+import axiosInstance from "../requestService";
+
 export default {
-  name: "TourFormDescription"
+  name: "TourFormDescription",
+  props: ['tourId', 'tourDescriptions'],
+  data: function () {
+    return {
+      tour: {
+        id: this.tourId,
+        descriptions: this.tourDescriptions,
+      },
+    }
+  },
+  methods: {
+    updateInfo(){
+      axiosInstance.post(`/api/tour/update-desc-info/`, this.tour)
+          .then((response) => {
+            if (response.data.message === 'success'){
+              alert("Данные успешно обновлены");
+            }
+          })
+          .catch((response) => {
+            console.error(response)
+            alert("Save tour failed");
+          })
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.tour-form {
+  &__photo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
+    &-thumbnail {
+      margin: 5px;
+      position: relative;
+    }
+
+    &:hover img {
+      filter: brightness(40%);
+    }
+
+    &:hover button {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: .3s ease-in-out;
+    }
+
+    button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      display: none;
+    }
+  }
+}
 </style>

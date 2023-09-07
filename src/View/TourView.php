@@ -35,6 +35,8 @@ class TourView implements \JsonSerializable
             'tourDescriptions' => $this->tour->getTourDescriptions(),
             'mainPhoto'        => $this->tour->getMainImage(),
             'youtubeLink'      => $this->tour->getYoutubeLink(),
+            //            'includePrice'     => $this->tour->getIncludePrice(),
+            //            'excludePrice'     => $this->tour->getExcludePrice(),
         ];
     }
 }

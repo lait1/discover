@@ -8,6 +8,7 @@ use App\DTO\UpdateBannerInfoDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
 use App\Repository\CategoryRepository;
+use App\Repository\TourOptionRepository;
 use App\Repository\TourRepository;
 use App\View\TourList;
 use App\View\TourView;
@@ -16,13 +17,17 @@ class TourService
 {
     private TourRepository $tourRepository;
 
+    private TourOptionRepository $tourOptionRepository;
+
     private CategoryRepository $categoryRepository;
 
     public function __construct(
         TourRepository $tourRepository,
+        TourOptionRepository $tourOptionRepository,
         CategoryRepository $categoryRepository
     ) {
         $this->tourRepository = $tourRepository;
+        $this->tourOptionRepository = $tourOptionRepository;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -87,5 +92,10 @@ class TourService
         $tour->setDescription($whereToGoDTO->description);
 
         $this->tourRepository->save($tour);
+    }
+
+    public function getOptions(): array
+    {
+        return $this->tourOptionRepository->findAll();
     }
 }
