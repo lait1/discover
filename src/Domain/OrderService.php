@@ -101,6 +101,22 @@ class OrderService
         return $list;
     }
 
+    public function approve(int $orderId): void
+    {
+        $order = $this->orderRepository->getOrderById($orderId);
+        $order->approve();
+
+        $this->orderRepository->save($order);
+    }
+
+    public function reject(int $orderId): void
+    {
+        $order = $this->orderRepository->getOrderById($orderId);
+        $order->reject();
+
+        $this->orderRepository->save($order);
+    }
+
     private function getDateTime(string $date): DateTimeInterface
     {
         return \DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $date . '00:00:00');
