@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,10 +42,14 @@ class Client implements PasswordAuthenticatedUserInterface
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="author", orphanRemoval=true) */
     private $reviews;
 
+    /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
+    private int $createdAt;
+
     public function __construct(string $phone, string $name)
     {
         $this->phone = trim(strip_tags($phone));
         $this->name = trim(strip_tags($name));
+        $this->createdAt = time();
     }
 
     public function getId(): ?int
@@ -150,5 +155,10 @@ class Client implements PasswordAuthenticatedUserInterface
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return (new \DateTimeImmutable())->setTimestamp($this->createdAt);
     }
 }
