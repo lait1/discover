@@ -128,4 +128,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->telegramToken;
     }
+
+    public function setTelegramToken(?string $telegramToken): void
+    {
+        $this->telegramToken = $telegramToken;
+    }
 }
