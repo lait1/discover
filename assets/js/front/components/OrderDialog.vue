@@ -137,10 +137,10 @@ export default {
     }
   },
   watch: {
-    selectedDate: function(newVal) {
-      this.calendarData = newVal
-      this.order.date = newVal.selectedDate
-    }
+    selectedDate: function(newDate) {
+      this.calendarData = newDate
+      this.order.date = newDate.selectedDate
+    },
   },
   computed: {
     showCommentDialog() {
@@ -169,7 +169,6 @@ export default {
     clearForm() {
       this.order.name = ''
       this.order.date = ''
-      this.order.phone = ''
       this.order.text = ''
     },
     validation() {
@@ -196,6 +195,9 @@ export default {
       if (! this.validation()){
         return
       }
+
+      this.order.date = this.calendarData.selectedDate
+
       axios.post('/order/reservation', this.order)
           .then((response) => {
             if (response.data.message === 'success'){

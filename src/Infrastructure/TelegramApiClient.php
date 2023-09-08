@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure;
 
+use App\Application\Router;
 use App\Domain\Model\CallbackData;
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
@@ -12,14 +13,17 @@ class TelegramApiClient
 
     private BotApi $telegramErrorChannel;
 
+    private Router $router;
+
     public function __construct(
+        Router $router,
         string $telegramToken,
-        string $telegramErrorChannelToken,
-        string $siteUrl
+        string $telegramErrorChannelToken
     ) {
         $this->telegramBot = new BotApi($telegramToken);
-        $this->telegramBot->setWebhook($siteUrl);
         $this->telegramErrorChannel = new BotApi($telegramErrorChannelToken);
+        $this->router = $router;
+        $this->telegramBot->setWebhook($router->generate('telegram-webhook'));
     }
 
     public function sendMessage(string $recipient, string $message, int $tourId): void
@@ -27,8 +31,8 @@ class TelegramApiClient
         $keyboard = new InlineKeyboardMarkup(
             [
                 [
-                    ['text' => 'Подтвердить', 'callback_data' => CallbackData::buildApproveData($tourId)],
-                    ['text' => 'Отказать', 'callback_data' => CallbackData::buildRejectData($tourId)],
+                    ['text' => 'Подтвердить', 'callback_data' => json_encode(CallbackData::buildApproveData($tourId))],
+                    ['text' => 'Отказать', 'callback_data' => json_encode(CallbackData::buildRejectData($tourId))],
                 ],
             ]
         );

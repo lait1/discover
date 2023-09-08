@@ -20,7 +20,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/client/get-clients", methods={"GET"})
      */
-    public function getCommentsAction(): Response
+    public function getClientsAction(): Response
     {
         return $this->json($this->clientService->getAllClients());
     }

@@ -5,7 +5,7 @@ namespace App\View;
 
 use App\Entity\User;
 
-class UsersView implements \JsonSerializable
+class UserView implements \JsonSerializable
 {
     private User $entity;
 

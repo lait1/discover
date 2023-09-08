@@ -71,7 +71,8 @@ export default {
       { text: 'Дата бронирования', value: 'dateReservation' },
       { text: 'Число людей', value: 'countPeople' },
       { text: 'Коммент', value: 'comment' },
-      { text: 'Actions', value: 'actions', sortable: false },]
+      { text: 'Actions', value: 'actions', sortable: false },
+    ]
   }),
   mounted() {
     this.getOrders()

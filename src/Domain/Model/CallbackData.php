@@ -11,11 +11,11 @@ class CallbackData implements \JsonSerializable
 
     private int $tourId;
 
-    private string $hash;
+    private ?string $hash = null;
 
     private function __construct(OrderStatusEnum $status, int $tourId)
     {
-        $this->status = $status->getValue();
+        $this->status = $status;
         $this->tourId = $tourId;
     }
 
@@ -38,8 +38,8 @@ class CallbackData implements \JsonSerializable
     {
         return [
             'tourId' => $this->tourId,
-            'status' => $this->status,
-            'hash'   => $this->hash,
+            'status' => $this->status->getValue(),
+            //            'hash'   => $this->hash,
         ];
     }
 }

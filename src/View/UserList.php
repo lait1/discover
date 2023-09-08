@@ -7,7 +7,7 @@ class UserList implements \JsonSerializable
 {
     private array $user = [];
 
-    public function setClientView(UserList $view): void
+    public function setUserView(UserView $view): void
     {
         $this->user[] = $view;
     }

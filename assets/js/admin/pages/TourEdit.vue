@@ -87,7 +87,9 @@
             example-image="example-faq.jpg"
         >
           <template #content  >
-
+            <TourFormFAQ
+                :tour-id="tour.id"
+              />
           </template>
         </TourFormLayout>
       </v-tab-item>
@@ -104,10 +106,11 @@ import LoaderLocal from "../components/LoaderLocal";
 import TourFormDescription from "../components/TourFormDescription";
 import TourFormWhereToGo from "../components/TourFormWhereToGo";
 import TourFormDetails from "../components/TourFormDetails";
+import TourFormFAQ from "../components/TourFormFAQ";
 
 export default {
   name: "TourEdit",
-  components: {TourFormWhereToGo, TourFormDetails, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
+  components: {TourFormWhereToGo, TourFormDetails, TourFormFAQ, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
   data: function () {
     return {
       selectedTab: null,

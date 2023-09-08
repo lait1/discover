@@ -37,11 +37,12 @@ import axiosInstance from "../requestService";
 
 export default {
   name: "TourFormDetails",
-  props: ['tourId', 'tourIncludePrice', 'tourExcludePrice'],
+  props: ['tourId', 'tourPrice', 'tourIncludePrice', 'tourExcludePrice'],
   data: function () {
     return {
       tour: {
         id: this.tourId,
+        price: this.tourPrice,
         includePrice: this.tourIncludePrice,
         excludePrice: this.tourExcludePrice,
       },
