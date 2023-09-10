@@ -104,7 +104,7 @@
                             <h2>{{ desc.header }}</h2>
                             <p>{{ desc.content }}</p>
                         </div>
-                        <img class="tour__info-list-item__image" src="{{ asset("build/images/tour/" ~ desc.image) }}"
+                        <img class="tour__info-list-item__image" src="{{ asset(desc.image) }}"
                              alt="">
                     </div>
                 {% endfor %}

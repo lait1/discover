@@ -26,8 +26,15 @@ class TourDescription implements \JsonSerializable
     /** @ORM\Column(type="string") */
     private string $image;
 
-    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="tourDescriptions") */
+    /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="tourDescriptions", cascade={"persist", "remove"}) */
     private $tour;
+
+    public function __construct(string $header, string $content, string $image)
+    {
+        $this->header = $header;
+        $this->content = $content;
+        $this->image = "/uploads/{$image}";
+    }
 
     public function getTour(): ?Tour
     {

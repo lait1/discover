@@ -5,13 +5,16 @@ namespace App\Domain;
 
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
+use App\DTO\UpdateDescriptionDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
+use App\Entity\TourDescription;
 use App\Repository\CategoryRepository;
 use App\Repository\TourOptionRepository;
 use App\Repository\TourRepository;
 use App\View\TourList;
 use App\View\TourView;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class TourService
 {
@@ -19,15 +22,19 @@ class TourService
 
     private TourOptionRepository $tourOptionRepository;
 
+    private FileUploader $fileUploader;
+
     private CategoryRepository $categoryRepository;
 
     public function __construct(
         TourRepository $tourRepository,
         TourOptionRepository $tourOptionRepository,
+        FileUploader $fileUploader,
         CategoryRepository $categoryRepository
     ) {
         $this->tourRepository = $tourRepository;
         $this->tourOptionRepository = $tourOptionRepository;
+        $this->fileUploader = $fileUploader;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -97,5 +104,16 @@ class TourService
     public function getOptions(): array
     {
         return $this->tourOptionRepository->findAll();
+    }
+
+    public function updateDescriptionInfo(UpdateDescriptionDTO $dto, ?UploadedFile $file): void
+    {
+        $tour = $this->tourRepository->getById($dto->tourId);
+        $imagePath = $this->fileUploader->upload($file);
+
+        $tourDesc = new TourDescription($dto->header, $dto->content, $imagePath);
+        $tour->addTourDescription($tourDesc);
+
+        $this->tourRepository->save($tour);
     }
 }

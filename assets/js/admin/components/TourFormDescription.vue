@@ -1,7 +1,14 @@
 <template>
 <div class="tour-form__description">
-  <v-row v-for="description in tour.descriptions" :key="description.id">
-    <v-col cols="12">
+  <v-btn
+      class="mb-4"
+      color="primary"
+      @click="addNewDesc()"
+  >
+    Добавить блок
+  </v-btn>
+  <v-row v-for="(description, index) in tour.descriptions" :key="index">
+    <v-col cols="10">
       <v-text-field
           label="Заголовок"
           v-model="description.header"
@@ -18,54 +25,99 @@
           outlined
           required
       ></v-textarea>
-      <div class="tour-form__photo">
-        <div class="tour-form__photo-thumbnail" v-if="description.image">
-          <img :src="'/build/images/tour/' + description.image">
-          <button
-              type="button"
-              class="delete fa fa-remove">
-          </button>
-        </div>
-      </div>
 
-      <v-file-input
-          small-chips
-          multiple
-          show-size
-          accept="image/png, image/jpeg, image/jpg"
-          label="Фото описания"
-      ></v-file-input>
+    <TourFormDescriptionImage
+        :imageIdTour="index"
+        :imageTour="description.image"
+        @changeImage="changeImage"
+      />
+
+    </v-col>
+    <v-col cols="2">
+      <v-btn
+          class="ma-2"
+          fab
+          dark
+          small
+          color="red"
+          @click="removeDesc(index)"
+      >
+        <v-icon dark>
+          mdi-minus
+        </v-icon>
+      </v-btn>
+
+      <v-btn
+          class="ma-2"
+          fab
+          dark
+          small
+          color="success"
+          @click="saveInfo(index)"
+      >
+        <v-icon dark>
+          mdi-content-save
+        </v-icon>
+      </v-btn>
+
     </v-col>
   </v-row>
-
-  <v-btn
-      class="mr-4"
-      color="success"
-      @click="updateInfo"
-  >
-    Сохранить
-  </v-btn>
-
 </div>
 </template>
 
 <script>
 import axiosInstance from "../requestService";
+import TourFormDescriptionImage from "./TourFormDescriptionImage";
 
 export default {
   name: "TourFormDescription",
   props: ['tourId', 'tourDescriptions'],
+  components: {
+    TourFormDescriptionImage
+  },
   data: function () {
     return {
+      imageUrl: null,
       tour: {
         id: this.tourId,
-        descriptions: this.tourDescriptions,
+        descriptions: [],
       },
     }
   },
+  mounted() {
+    if (this.tourDescriptions.length > 0) {
+      this.tour.descriptions = this.tourDescriptions
+    } else {
+      this.addNewDesc()
+    }
+  },
   methods: {
-    updateInfo(){
-      axiosInstance.post(`/api/tour/update-desc-info/`, this.tour)
+    changeImage(imageInfo){
+      this.tour.descriptions[imageInfo.descId].image = imageInfo.file
+    },
+    addNewDesc(){
+      this.tour.descriptions.push(
+        {
+          id: 0,
+          header: '',
+          content: '',
+          image: null,
+        }
+      )
+    },
+    removeDesc(index){
+      this.tour.descriptions.splice(index, 1)
+    },
+    saveInfo(index){
+
+      let data = new FormData();
+      data.append('id', this.tour.descriptions[index].id);
+      data.append('tourId', this.tour.id);
+      data.append('header', this.tour.descriptions[index].header);
+      data.append('content', this.tour.descriptions[index].content);
+      data.append('image', this.tour.descriptions[index].image);
+
+      axiosInstance.post(`/api/tour/update-desc-info/`, data)
           .then((response) => {
             if (response.data.message === 'success'){
               alert("Данные успешно обновлены");

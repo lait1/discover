@@ -6,6 +6,7 @@ use App\Domain\TourService;
 use App\Domain\UploadService;
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
+use App\DTO\UpdateDescriptionDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,6 +103,23 @@ class TourController extends AbstractController
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    /**
+     * @Route("/tour/update-desc-info/", methods={"POST"})
+     */
+    public function updateDescriptionInfoAction(Request $request): Response
+    {
+        $dto = new UpdateDescriptionDTO($request->request->all());
+        $file = $request->files->get('image');
+
+//        try {
+        $this->tourService->updateDescriptionInfo($dto, $file);
+
+        return $this->json(['message' => 'success']);
+//        } catch (\Throwable $e) {
+//            return $this->json(['error' => $e->getMessage()], 500);
+//        }
     }
 
     /**

@@ -71,7 +71,7 @@ class Tour
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
     private PersistentCollection $reviews;
 
-    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour") */
+    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour",  cascade={"persist", "remove"}) */
     private PersistentCollection $tourDescriptions;
 
     public function __construct(
@@ -297,16 +297,12 @@ class Tour
 
     public function getMainImage(): ?string
     {
-        if ($this->mainImage) {
-            return "/build/images/{$this->mainImage}";
-        }
-
-        return '';
+        return $this->mainImage ?? '';
     }
 
     public function setMainImage(?string $mainImage): void
     {
-        $this->mainImage = $mainImage;
+        $this->mainImage = "/uploads/{$this->mainImage}";
     }
 
     public function setName(string $name): void
