@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\PriceDetailsTypeEnum;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
@@ -302,7 +303,7 @@ class Tour
 
     public function setMainImage(?string $mainImage): void
     {
-        $this->mainImage = "/uploads/{$this->mainImage}";
+        $this->mainImage = "/uploads/{$mainImage}";
     }
 
     public function setName(string $name): void
@@ -393,5 +394,25 @@ class Tour
 
     public function getIncludePrice()
     {
+    }
+
+    public function setIncludePriceDetails(array $includePrice): void
+    {
+        $this->details[PriceDetailsTypeEnum::INCLUDE] = $includePrice;
+    }
+
+    public function setExcludePriceDetails(array $excludePrice): void
+    {
+        $this->details[PriceDetailsTypeEnum::EXCLUDE] = $excludePrice;
+    }
+
+    public function getIncludePriceDetails(): array
+    {
+        return $this->details[PriceDetailsTypeEnum::INCLUDE];
+    }
+
+    public function getExcludePriceDetails(): array
+    {
+        return $this->details[PriceDetailsTypeEnum::EXCLUDE];
     }
 }

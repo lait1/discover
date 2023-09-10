@@ -33,7 +33,7 @@ class UploadService
         $tour->setMainImage($path);
         $this->tourRepository->save($tour);
 
-        return $path;
+        return $tour->getMainImage();
     }
 
     public function uploadTourPhoto(array $photos, int $tourId): array

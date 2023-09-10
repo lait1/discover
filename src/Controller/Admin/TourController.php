@@ -7,6 +7,7 @@ use App\Domain\UploadService;
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
 use App\DTO\UpdateDescriptionDTO;
+use App\DTO\UpdatePriceDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,13 +114,33 @@ class TourController extends AbstractController
         $dto = new UpdateDescriptionDTO($request->request->all());
         $file = $request->files->get('image');
 
-//        try {
-        $this->tourService->updateDescriptionInfo($dto, $file);
+        try {
+            $this->tourService->updateDescriptionInfo($dto, $file);
 
-        return $this->json(['message' => 'success']);
-//        } catch (\Throwable $e) {
-//            return $this->json(['error' => $e->getMessage()], 500);
-//        }
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/tour/update-price-info/", methods={"POST"})
+     */
+    public function updatePriceInfoAction(Request $request): Response
+    {
+        $dto = $this->serializer->deserialize(
+            $request->getContent(),
+            UpdatePriceDTO::class,
+            'json'
+        );
+
+        try {
+            $this->tourService->updatePriceInfo($dto);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

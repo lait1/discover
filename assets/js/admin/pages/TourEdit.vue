@@ -72,7 +72,7 @@
             example-image="example-price.jpg"
         >
           <template #content  >
-            <TourFormDetails
+            <TourFormPrice
                 :tour-id="tour.id"
                 :tour-price="tour.price"
                 :tour-include-price="tour.includePrice"
@@ -105,12 +105,12 @@ import TourFormBanner from "../components/TourFormBanner";
 import LoaderLocal from "../components/LoaderLocal";
 import TourFormDescription from "../components/TourFormDescription";
 import TourFormWhereToGo from "../components/TourFormWhereToGo";
-import TourFormDetails from "../components/TourFormDetails";
 import TourFormFAQ from "../components/TourFormFAQ";
+import TourFormPrice from "../components/TourFormPrice";
 
 export default {
   name: "TourEdit",
-  components: {TourFormWhereToGo, TourFormDetails, TourFormFAQ, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
+  components: {TourFormWhereToGo, TourFormPrice, TourFormFAQ, TourFormLayout, TourFormBanner, LoaderLocal, TourFormDescription},
   data: function () {
     return {
       selectedTab: null,

@@ -6,6 +6,7 @@ namespace App\Domain;
 use App\DTO\TourCreateDTO;
 use App\DTO\UpdateBannerInfoDTO;
 use App\DTO\UpdateDescriptionDTO;
+use App\DTO\UpdatePriceDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
 use App\Entity\TourDescription;
@@ -113,6 +114,16 @@ class TourService
 
         $tourDesc = new TourDescription($dto->header, $dto->content, $imagePath);
         $tour->addTourDescription($tourDesc);
+
+        $this->tourRepository->save($tour);
+    }
+
+    public function updatePriceInfo(UpdatePriceDTO $dto): void
+    {
+        $tour = $this->tourRepository->getById($dto->id);
+        $tour->setPrice((int) $dto->price);
+        $tour->setIncludePriceDetails($dto->includePrice);
+        $tour->setExcludePriceDetails($dto->excludePrice);
 
         $this->tourRepository->save($tour);
     }
