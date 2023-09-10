@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Domain\TourService;
+use App\Repository\TourOptionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +14,12 @@ class DefaultController extends AbstractController
 {
     private TourService $tourService;
 
-    public function __construct(TourService $tourService)
+    private TourOptionRepository $tourOptionRepository;
+
+    public function __construct(TourService $tourService, TourOptionRepository $tourOptionRepository)
     {
         $this->tourService = $tourService;
+        $this->tourOptionRepository = $tourOptionRepository;
     }
 
     /**
@@ -65,7 +69,9 @@ class DefaultController extends AbstractController
         $tour = $this->tourService->getTourBySlug($slug);
 
         return $this->render('tour.html.twig', [
-            'tour' => $tour,
+            'tour'         => $tour,
+            'includePrice' => $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails()),
+            'excludePrice' => $this->tourOptionRepository->getByIds($tour->getExcludePriceDetails()),
         ]);
     }
 

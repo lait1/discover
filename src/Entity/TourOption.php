@@ -32,4 +32,9 @@ class TourOption implements \JsonSerializable
             'text'  => $this->name,
         ];
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

@@ -19,4 +19,9 @@ class TourOptionRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($tourOption);
         $this->getEntityManager()->flush();
     }
+
+    public function getByIds(array $ids): array
+    {
+        return $this->findBy(['id' => $ids]);
+    }
 }

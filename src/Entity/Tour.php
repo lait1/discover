@@ -408,11 +408,11 @@ class Tour
 
     public function getIncludePriceDetails(): array
     {
-        return $this->details[PriceDetailsTypeEnum::INCLUDE];
+        return $this->details[PriceDetailsTypeEnum::INCLUDE] ?? [];
     }
 
     public function getExcludePriceDetails(): array
     {
-        return $this->details[PriceDetailsTypeEnum::EXCLUDE];
+        return $this->details[PriceDetailsTypeEnum::EXCLUDE] ?? [];
     }
 }

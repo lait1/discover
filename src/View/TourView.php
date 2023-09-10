@@ -9,9 +9,15 @@ class TourView implements \JsonSerializable
 {
     private Tour $tour;
 
-    public function __construct(Tour $tour)
+    private ?array $inPrice;
+
+    private ?array $exPrice;
+
+    public function __construct(Tour $tour, ?array $inPrice = null, ?array $exPrice = null)
     {
         $this->tour = $tour;
+        $this->inPrice = $inPrice;
+        $this->exPrice = $exPrice;
     }
 
     public function jsonSerialize(): array
@@ -26,7 +32,6 @@ class TourView implements \JsonSerializable
             'longTime'         => $this->tour->getLongTime(),
             'complexity'       => $this->tour->getComplexity(),
             'groupSize'        => $this->tour->getGroupSize(),
-            'details'          => $this->tour->getDetails(),
             'keyWords'         => $this->tour->getKeyWords(),
             'createdAt'        => $this->tour->getCreatedAt(),
             'public'           => $this->tour->isPublic(),
@@ -35,8 +40,8 @@ class TourView implements \JsonSerializable
             'tourDescriptions' => $this->tour->getTourDescriptions(),
             'mainPhoto'        => $this->tour->getMainImage(),
             'youtubeLink'      => $this->tour->getYoutubeLink(),
-            //            'includePrice'     => $this->tour->getIncludePriceDetails(),
-            //            'excludePrice'     => $this->tour->getExcludePriceDetails(),
+            'includePrice'     => $this->inPrice,
+            'excludePrice'     => $this->exPrice,
         ];
     }
 }

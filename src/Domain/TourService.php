@@ -42,8 +42,11 @@ class TourService
     public function getAllTours(): TourList
     {
         $tourList = new TourList();
+        /** @var Tour $tour */
         foreach ($this->tourRepository->getAllTours() as $tour) {
-            $tourList->setTourView(new TourView($tour));
+            $tourView = $this->buildTourView($tour);
+
+            $tourList->setTourView($tourView);
         }
 
         return $tourList;
@@ -66,9 +69,7 @@ class TourService
 
     public function getTourById(int $id): TourView
     {
-        $tour = $this->tourRepository->getById($id);
-
-        return new TourView($tour);
+        return $this->buildTourView($this->tourRepository->getById($id));
     }
 
     public function createTour(TourCreateDTO $dto): Tour
@@ -126,5 +127,13 @@ class TourService
         $tour->setExcludePriceDetails($dto->excludePrice);
 
         $this->tourRepository->save($tour);
+    }
+
+    private function buildTourView(Tour $tour): TourView
+    {
+        $inPrice = $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails());
+        $exPrice = $this->tourOptionRepository->getByIds($tour->getExcludePriceDetails());
+
+        return new TourView($tour, $inPrice, $exPrice);
     }
 }

@@ -119,17 +119,17 @@
                 <div class="tour__details-info__block">
                     <h3>Цена включает</h3>
                     <ul class="tour__details-info__list">
-                        <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>Комфортабельный транспорт</li>
-                        <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>Гид-экскурсовод</li>
-                        <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>Встреча у места проживания</li>
+                        {% for details in includePrice %}
+                            <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>{{ details.name }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="tour__details-info__block">
                     <h3>Дополнительные расходы</h3>
                     <ul class="tour__details-info__list">
-                        <li><div><svg class="icon"><use xlink:href="#Minus"></use></svg></div>Питание</li>
-                        <li><div><svg class="icon"><use xlink:href="#Minus"></use></svg></div>Входные билеты</li>
-                        <li><div><svg class="icon"><use xlink:href="#Minus"></use></svg></div>Фото и видеосъемка (по желанию)</li>
+                        {% for details in excludePrice %}
+                            <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>{{ details.name }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
