@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     updateInfo(){
-      axiosInstance.post(`/api/tour/update-where-to-go-info/`, this.tour)
+      axiosInstance.post(`/api/tour/update-where-to-go-info`, this.tour)
           .then((response) => {
             if (response.data.message === 'success'){
               alert("Данные успешно обновлены");

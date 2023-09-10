@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getOptions(){
-      axiosInstance.get(`/api/get-options/`)
+      axiosInstance.get(`/api/get-options`)
           .then((response) => {
             this.options = response.data
           })
@@ -64,7 +64,7 @@ export default {
           })
     },
     updateInfo(){
-      axiosInstance.post(`/api/tour/update-price-info/`, this.tour)
+      axiosInstance.post(`/api/tour/update-price-info`, this.tour)
           .then((response) => {
             if (response.data.message === 'success'){
               alert("Данные успешно обновлены");

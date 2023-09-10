@@ -49,7 +49,7 @@ export default {
   methods:{
     getClients(){
       this.loading = true
-      axiosInstance.get(`/api/client/get-clients/`)
+      axiosInstance.get(`/api/client/get-clients`)
           .then((response) => {
             this.clients = response.data
           })

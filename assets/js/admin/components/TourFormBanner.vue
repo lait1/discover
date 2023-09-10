@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     getCategories(){
-      axiosInstance.get(`/api/get-categories/`)
+      axiosInstance.get(`/api/get-categories`)
           .then((response) => {
             this.categories = response.data
           })
@@ -77,7 +77,7 @@ export default {
           })
     },
     updateInfo(){
-      axiosInstance.post(`/api/tour/update-banner-info/`, this.tour)
+      axiosInstance.post(`/api/tour/update-banner-info`, this.tour)
           .then((response) => {
             if (response.data.message === 'success'){
               alert("Данные успешно обновлены");

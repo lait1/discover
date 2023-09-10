@@ -67,7 +67,7 @@ class TourController extends AbstractController
     }
 
     /**
-     * @Route("/tour/update-banner-info/", methods={"POST"})
+     * @Route("/tour/update-banner-info", methods={"POST"})
      */
     public function updateBannerInfoAction(Request $request): Response
     {
@@ -87,7 +87,7 @@ class TourController extends AbstractController
     }
 
     /**
-     * @Route("/tour/update-where-to-go-info/", methods={"POST"})
+     * @Route("/tour/update-where-to-go-info", methods={"POST"})
      */
     public function updateWhereToGoInfoAction(Request $request): Response
     {
@@ -107,7 +107,7 @@ class TourController extends AbstractController
     }
 
     /**
-     * @Route("/tour/update-desc-info/", methods={"POST"})
+     * @Route("/tour/update-desc-info", methods={"POST"})
      */
     public function updateDescriptionInfoAction(Request $request): Response
     {
@@ -124,7 +124,7 @@ class TourController extends AbstractController
     }
 
     /**
-     * @Route("/tour/update-price-info/", methods={"POST"})
+     * @Route("/tour/update-price-info", methods={"POST"})
      */
     public function updatePriceInfoAction(Request $request): Response
     {

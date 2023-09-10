@@ -63,7 +63,7 @@ export default {
   methods:{
     getUsers(){
       this.loading = true
-      axiosInstance.get(`/api/user/get-users/`)
+      axiosInstance.get(`/api/user/get-users`)
           .then((response) => {
             this.users = response.data
           })

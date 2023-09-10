@@ -65,7 +65,7 @@ export default {
   methods:{
     getComments(){
       this.loading = true
-      axiosInstance.get(`/api/comment/get-comments/`)
+      axiosInstance.get(`/api/comment/get-comments`)
           .then((response) => {
             this.comments = response.data
           })

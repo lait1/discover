@@ -145,7 +145,7 @@ export default {
   methods: {
     getTours() {
       this.loading = true
-      axiosInstance.get(`/api/tour/get-tour-list/`)
+      axiosInstance.get(`/api/tour/get-tour-list`)
           .then((response) => {
             this.tours = response.data
           })

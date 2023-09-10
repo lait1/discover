@@ -7,7 +7,7 @@ class UpdatePriceDTO
 {
     public int $id;
 
-    public string $price;
+    public $price;
 
     public array $includePrice;
 

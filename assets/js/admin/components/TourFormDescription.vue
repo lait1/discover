@@ -117,7 +117,7 @@ export default {
       data.append('content', this.tour.descriptions[index].content);
       data.append('image', this.tour.descriptions[index].image);
 
-      axiosInstance.post(`/api/tour/update-desc-info/`, data)
+      axiosInstance.post(`/api/tour/update-desc-info`, data)
           .then((response) => {
             if (response.data.message === 'success'){
               alert("Данные успешно обновлены");

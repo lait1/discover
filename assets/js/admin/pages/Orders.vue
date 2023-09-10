@@ -80,7 +80,7 @@ export default {
   methods:{
     getOrders(){
       this.loading = true
-      axiosInstance.get(`/api/order/get-orders/`)
+      axiosInstance.get(`/api/order/get-orders`)
           .then((response) => {
             this.orders = response.data
           })
