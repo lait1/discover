@@ -38,7 +38,7 @@ class ReviewRepository extends ServiceEntityRepository
 
     public function getByTourId(int $id): array
     {
-        return $this->findBy(['tour' => $id]);
+        return $this->findBy(['tour' => $id, 'public' => true]);
     }
 
     public function getById(int $id): Review
@@ -49,6 +49,11 @@ class ReviewRepository extends ServiceEntityRepository
     public function getAllComments(): array
     {
         return $this->findAll();
+    }
+
+    public function getPublicComments(): array
+    {
+        return $this->findBy(['public' => true]);
     }
 
     public function getReviewsForMainPage(): array
