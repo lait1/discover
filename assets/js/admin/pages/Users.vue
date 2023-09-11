@@ -84,7 +84,7 @@ export default {
           })
     },
     addUser(){
-      this.$router.push({path: `/admin/user/create`});
+      this.$router.push({path: `/admin/user/form`});
     },
     editUser(item){
       this.$router.push({path: `/admin/user/${item.id}/edit`});

@@ -30,8 +30,8 @@ const routes = [
         component: () => import('./pages/TourEdit.vue')
     },
     {
-        path: '/admin/user/create',
-        name: 'user-create',
+        path: '/admin/user/form',
+        name: 'user-form',
         authGuard: true,
         component: () => import('./pages/UserEdit.vue')
     },
