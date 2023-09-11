@@ -228,4 +228,18 @@ class TourController extends AbstractController
             return $this->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    /**
+     * @Route("/tour/remove/{tourId}", methods={"POST"})
+     */
+    public function removeAction(int $tourId): Response
+    {
+        try {
+            $this->tourService->remove($tourId);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

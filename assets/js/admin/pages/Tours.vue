@@ -125,7 +125,7 @@ export default {
     tour:{
       name: ''
     },
-    editedIndex: -1,
+    editedTour: {},
     tours: [],
     headers: [   {
       text: 'Название',
@@ -163,7 +163,7 @@ export default {
       this.$router.push({path: `/admin/tour/${item.id}/edit`});
     },
     deleteItem (item) {
-      this.editedIndex = this.tours.indexOf(item)
+      this.editedTour = item
       this.dialogDelete = true
     },
     togglePublic(item){
@@ -182,7 +182,15 @@ export default {
       }
     },
     deleteItemConfirm () {
-      this.tours.splice(this.editedIndex, 1)
+      axiosInstance.post(`/api/tour/remove/${this.editedTour.id}`)
+          .then((response) => {
+            let index = this.tours.indexOf(this.editedTour)
+            this.tours.splice(index, 1)
+          })
+          .catch((response) => {
+            console.error(response)
+            alert("Ошибка судаления тура");
+          })
       this.closeDelete()
     },
 

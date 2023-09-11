@@ -18,6 +18,14 @@
             vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-btn
+            color="primary"
+            dark
+            class="mb-2"
+            @click="addUser"
+        >
+          Добавить
+        </v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item.role="{ item }">
@@ -49,6 +57,7 @@ export default {
   name: "Users",
   data: () => ({
     loading: false,
+    dialogCreate: false,
     users: [],
     headers: [
       { text: 'Email', value: 'email', align: 'start' },
@@ -74,8 +83,11 @@ export default {
             this.loading = false
           })
     },
+    addUser(){
+      this.$router.push({path: `/admin/user/create`});
+    },
     editUser(item){
-
+      this.$router.push({path: `/admin/user/${item.id}/edit`});
     }
   }
 }

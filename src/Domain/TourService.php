@@ -145,6 +145,13 @@ class TourService
         $this->tourRepository->save($tour);
     }
 
+    public function remove(int $tourId): void
+    {
+        $tour = $this->tourRepository->getById($tourId);
+
+        $this->tourRepository->remove($tour);
+    }
+
     private function buildTourView(Tour $tour): TourView
     {
         $inPrice = $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails());

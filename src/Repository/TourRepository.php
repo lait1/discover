@@ -55,4 +55,10 @@ class TourRepository extends ServiceEntityRepository
 
         return $tour;
     }
+
+    public function remove(Tour $tour): void
+    {
+        $this->getEntityManager()->remove($tour);
+        $this->getEntityManager()->flush();
+    }
 }

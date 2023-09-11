@@ -52,6 +52,8 @@ class DefaultController extends AbstractController
      * @Route("/admin/comments", name="app_admin_comments")
      * @Route("/admin/clients", name="app_admin_clients")
      * @Route("/admin/users", name="app_admin_users")
+     * @Route("/admin/user/{id}/edit", name="app_admin_user_edit")
+     * @Route("/admin/user/create", name="app_admin_user_create")
      * @Route("/admin/settings", name="app_admin_settings")
      */
     public function loginAction(): Response
