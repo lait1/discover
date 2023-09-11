@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Domain\OrderService;
 use App\DTO\OrderDTO;
+use App\DTO\OrderMyTourDTO;
 use App\Exception\ValidationErrorException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +44,27 @@ class OrderController extends AbstractController
         );
         try {
             $this->orderService->bookAnOrder($dto);
+
+            return $this->json(['message' => 'success']);
+        } catch (ValidationErrorException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/order/make-my-tour", name="make-my-tour", methods={"POST"})
+     */
+    public function makeMyTourAction(Request $request): Response
+    {
+        $dto = $this->serializer->deserialize(
+            $request->getContent(),
+            OrderMyTourDTO::class,
+            'json'
+        );
+        try {
+            $this->orderService->bookMyTour($dto);
 
             return $this->json(['message' => 'success']);
         } catch (ValidationErrorException $e) {

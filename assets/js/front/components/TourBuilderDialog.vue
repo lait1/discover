@@ -305,7 +305,9 @@ export default {
       if (! this.validation()){
         return
       }
-      axios.post('/order/reservation', this.order)
+      this.order.selectedCategories = this.selections
+
+      axios.post('/order/make-my-tour', this.order)
           .then((response) => {
             if (response.data.message === 'success'){
               this.successRequest()

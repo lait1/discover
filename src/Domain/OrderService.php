@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use App\DTO\OrderDTO;
+use App\DTO\OrderMyTourDTO;
 use App\Entity\OrderTour;
 use App\Exception\ValidationErrorException;
 use App\Repository\CategoryRepository;
@@ -72,6 +73,18 @@ class OrderService
             );
             $this->notificator->sendErrorNotification($e->getMessage());
         }
+    }
+
+    public function bookMyTour(OrderMyTourDTO $dto): void
+    {
+        $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
+        //TODO доделать создание уникального тура
+        $order = new OrderTour(time(), $dto->countPeople, $dto->text);
+        $order->setClient($client);
+
+        $this->orderRepository->save($order);
+
+        $this->notificator->sendNotification($order);
     }
 
     public function getUnavailableDates(): array
