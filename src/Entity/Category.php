@@ -28,11 +28,9 @@ class Category implements \JsonSerializable
     /** @ORM\ManyToMany(targetEntity=Tour::class, mappedBy="categories") */
     private $tours;
 
-    public function __construct(string $name, ?int $priority, $tours)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->priority = $priority;
-        $this->tours = $tours;
     }
 
     public function getId(): int

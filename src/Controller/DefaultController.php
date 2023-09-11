@@ -94,12 +94,12 @@ class DefaultController extends AbstractController
     {
         return $this->render('corporate.html.twig', [
             'photos' => json_encode([
-                'build/gallery/photos/photo1.jpeg',
-                'build/gallery/photos/photo.png',
-                'build/gallery/photos/photo2.jpeg',
-                'build/gallery/photos/photo.png',
-                'build/gallery/photos/photo1.jpeg',
-                'build/gallery/photos/photo2.jpeg',
+                'build/images/gallery/photo1.jpeg',
+                'build/images/gallery/photo.png',
+                'build/images/gallery/photo2.jpeg',
+                'build/images/gallery/photo.png',
+                'build/images/gallery/photo1.jpeg',
+                'build/images/gallery/photo2.jpeg',
             ]),
         ]);
     }

@@ -18,4 +18,10 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->findBy(['id' => $ids]);
     }
+
+    public function save(Category $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
 }
