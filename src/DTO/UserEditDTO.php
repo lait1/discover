@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-class UserCreateDTO
+class UserEditDTO
 {
+    public int $id;
+
     public string $email;
 
     public string $password;

@@ -7,7 +7,7 @@
       <v-col cols="6" >
         <v-card>
           <v-card-title>
-            <span class="text-h5">Создание нового пользователя</span>
+            <span class="text-h5">{{ title }}</span>
           </v-card-title>
 
           <v-card-text>
@@ -18,17 +18,18 @@
             </v-text-field>
             <v-text-field
                 v-model="user.password"
+                type="password"
                 label="Password"
             >
             </v-text-field>
 
             <v-text-field
-                v-model="user.telegram"
+                v-model="user.telegramToken"
                 label="Telegram"
             >
             </v-text-field>
             <v-select
-                v-model="user.roles"
+                v-model="user.role"
                 :items="roles"
                 chips
                 label="Roles"
@@ -66,11 +67,12 @@ export default {
   name: "UserEdit",
   data: () => ({
     loading: false,
+    editMode: false,
     user:{
       email: '',
       password: '',
-      roles: [],
-      telegram: '',
+      role: [],
+      telegramToken: '',
     },
     roles: [
         'ROLE_USER',
@@ -78,18 +80,49 @@ export default {
         'ROLE_GUIDE'
     ]
   }),
+  computed: {
+    title() {
+      if (this.editMode) {
+        return 'Редактировагие пользователя'
+      }
+      return 'Создание нового пользователя'
+    },
+  },
+  mounted() {
+    if (this.$route.params.id) {
+      this.getUserInfo()
+      this.editMode = true
+    }
+  },
   methods: {
-    save(){
-      axiosInstance.post(`/api/user/create`, this.user)
+    getUserInfo(){
+      axiosInstance.get(`/api/user/get-user-info/${this.$route.params.id}`)
           .then((response) => {
-            this.$router.push({path: `/admin/users`});
+            this.user = response.data
           })
           .catch((response) => {
-            alert("Ошибка создания юзера");
+            console.error(response)
           })
-          .finally(() => {
-            this.loading = false
-          })
+    },
+    save(){
+      if (this.editMode){
+        axiosInstance.post(`/api/user/edit`, this.user)
+            .then((response) => {
+              this.$router.push({path: `/admin/users`});
+            })
+            .catch((response) => {
+              alert("Ошибка создания юзера");
+            })
+      }else{
+        axiosInstance.post(`/api/user/create`, this.user)
+            .then((response) => {
+              this.$router.push({path: `/admin/users`});
+            })
+            .catch((response) => {
+              alert("Ошибка создания юзера");
+            })
+      }
+
     },
     close(){
       this.$router.push({path: `/admin/users`});
