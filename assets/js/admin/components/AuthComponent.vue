@@ -28,7 +28,7 @@
 export default {
   name: "AuthComponent",
   data: () => ({
-    userLogin: 'admin@example.com',
+    userLogin: '',
     userLoginRules: [
       value => {
         if (value?.length > 3) return true
@@ -36,7 +36,7 @@ export default {
         return 'First name must be at least 3 characters.'
       },
     ],
-    password: '123123',
+    password: '',
     passwordRules: {
       required: value => !!value || 'Required.',
       min: v => v.length >= 6 || 'Min 6 characters',

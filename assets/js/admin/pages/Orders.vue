@@ -20,6 +20,9 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
+    <template v-slot:item.status="{ item }">
+      <v-chip :color="colorByStatus(item.status)" outlined small> {{ item.status }} </v-chip>
+    </template>
     <template v-slot:item.client="{ item }">
       <span>{{ item.client.name }}</span>
       (<a :href="'tel:' + item.client.phone" class="order__list-link">{{ item.client.phone }}</a>)
@@ -78,6 +81,15 @@ export default {
     this.getOrders()
   },
   methods:{
+    colorByStatus(status){
+      if(status === 'APPROVE'){
+        return 'green'
+      }
+      if(status === 'REJECT'){
+        return 'red'
+      }
+      return 'primary'
+    },
     getOrders(){
       this.loading = true
       axiosInstance.get(`/api/order/get-orders`)
@@ -92,10 +104,32 @@ export default {
           })
     },
     approve(item){
-      alert("Заявка подтверждена, время забронировано");
+      axiosInstance.post(`/api/order/approve`, item)
+          .then((response) => {
+            if (response.data.message === 'success'){
+              let order = this.orders.find(({ id }) => id === item.id)
+              order.status = 'APPROVE'
+            }
+          })
+          .catch((response) => {
+            alert("Ошибка апрува заказа");
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
     reject(item){
-      alert("Заявка отклонена");
+      axiosInstance.post(`/api/order/reject`, item)
+          .then((response) => {
+            let order = this.orders.find(({ id }) => id === item.id)
+            order.status = 'REJECT'
+          })
+          .catch((response) => {
+            alert("Ошибка реджекта заказа");
+          })
+          .finally(() => {
+            this.loading = false
+          })
     }
   }
 }

@@ -51,7 +51,7 @@ class CommentController extends AbstractController
     public function publishMainAction(Request $request, int $commentId): Response
     {
         try {
-            $this->reviewService->publish($commentId);
+            $this->reviewService->publishMain($commentId);
 
             return $this->json(['message' => 'success']);
         } catch (\Throwable $e) {
@@ -79,7 +79,7 @@ class CommentController extends AbstractController
     public function unPublishMainAction(Request $request, int $commentId): Response
     {
         try {
-            $this->reviewService->unPublish($commentId);
+            $this->reviewService->unPublishMain($commentId);
 
             return $this->json(['message' => 'success']);
         } catch (\Throwable $e) {

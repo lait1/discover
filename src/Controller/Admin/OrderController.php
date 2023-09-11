@@ -44,7 +44,7 @@ class OrderController extends AbstractController
         );
 
         try {
-            $this->orderService->approve($dto->orderId);
+            $this->orderService->approve($dto->id);
 
             return $this->json(['message' => 'success']);
         } catch (\Throwable $e) {
@@ -64,7 +64,7 @@ class OrderController extends AbstractController
         );
 
         try {
-            $this->orderService->reject($dto->orderId);
+            $this->orderService->reject($dto->id);
 
             return $this->json(['message' => 'success']);
         } catch (\Throwable $e) {

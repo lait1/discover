@@ -72,6 +72,20 @@ class ReviewService
         $this->reviewRepository->save($review);
     }
 
+    public function publishMain(int $commentId): void
+    {
+        $review = $this->reviewRepository->getById($commentId);
+        $review->setShowMainPage();
+        $this->reviewRepository->save($review);
+    }
+
+    public function unPublishMain(int $commentId): void
+    {
+        $review = $this->reviewRepository->getById($commentId);
+        $review->unsetShowMainPage();
+        $this->reviewRepository->save($review);
+    }
+
     private function buildReviewList(array $reviews): ReviewList
     {
         $reviewList = new ReviewList();

@@ -5,5 +5,5 @@ namespace App\DTO;
 
 class OrderActionDTO
 {
-    public int $orderId;
+    public int $id;
 }

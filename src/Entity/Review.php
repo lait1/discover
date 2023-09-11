@@ -130,7 +130,7 @@ class Review
 
     public function setUnPublic(): void
     {
-        $this->public = true;
+        $this->public = false;
     }
 
     public function getAnswer(): ?string
@@ -190,5 +190,15 @@ class Review
     public function getCreatedAt(): DateTimeImmutable
     {
         return (new \DateTimeImmutable())->setTimestamp($this->createdAt);
+    }
+
+    public function setShowMainPage(): void
+    {
+        $this->showMainPage = true;
+    }
+
+    public function unsetShowMainPage(): void
+    {
+        $this->showMainPage = false;
     }
 }

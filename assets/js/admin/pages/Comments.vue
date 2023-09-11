@@ -77,18 +77,34 @@ export default {
           })
     },
     togglePublicComment(item){
-      if (item.isPublic){
-        alert("Коммент №" + item.id + " опубликован")
-      }else{
-        alert("Коммент №" + item.id + " спрятан от глаз долой")
+      if (item.isPublic) {
+        axiosInstance.post(`/api/comment/publish/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса коментария");
+            })
+      } else {
+        axiosInstance.post(`/api/comment/unpublish/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса коментария");
+            })
       }
 
     },
     togglePublicToMainComment(item){
       if (item.showMainPage){
-        alert("Коммент №" + item.id + " опубликован на главной")
+        axiosInstance.post(`/api/comment/publish-to-main/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса коментария");
+            })
       }else{
-        alert("Коммент №" + item.id + " спрятан от глаз долой")
+        axiosInstance.post(`/api/comment/unpublish-main/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса коментария");
+            })
       }
     },
   }
