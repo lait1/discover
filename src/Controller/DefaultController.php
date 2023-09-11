@@ -32,12 +32,12 @@ class DefaultController extends AbstractController
         return $this->render('index.html.twig', [
             'tours'  => $tours,
             'photos' => json_encode([
-                'build/images/photos/photo1.jpeg',
-                'build/images/photos/photo.png',
-                'build/images/photos/photo2.jpeg',
-                'build/images/photos/photo.png',
-                'build/images/photos/photo1.jpeg',
-                'build/images/photos/photo2.jpeg',
+                'build/images/gallery/photo1.jpeg',
+                'build/images/gallery/photo.png',
+                'build/images/gallery/photo2.jpeg',
+                'build/images/gallery/photo.png',
+                'build/images/gallery/photo1.jpeg',
+                'build/images/gallery/photo2.jpeg',
             ]),
         ]);
     }
@@ -94,12 +94,12 @@ class DefaultController extends AbstractController
     {
         return $this->render('corporate.html.twig', [
             'photos' => json_encode([
-                'build/images/photos/photo1.jpeg',
-                'build/images/photos/photo.png',
-                'build/images/photos/photo2.jpeg',
-                'build/images/photos/photo.png',
-                'build/images/photos/photo1.jpeg',
-                'build/images/photos/photo2.jpeg',
+                'build/gallery/photos/photo1.jpeg',
+                'build/gallery/photos/photo.png',
+                'build/gallery/photos/photo2.jpeg',
+                'build/gallery/photos/photo.png',
+                'build/gallery/photos/photo1.jpeg',
+                'build/gallery/photos/photo2.jpeg',
             ]),
         ]);
     }

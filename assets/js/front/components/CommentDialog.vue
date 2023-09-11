@@ -1,6 +1,6 @@
 <template>
-  <v-app >
-    <v-dialog v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+  <v-app class="comment__dialog">
+    <v-dialog attach=".comment__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Добавить отзыв</h1>
         <div class="wrap">

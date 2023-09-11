@@ -1,6 +1,6 @@
 <template>
-  <v-app >
-    <v-dialog class="order__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+  <v-app class="order__dialog">
+    <v-dialog attach=".order__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Заказать тур</h1>
         <div class="wrap">

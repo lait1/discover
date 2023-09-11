@@ -1,9 +1,14 @@
 <template>
-  <v-app >
-    <v-dialog v-model="showAlert" @click:outside="closeAlert" max-width="550px">
-      <v-card class="comment__dialog-alert">
-          {{ this.message }}
-      </v-card>
+  <v-app class="comment__dialog-alert">
+    <v-dialog v-model="showAlert" @click:outside="closeAlert" max-width="550px" attach=".comment__dialog-alert">
+      <v-alert
+          prominent
+          outlined
+          :type="alertType"
+          :icon="alertIcon"
+      >
+        {{ this.message }}
+      </v-alert>
     </v-dialog>
   </v-app>
 </template>
@@ -13,6 +18,18 @@ export default {
   name: "Alertdialog",
   props:['value', 'message', 'hasError'],
   computed: {
+    alertType(){
+      if (this.hasError){
+        return 'error'
+      }
+      return 'success'
+    },
+    alertIcon(){
+      if (this.hasError){
+        return 'fa-circle-exclamation'
+      }
+      return 'fa-circle-check'
+    },
     showAlert() {
       return this.value
     },
@@ -35,8 +52,10 @@ export default {
   min-height: fit-content;
 }
 ::v-deep .v-dialog{
-  border-radius: 32px;
   background: #FFF;
+  .v-alert{
+    margin-bottom: 0;
+  }
 }
 ::v-deep .vue-star-rating{
   gap: 8px;
