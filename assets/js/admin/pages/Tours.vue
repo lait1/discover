@@ -91,7 +91,7 @@
       <template v-slot:item.public="{ item }">
         <v-simple-checkbox
             v-model="item.public"
-            disabled
+            @click="togglePublic(item)"
         ></v-simple-checkbox>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -164,10 +164,23 @@ export default {
     },
     deleteItem (item) {
       this.editedIndex = this.tours.indexOf(item)
-      // this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
-
+    togglePublic(item){
+      if (item.public) {
+        axiosInstance.post(`/api/tour/publish/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса тура");
+            })
+      } else {
+        axiosInstance.post(`/api/tour/unpublish/${item.id}`)
+            .catch((response) => {
+              console.error(response)
+              alert("Ошибка смена статуса тура");
+            })
+      }
+    },
     deleteItemConfirm () {
       this.tours.splice(this.editedIndex, 1)
       this.closeDelete()

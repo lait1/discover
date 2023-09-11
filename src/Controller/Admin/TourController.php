@@ -200,4 +200,32 @@ class TourController extends AbstractController
     {
         return $this->json($this->tourService->getTourById($id));
     }
+
+    /**
+     * @Route("/tour/publish/{tourId}", methods={"POST"})
+     */
+    public function publishAction(int $tourId): Response
+    {
+        try {
+            $this->tourService->publish($tourId);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/tour/unpublish/{tourId}", methods={"POST"})
+     */
+    public function unpublishAction(int $tourId): Response
+    {
+        try {
+            $this->tourService->unpublish($tourId);
+
+            return $this->json(['message' => 'success']);
+        } catch (\Throwable $e) {
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

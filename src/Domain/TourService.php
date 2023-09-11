@@ -129,6 +129,22 @@ class TourService
         $this->tourRepository->save($tour);
     }
 
+    public function publish(int $tourId): void
+    {
+        $tour = $this->tourRepository->getById($tourId);
+        $tour->setPublic(true);
+
+        $this->tourRepository->save($tour);
+    }
+
+    public function unpublish(int $tourId): void
+    {
+        $tour = $this->tourRepository->getById($tourId);
+        $tour->setPublic(false);
+
+        $this->tourRepository->save($tour);
+    }
+
     private function buildTourView(Tour $tour): TourView
     {
         $inPrice = $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails());

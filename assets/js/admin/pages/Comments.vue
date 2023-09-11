@@ -90,7 +90,6 @@ export default {
               alert("Ошибка смена статуса коментария");
             })
       }
-
     },
     togglePublicToMainComment(item){
       if (item.showMainPage){
