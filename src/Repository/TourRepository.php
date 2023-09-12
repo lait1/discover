@@ -61,4 +61,9 @@ class TourRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($tour);
         $this->getEntityManager()->flush();
     }
+
+    public function getUniqTour(): Tour
+    {
+        return $this->getTourBySlug(Tour::UNIQ_TOUR);
+    }
 }

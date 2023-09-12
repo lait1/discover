@@ -78,9 +78,13 @@ class OrderService
     public function bookMyTour(OrderMyTourDTO $dto): void
     {
         $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
-        //TODO доделать создание уникального тура
+        $tour = $this->tourRepository->getUniqTour();
+
         $order = new OrderTour(time(), $dto->countPeople, $dto->text);
         $order->setClient($client);
+        $order->setTour($tour);
+        $order->setCountDay($dto->countDay);
+        $order->setDetails($dto->selectedCategories);
 
         $this->orderRepository->save($order);
 

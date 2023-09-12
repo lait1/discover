@@ -36,6 +36,12 @@ class OrderTour
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
     private int $countPeople;
 
+    /** @ORM\Column(type="integer", nullable=true, options={"unsigned": true}) */
+    private int $countDay;
+
+    /** @ORM\Column(name="details", type="json", nullable=true) */
+    private ?array $details;
+
     /** @ORM\Column(type="text", nullable=true) */
     private ?string $comment;
 
@@ -74,6 +80,11 @@ class OrderTour
     public function getTour(): ?Tour
     {
         return $this->tour;
+    }
+
+    public function isUniqTour(): bool
+    {
+        return $this->tour->getSlug() === Tour::UNIQ_TOUR;
     }
 
     public function setTour(Tour $tour): self
@@ -130,5 +141,27 @@ class OrderTour
     {
         $this->status = OrderStatusEnum::REJECT;
         $this->updatedAt = time();
+    }
+
+    public function getCountDay(): int
+    {
+        return $this->countDay;
+    }
+
+    public function setCountDay(int $countDay): void
+    {
+        $this->countDay = $countDay;
+    }
+
+    public function getSelectedCategory(): string
+    {
+        $textArray = array_column($this->details, 'text');
+
+        return implode(', ', $textArray);
+    }
+
+    public function setDetails(array $details): void
+    {
+        $this->details = $details;
     }
 }

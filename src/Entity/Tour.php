@@ -14,6 +14,8 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  */
 class Tour
 {
+    public const UNIQ_TOUR = 'uniq';
+
     /**
      * @ORM\Column(type="integer", options={"unsigned": true})
      * @ORM\Id()
@@ -390,10 +392,6 @@ class Tour
     public function setYoutubeLink(?string $youtubeLink): void
     {
         $this->youtubeLink = $youtubeLink;
-    }
-
-    public function getIncludePrice()
-    {
     }
 
     public function setIncludePriceDetails(array $includePrice): void

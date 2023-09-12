@@ -50,6 +50,18 @@ class Notificator
     {
         $comment = $order->getComment() ? "<b>Комментарий:</b> {$order->getComment()}" : '';
 
+        if ($order->isUniqTour()) {
+            return <<<HTML
+            <b>Тур:</b> Уникальный
+            <b>Категории:</b> {$order->getSelectedCategory()}
+            <b>Хочу дней:</b> {$order->getCountDay()}
+            <b>Клиент:</b> {$order->getClient()->getName()}, 
+            <b>Группа людей:</b> {$order->getCountPeople()} шт.
+            <b>Телефон:</b> {$order->getClient()->getPhone()}
+            $comment    
+            HTML;
+        }
+
         return <<<HTML
         <b>Тур:</b> {$order->getTour()->getName()}
         <b>Дата бронирования:</b> {$order->getFormattedReservationDate()}

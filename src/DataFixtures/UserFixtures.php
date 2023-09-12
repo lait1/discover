@@ -24,11 +24,11 @@ class UserFixtures extends Fixture
         $usersData = [
             0 => [
                 'email'    => 'admin@example.com',
-                'role'     => ['ROLE_USER'],
+                'role'     => ['ROLE_ADMIN'],
                 'password' => 123123,
             ],
             1 => [
-                'email'    => 'user@example.com',
+                'email'    => 'guide@example.com',
                 'role'     => ['ROLE_USER'],
                 'password' => 123123,
             ],
