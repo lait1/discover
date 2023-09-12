@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Domain\SettingService;
 use App\Domain\TourService;
 use App\Repository\TourOptionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,11 +15,17 @@ class DefaultController extends AbstractController
 {
     private TourService $tourService;
 
+    private SettingService $settingService;
+
     private TourOptionRepository $tourOptionRepository;
 
-    public function __construct(TourService $tourService, TourOptionRepository $tourOptionRepository)
-    {
+    public function __construct(
+        TourService $tourService,
+        SettingService $settingService,
+        TourOptionRepository $tourOptionRepository
+    ) {
         $this->tourService = $tourService;
+        $this->settingService = $settingService;
         $this->tourOptionRepository = $tourOptionRepository;
     }
 
@@ -27,10 +34,9 @@ class DefaultController extends AbstractController
      */
     public function indexAction(): Response
     {
-        $tours = $this->tourService->getPublicTours();
-
         return $this->render('index.html.twig', [
-            'tours'  => $tours,
+            'tours'  => $this->tourService->getPublicTours(),
+            'social' => $this->settingService->getSocialMedia(),
             'photos' => json_encode([
                 'build/images/gallery/photo1.jpeg',
                 'build/images/gallery/photo.png',
@@ -72,6 +78,7 @@ class DefaultController extends AbstractController
 
         return $this->render('tour.html.twig', [
             'tour'         => $tour,
+            'social'       => $this->settingService->getSocialMedia(),
             'includePrice' => $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails()),
             'excludePrice' => $this->tourOptionRepository->getByIds($tour->getExcludePriceDetails()),
         ]);
@@ -82,10 +89,9 @@ class DefaultController extends AbstractController
      */
     public function toursAction(): Response
     {
-        $tours = $this->tourService->getPublicTours();
-
         return $this->render('tours.html.twig', [
-            'tours' => $tours,
+            'social' => $this->settingService->getSocialMedia(),
+            'tours'  => $this->tourService->getPublicTours(),
         ]);
     }
 
@@ -95,6 +101,7 @@ class DefaultController extends AbstractController
     public function corporateAction(): Response
     {
         return $this->render('corporate.html.twig', [
+            'social' => $this->settingService->getSocialMedia(),
             'photos' => json_encode([
                 'build/images/gallery/photo1.jpeg',
                 'build/images/gallery/photo.png',

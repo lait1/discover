@@ -34,4 +34,14 @@ class Setting
         $this->type = $type->getValue();
         $this->value = $value;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 }

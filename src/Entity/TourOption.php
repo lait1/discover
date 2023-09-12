@@ -20,6 +20,11 @@ class TourOption implements \JsonSerializable
     /** @ORM\Column(type="string") */
     private string $name;
 
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
     public function getId(): int
     {
         return $this->id;

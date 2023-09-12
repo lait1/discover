@@ -97,6 +97,10 @@ class Tour
 
     public function getAssessment(): string
     {
+        if ($this->reviews->isEmpty()) {
+            return '5.0';
+        }
+
         $reviewAssessment = array_map(function (Review $review) {
             return $review->getAssessment();
         }, ($this->reviews->toArray()));
@@ -105,8 +109,12 @@ class Tour
         return number_format($average, 1, '.', '');
     }
 
-    public function getPhotosPaths(): string
+    public function getPhotosPaths(): ?string
     {
+        if ($this->photos->isEmpty()) {
+            return null;
+        }
+
         $photos = $this->photos->toArray();
         usort($photos, fn (TourPhoto $a, TourPhoto $b) => $a->getPriority() <=> $b->getPriority());
         $paths = array_map(function (TourPhoto $photo) {

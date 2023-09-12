@@ -6,13 +6,13 @@
         Напишите к нам в чат или в наши социальные сети. Мы с радостью вам поможем!
       </p>
       <div class="tour__faq-social">
-        <a href="https://t.me/your_name" target="_blank"
+        <a v-if="telegramLink" :href="telegramLink" target="_blank"
            title="Написать в Telegram">
           <svg class="icon">
             <use xlink:href="#telegram"></use>
           </svg>
         </a>
-        <a href="https://t.me/your_name" target="_blank"
+        <a v-if="whatsappLink" :href="whatsappLink" target="_blank"
            title="Написать в Whatsapp">
           <svg class="icon">
             <use xlink:href="#whatsapp"></use>
@@ -40,6 +40,7 @@
 <script>
 export default {
   name: "Faq",
+  props:['telegramLink', 'whatsappLink'],
   data: () => ({
     items: [
       {

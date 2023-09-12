@@ -76,9 +76,11 @@
                     </div>
                 </div>
             </div>
-            <div class="tour__gallery">
-                <TourGallery :image-list="{{ tour.getPhotosPaths }}"/>
-            </div>
+            {% if(tour.getPhotosPaths) %}
+                <div class="tour__gallery">
+                    <TourGallery :image-list="{{ tour.getPhotosPaths }}"/>
+                </div>
+            {% endif %}
         </div>
     </section>
     <section class="tour__info">
@@ -151,7 +153,7 @@
         </div>
     </section>
     <section class="tour__faq">
-      <Faq />
+      <Faq :telegram-link="'{{ social.getTelegram }}'" :whatsapp-link="'{{ social.getWhatsapp }}'"/>
     </section>
     <section class="tour__reviews">
         <Reviews :trip-id="{{ tour.id }}" />
