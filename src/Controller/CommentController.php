@@ -29,13 +29,11 @@ class CommentController extends AbstractController
      */
     public function addCommentAction(Request $request): Response
     {
-        $dto = $this->serializer->deserialize(
-            $request->getContent(),
-            ReviewDTO::class,
-            'json'
-        );
+        $dto = new ReviewDTO($request->request->all());
+        $file = $request->files->all();
+
         try {
-            $this->reviewService->createReview($dto);
+            $this->reviewService->createReview($dto, $file);
 
             return $this->json(['message' => 'success']);
         } catch (ValidationErrorException $e) {

@@ -68,13 +68,13 @@ class Tour
     /** @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tours") */
     private PersistentCollection $categories;
 
-    /** @ORM\OneToMany(targetEntity=TourPhoto::class, mappedBy="tour") */
+    /** @ORM\OneToMany(targetEntity=TourPhoto::class, mappedBy="tour", cascade={"persist", "remove"}) */
     private PersistentCollection $photos;
 
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
     private PersistentCollection $reviews;
 
-    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour",  cascade={"persist", "remove"}) */
+    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour", cascade={"persist", "remove"}) */
     private PersistentCollection $tourDescriptions;
 
     public function __construct(

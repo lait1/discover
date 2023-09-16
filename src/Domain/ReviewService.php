@@ -19,20 +19,24 @@ class ReviewService
 
     public ClientRepository $clientRepository;
 
+    public UploadService $uploadService;
+
     public function __construct(
         ReviewRepository $reviewRepository,
         TourRepository $tourRepository,
-        ClientRepository $clientRepository
+        ClientRepository $clientRepository,
+        UploadService $uploadService
     ) {
         $this->clientRepository = $clientRepository;
         $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
+        $this->uploadService = $uploadService;
     }
 
     /**
      * @throws \App\Exception\ValidationErrorException
      */
-    public function createReview(ReviewDTO $dto): void
+    public function createReview(ReviewDTO $dto, array $files): void
     {
         $client = $this->clientRepository->getClientByPhone($dto->phone);
         $tour = $this->tourRepository->getById($dto->tourId);
@@ -40,7 +44,10 @@ class ReviewService
         $review = new Review($dto->text, $dto->rating);
         $review->setAuthor($client);
         $review->setTour($tour);
+
         $this->reviewRepository->save($review);
+
+        $this->uploadService->uploadReviewPhoto($files, $review->getId());
     }
 
     public function getReviewByTourId(int $tourId): ReviewList

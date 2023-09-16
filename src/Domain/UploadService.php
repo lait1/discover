@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use App\Entity\ReviewPhoto;
 use App\Entity\TourPhoto;
+use App\Repository\ReviewRepository;
 use App\Repository\TourPhotoRepository;
 use App\Repository\TourRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,15 +16,19 @@ class UploadService
 
     private TourRepository $tourRepository;
 
+    private ReviewRepository $reviewRepository;
+
     private TourPhotoRepository $photoRepository;
 
     public function __construct(
         FileUploader $fileUploader,
         TourPhotoRepository $photoRepository,
+        ReviewRepository $reviewRepository,
         TourRepository $tourRepository
     ) {
         $this->fileUploader = $fileUploader;
         $this->photoRepository = $photoRepository;
+        $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
     }
 
@@ -34,6 +40,17 @@ class UploadService
         $this->tourRepository->save($tour);
 
         return $tour->getMainImage();
+    }
+
+    public function uploadReviewPhoto(array $photos, int $reviewId): void
+    {
+        foreach ($photos as $photo) {
+            $path = $this->fileUploader->upload($photo);
+            $review = $this->reviewRepository->getById($reviewId);
+            $review->addReviewPhoto(new ReviewPhoto($path));
+            $this->reviewRepository->save($review);
+        }
+//        dd($review);
     }
 
     public function uploadTourPhoto(array $photos, int $tourId): array

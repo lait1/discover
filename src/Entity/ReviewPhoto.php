@@ -20,8 +20,13 @@ class ReviewPhoto
     /** @ORM\Column(type="string", length=255) */
     private string $path;
 
-    /** @ORM\ManyToOne(targetEntity=Review::class, inversedBy="reviewPhotos") */
+    /** @ORM\ManyToOne(targetEntity=Review::class, inversedBy="reviewPhotos",  cascade={"persist", "remove"}) */
     private $reviews;
+
+    public function __construct(string $path)
+    {
+        $this->path = $path;
+    }
 
     public function getId(): ?int
     {

@@ -44,7 +44,7 @@ class Review
     /** @ORM\ManyToOne(targetEntity=Tour::class, inversedBy="reviews") */
     private $tour;
 
-    /** @ORM\OneToMany(targetEntity=ReviewPhoto::class, mappedBy="reviews") */
+    /** @ORM\OneToMany(targetEntity=ReviewPhoto::class, mappedBy="reviews", cascade={"persist", "remove"}) */
     private $reviewPhotos;
 
     /** @ORM\Column(name="created_at", type="integer", nullable=false, options={"unsigned": true}) */

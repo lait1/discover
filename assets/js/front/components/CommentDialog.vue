@@ -31,6 +31,12 @@
                         id="textComment"></textarea>
             </div>
           </div>
+          <div class="tour__dialog-row">
+            <div class="tour__dialog-col">
+              <label for="textComment" class="tour__dialog-label">Добавить фото</label>
+              <drag-and-drop @file-dropped="loadPhoto" />
+            </div>
+          </div>
           <button class="tour__dialog-button" @click="addComment" >
             Отправить
           </button>
@@ -43,13 +49,14 @@
 <script>
 import StarRating from 'vue-star-rating'
 import axios from "axios";
-import { VueTelInput } from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
 import PhoneMaskInput from  "vue-phone-mask-input";
+import DragAndDrop from "./DragAndDrop";
+
 export default {
   name: "Commentdialog",
   components: {
-    StarRating, VueTelInput, PhoneMaskInput
+    StarRating, PhoneMaskInput, DragAndDrop
   },
   props:['value', 'tripId'],
   data: function () {
@@ -61,6 +68,7 @@ export default {
         phone: '',
         text: '',
       },
+      selectedImages: []
     }
   },
   computed: {
@@ -85,8 +93,22 @@ export default {
       console.log(error)
       this.$emit('showErrorMessage', error);
     },
+    loadPhoto(files){
+      this.selectedImages = files
+    },
     addComment(){
-      axios.post('/comment/add', this.review)
+      let data = new FormData()
+      data.append('tourId', this.review.tourId)
+      data.append('name', this.review.name)
+      data.append('phone', this.review.phone)
+      data.append('rating', this.review.rating)
+      data.append('text', this.review.text)
+      data.append('files', this.selectedImages)
+
+      for (let i = 0; i < this.selectedImages.length; i++) {
+        data.append(i, this.selectedImages[i]);
+      }
+      axios.post('/comment/add', data)
           .then((response) => {
             if (response.data.message === 'success'){
               this.successComment()
@@ -95,11 +117,11 @@ export default {
           })
           .catch((error) => {
             if (error.response.status === 400){
-              this.errorComment(error.response.data.error)
+              // this.errorComment(error.response.data.error)
               return
             }
 
-            this.errorComment('У нас технические трудности, попробуйте позднее')
+            // this.errorComment('У нас технические трудности, попробуйте позднее')
           });
     },
   },
