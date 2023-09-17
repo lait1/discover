@@ -422,6 +422,19 @@
                 background: #0051D0;
             }
         }
+        &-container-photos{
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            img{
+                height: 142px;
+                width: 142px;
+                border-radius: 16px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+        }
         .icon {
             width: 41px;
             height: 41px;
@@ -682,6 +695,14 @@
         &__calendar-info{
             gap: 32px;
             flex-direction: column;
+        }
+        &__review{
+            &-container-photos{
+                img{
+                    height: 100px;
+                    width: 100px;
+                }
+            }
         }
     }
 }

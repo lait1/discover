@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ReviewPhotoRepository::class)
  */
-class ReviewPhoto
+class ReviewPhoto implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class ReviewPhoto
 
     public function __construct(string $path)
     {
-        $this->path = $path;
+        $this->path = "/uploads/{$path}";
     }
 
     public function getId(): ?int
@@ -55,5 +55,13 @@ class ReviewPhoto
         $this->reviews = $reviews;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'   => $this->id,
+            'path' => $this->path,
+        ];
     }
 }

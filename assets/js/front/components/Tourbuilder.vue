@@ -82,6 +82,7 @@ export default {
     },
     closeAlert(){
       this.showAlert = false
+      this.hasError = false
     },
     showSuccessMessage(message) {
       this.closeDialog()

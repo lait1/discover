@@ -25,6 +25,7 @@ class ReviewView implements \JsonSerializable
             'stars'        => $this->review->getAssessment(),
             'isPublic'     => $this->review->isPublic(),
             'showMainPage' => $this->review->showMainPage(),
+            'photos'       => $this->review->getReviewPhotos(),
             'date'         => $this->review->getCreatedAt()->format('d.m.Y'),
         ];
     }

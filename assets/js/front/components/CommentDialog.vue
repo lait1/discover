@@ -103,7 +103,6 @@ export default {
       data.append('phone', this.review.phone)
       data.append('rating', this.review.rating)
       data.append('text', this.review.text)
-      data.append('files', this.selectedImages)
 
       for (let i = 0; i < this.selectedImages.length; i++) {
         data.append(i, this.selectedImages[i]);
@@ -117,11 +116,11 @@ export default {
           })
           .catch((error) => {
             if (error.response.status === 400){
-              // this.errorComment(error.response.data.error)
+              this.errorComment(error.response.data.error)
               return
             }
 
-            // this.errorComment('У нас технические трудности, попробуйте позднее')
+            this.errorComment('У нас технические трудности, попробуйте позднее')
           });
     },
   },

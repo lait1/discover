@@ -37,11 +37,26 @@
           </div>
         </div>
         <p class="tour__review-text">{{ comment.text }}</p>
+        <div v-if="comment.photos.length > 0" class="tour__review-container-photos">
+            <img v-for="(photo, index) in comment.photos"
+                 :key="photo.id"
+                 :src="photo.path"
+                 alt="photo"
+                 @click="openGallery(comment.photos, photo.id)"
+            >
+        </div>
+
       </div>
     </div>
     <div class="tour__review-actions">
       <button @click="addComment" class="tour__review-add-comment">Добавить отзыв</button>
     </div>
+    <ReviewGallery
+        v-model="this.showGalley"
+        :photos="this.selectedPhotos"
+        :selected-item="this.selectedItemIndex"
+        @closeDialog="closeGallery"
+    />
     <Commentdialog
         v-model="this.showCommentDialog"
         :trip-id="this.tripId"
@@ -63,10 +78,11 @@ import Commentdialog from "./CommentDialog";
 import axios from "axios";
 import Alertdialog from "./AlertDialog";
 import LoaderLocal from "./LoaderLocal";
+import ReviewGallery from "./ReviewGallery";
 
 export default {
   name: "Reviews",
-  components: {Alertdialog, Commentdialog, LoaderLocal },
+  components: {Alertdialog, Commentdialog, LoaderLocal, ReviewGallery },
   props:['tripId'],
   data: () => ({
     loading: false,
@@ -74,12 +90,25 @@ export default {
     showAlert: false,
     alertMessage: '',
     hasError: false,
+    showGalley: false,
+    selectedItemIndex: 0,
+    selectedPhotos: [],
     comments: []
   }),
   mounted() {
     this.getCommentsByTourId();
   },
   methods: {
+    openGallery(photos, photoItem) {
+      this.selectedItemIndex = photoItem
+      this.selectedPhotos = photos
+      this.showGalley = true;
+    },
+    closeGallery(){
+      this.showGalley = false;
+      this.selectedItemIndex = 0
+      this.selectedPhotos = []
+    },
     addComment() {
       this.showCommentDialog = true
     },
@@ -88,6 +117,7 @@ export default {
     },
     closeAlert(){
       this.showAlert = false
+      this.hasError = false
     },
     showSuccessMessage(message) {
       this.closeDialog()
