@@ -10,9 +10,8 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     container_name: ${PROJECT_NAME}-nginx
     ports:
-      - "8080:80"
-#      - "80:80"
-#      - "443:443"
+      - "80:80"
+      - "443:443"
     links:
       - php-fpm
   php-fpm:
