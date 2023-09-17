@@ -45,12 +45,11 @@ class UploadService
     public function uploadReviewPhoto(array $photos, int $reviewId): void
     {
         foreach ($photos as $photo) {
-            $path = $this->fileUploader->upload($photo);
+            $path = $this->fileUploader->uploadWithResize($photo);
             $review = $this->reviewRepository->getById($reviewId);
             $review->addReviewPhoto(new ReviewPhoto($path));
             $this->reviewRepository->save($review);
         }
-//        dd($review);
     }
 
     public function uploadTourPhoto(array $photos, int $tourId): array
