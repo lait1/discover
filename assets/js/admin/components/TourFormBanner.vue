@@ -62,7 +62,6 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted tourFormBanner')
     this.getCategories()
   },
   methods: {

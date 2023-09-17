@@ -134,12 +134,12 @@ export default {
     },
     getCommentsByTourId() {
       this.loading = true
-      axios.get(`/comment/get-comments/${this.tripId}/`)
+      axios.get(`/comment/get-comments/${this.tripId}`)
           .then((response) => {
             this.comments = response.data
           })
           .catch((response) => {
-            alert("Ошибка загрузки комментов");
+            console.error(response)
           })
           .finally(() => {
             this.loading = false

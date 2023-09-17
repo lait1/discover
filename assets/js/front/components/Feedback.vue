@@ -117,12 +117,12 @@ export default {
   methods: {
     getBestComments() {
       this.loading = true
-      axios.get(`/comment/get-best-comments/`)
+      axios.get(`/comment/get-best-comments`)
           .then((response) => {
             this.comments = response.data
           })
           .catch((response) => {
-            alert("Ошибка загрузки комментов");
+            console.error(response)
           })
           .finally(() => {
             this.loading = false

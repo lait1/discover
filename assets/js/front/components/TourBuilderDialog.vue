@@ -185,7 +185,7 @@ import axios from "axios";
 import 'vue-tel-input/dist/vue-tel-input.css';
 import PhoneMaskInput from  "vue-phone-mask-input";
 import {FunctionalCalendar} from "vue-functional-calendar";
-import axiosInstance from "../../admin/requestService";
+
 export default {
   name: "OrderDialog",
   components: {
@@ -264,13 +264,12 @@ export default {
 
   methods: {
     getCategories(){
-      axios.get(`/order/get-categories/`)
+      axios.get(`/order/get-categories`)
           .then((response) => {
             this.categoryList = response.data
           })
           .catch((response) => {
             console.error(response)
-            alert("Ошибка загрузки категорий");
           })
     },
     closeDialog() {

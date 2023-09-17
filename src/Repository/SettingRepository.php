@@ -19,4 +19,19 @@ class SettingRepository extends ServiceEntityRepository
     {
         return $this->findBy(['type' => $type->getValue()]);
     }
+
+    public function getByName(string $name): ?Setting
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+
+    public function add(Setting $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
+    }
+
+    public function save(): void
+    {
+        $this->getEntityManager()->flush();
+    }
 }
