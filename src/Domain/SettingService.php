@@ -24,6 +24,16 @@ class SettingService
         return new SocialMediaView($this->settingRepository->getByType(SettingType::SOCIAL_MEDIA()));
     }
 
+    public function getEmailMedia(): string
+    {
+        $email = $this->settingRepository->getByName(SettingType::EMAIL()->getValue());
+        if ($email) {
+            return $email->getValue();
+        }
+
+        return 'georgia.dicover@gmail.com';
+    }
+
     public function update(SettingUpdateDTO $dto): void
     {
         $list = [];

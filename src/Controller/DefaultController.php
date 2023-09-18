@@ -37,6 +37,7 @@ class DefaultController extends AbstractController
         return $this->render('index.html.twig', [
             'tours'  => $this->tourService->getPublicTours(),
             'social' => $this->settingService->getSocialMedia(),
+            'email'  => $this->settingService->getEmailMedia(),
             'photos' => json_encode([
                 'build/images/gallery/photo1.jpeg',
                 'build/images/gallery/photo.png',
@@ -79,6 +80,7 @@ class DefaultController extends AbstractController
         return $this->render('tour.html.twig', [
             'tour'         => $tour,
             'social'       => $this->settingService->getSocialMedia(),
+            'email'        => $this->settingService->getEmailMedia(),
             'includePrice' => $this->tourOptionRepository->getByIds($tour->getIncludePriceDetails()),
             'excludePrice' => $this->tourOptionRepository->getByIds($tour->getExcludePriceDetails()),
         ]);
@@ -91,7 +93,19 @@ class DefaultController extends AbstractController
     {
         return $this->render('tours.html.twig', [
             'social' => $this->settingService->getSocialMedia(),
+            'email'  => $this->settingService->getEmailMedia(),
             'tours'  => $this->tourService->getPublicTours(),
+        ]);
+    }
+
+    /**
+     * @Route("/privacy", name="privacy")
+     */
+    public function privacyAction(): Response
+    {
+        return $this->render('privacy.html.twig', [
+            'social' => $this->settingService->getSocialMedia(),
+            'email'  => $this->settingService->getEmailMedia(),
         ]);
     }
 
@@ -102,6 +116,7 @@ class DefaultController extends AbstractController
     {
         return $this->render('corporate.html.twig', [
             'social' => $this->settingService->getSocialMedia(),
+            'email'  => $this->settingService->getEmailMedia(),
             'photos' => json_encode([
                 'build/images/gallery/photo1.jpeg',
                 'build/images/gallery/photo.png',

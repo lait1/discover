@@ -1,10 +1,9 @@
 .main {
-  background: url("../images/main-bg.jpg");
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
   background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
+  background: url("../images/main-bg.jpg") no-repeat fixed center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   margin: 0;
   height: 100vh;
   display: flex;
@@ -58,7 +57,7 @@
 }
 @media screen and (max-width: 1024px) {
   .main{
-    &__banner{
+    background-attachment: scroll;    &__banner{
       &-welcome{
         font-size: 42px;
         line-height: 50px;

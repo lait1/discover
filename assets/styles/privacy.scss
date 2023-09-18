@@ -1,0 +1,44 @@
+.privacy{
+  padding: 120px 0;
+  .wrap{
+    flex-direction: column;
+  }
+  &__title{
+    font-size: 32px;
+    font-weight: 500;
+  }
+  &__wrap {
+    margin-top: 30px;
+    &__subtitle {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    &__title {
+      font-size: 24px;
+      font-weight: 400;
+    }
+    &__list {
+      margin-top: 15px;
+      margin-left: 20px;
+      &__item {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+}
+@media screen and (max-width: 767px) {
+  .privacy__title {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .privacy__title {
+    font-size: 24px;
+  }
+  .privacy__wrap__title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

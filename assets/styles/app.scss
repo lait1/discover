@@ -11,6 +11,7 @@
 'footer',
 'tour',
 'corporate',
+'privacy',
 'tours';
 html {
   scroll-behavior: smooth;
@@ -128,10 +129,10 @@ h1,h2,h3,h4,h5{
     display: flex;
     align-items: center;
     &_links{
-      padding-right: 24px;
+      //padding-right: 24px;
       display: flex;
       align-items: center;
-      border-right: 1px solid rgba(255, 255, 255, 0.24);
+      //border-right: 1px solid rgba(255, 255, 255, 0.24);
       a{
         margin: 0 8px;
       }

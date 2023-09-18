@@ -76,25 +76,25 @@
                 </div>
                 <div class="menu__social-media">
                     <div class="menu__social-media__links">
-                        <a href="https://t.me/your_name" target="_blank"
+                        <a href="{{ social.getTelegram }}" target="_blank"
                            title="Написать в Telegram">
                             <svg class="icon">
                                 <use xlink:href="#telegram-black"></use>
                             </svg>
                         </a>
-                        <a href="https://t.me/your_name" target="_blank"
+                        <a href="{{ social.getWhatsapp }}" target="_blank"
                            title="Написать в Whatsapp">
                             <svg class="icon">
                                 <use xlink:href="#whatsapp-black"></use>
                             </svg>
                         </a>
-                        <a href="https://t.me/your_name" target="_blank"
+                        <a href="{{ social.getInstagram }}" target="_blank"
                            title="Написать в Instagram">
                             <svg class="icon">
                                 <use xlink:href="#instagram-black"></use>
                             </svg>
                         </a>
-                        <a href="https://t.me/your_name" target="_blank"
+                        <a href="{{ social.getYoutube }}" target="_blank"
                            title="Написать в YouTube">
                             <svg class="icon">
                                 <use xlink:href="#youtube-black"></use>
@@ -116,8 +116,9 @@
 <footer class="footer">
     <div class="footer__top-content">
         <div class="wrap">
-            <div class="footer__social">
-                <div class="footer__social-links">
+            <div class="footer__contacts">
+                <span>Мы в соцсетях</span>
+                <div class="footer__contacts-links">
                     <a href="{{ social.getTelegram }}" target="_blank"
                        title="Написать в Telegram">
                         <svg class="icon">
@@ -145,8 +146,11 @@
                 </div>
             </div>
             <div class="footer__contacts">
+                <span>Напишите нам</span>
                 <div class="footer__contacts-email">
-                    <span>Email:</span>
+                    <svg class="icon">
+                      <use xlink:href="#email"></use>
+                    </svg>
                     <a href="mailto:georgia.dicover@gmail.com">georgia.dicover@gmail.com</a>
                 </div>
             </div>
@@ -156,7 +160,7 @@
         <div class="wrap">
             <div class="footer__rules">
                 <span>© 2023. Все права защищены.</span>
-                <a href="#">Пользовательское соглашение</a>
+                <a href="{{path('privacy')}}">Пользовательское соглашение</a>
             </div>
             <a href="https://www.linkedin.com/in/kseniia-malysheva-642177252" target="_blank" class="footer__designer">Designed by Kseniia Malysheva</a>
         </div>
