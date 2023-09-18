@@ -1,32 +1,4 @@
 <div class="trips-list">
-    <article class="trip">
-        <img class="trip__image" src="{{ asset('build/images/simple.jpg') }}" alt="photo trip">
-        <div class="trip__info">
-            <h3 class="trip__info-title">
-                Экскурсия от шефа
-            </h3>
-            <p class="trip__info-description">
-                Хотите интересное путешествие, но нет времени выбирать туры? Доверьтесь нашим гидам! Укажите, что вам не
-                нравится или что вас интересует, и мы устроим вам незабываемую экскурсию-сюрприз!
-            </p>
-            <div class="trip__footer">
-                <div class="trip__footer-book">
-                    <h5 class="trip__footer-amount">
-                        По запросу
-                    </h5>
-                    <div class="trip__footer-duration">
-                    </div>
-                </div>
-                <a class="trip__footer-btn" href="#">Подробнее</a>
-            </div>
-        </div>
-        <div class="trip__tags">
-            <span class="starts tag"><i class="fa fa-sharp fa-solid fa-star"></i>5.0</span>
-            <span class="tag">Необычное</span>
-            <span class="tag">Природа</span>
-        </div>
-    </article>
-
     {% for tour in tours %}
         <article class="trip">
             <img class="trip__image" src="{{ asset(tour.mainImage) }}" alt="photo trip">
