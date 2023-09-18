@@ -112,6 +112,7 @@
   &__tags{
     position: absolute;
     display: flex;
+    flex-wrap: wrap;
     top: 12px;
     left: 12px;
     gap: 8px;

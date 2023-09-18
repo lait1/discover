@@ -340,7 +340,9 @@ export default {
   flex-direction: column;
 }
 ::v-deep .v-dialog > .v-card > .v-card__actions{
-  padding-top: 24px;
+  padding: 24px 0 0 0;
+  justify-content: space-between;
+  display: flex;
 }
 ::v-deep .v-stepper{
   border: none;

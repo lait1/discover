@@ -537,7 +537,7 @@
             display: flex;
             gap: 16px;
             align-items: center;
-            justify-content: start;
+            justify-content: space-between;
         }
         &-counter{
             font-size: 20px;
@@ -659,6 +659,9 @@
             }
             &-header{
                 margin-bottom: 24px;
+            }
+            &-button{
+                padding: 10px 18px;
             }
         }
         &__details-header{
