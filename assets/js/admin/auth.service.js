@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080'; // Замените на URL вашего серверного API
-
 class AuthService {
     login(credentials) {
         return axios
-            .post(`${API_URL}/api/login_check`, credentials)
+            .post(`/api/login_check`, credentials)
             .then(response => {
                 // Получение токена из ответа
                 const token = response.data.token;

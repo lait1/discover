@@ -3,7 +3,7 @@ import router from "./router";
 import AuthService from "./auth.service";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: '/',
 });
 
 
