@@ -93,6 +93,7 @@ h1,h2,h3,h4,h5{
 
     a {
       display: flex;
+      gap: 16px;
       justify-content: space-between;
       align-items: center;
       font-family: 'Exo 2', sans-serif;
@@ -221,7 +222,7 @@ h1,h2,h3,h4,h5{
     padding: 80px 0 24px 0;
     list-style: none;
     background: var(--content-dark, #1C1D20);
-    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+    box-shadow: 1px 0 6px rgba(0, 0, 0, .2);
 
     transition-duration: .25s;
     .header__currencies{

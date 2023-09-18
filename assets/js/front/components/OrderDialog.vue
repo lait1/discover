@@ -106,7 +106,6 @@
 
 <script>
 import axios from "axios";
-import 'vue-tel-input/dist/vue-tel-input.css';
 import PhoneMaskInput from  "vue-phone-mask-input";
 import {FunctionalCalendar} from "vue-functional-calendar";
 export default {

@@ -49,7 +49,6 @@
 <script>
 import StarRating from 'vue-star-rating'
 import axios from "axios";
-import 'vue-tel-input/dist/vue-tel-input.css';
 import PhoneMaskInput from  "vue-phone-mask-input";
 import DragAndDrop from "./DragAndDrop";
 

@@ -31,6 +31,7 @@
     <template v-slot:item.role="{ item }">
       <v-chip
           v-for="roleName in item.role"
+          :key="item.roleName"
           class="ma-2"
           color="primary"
           small

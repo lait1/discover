@@ -30,7 +30,8 @@
     justify-content: center;
     a{
       margin: 0 12px;
-      width: 204px;
+      max-height: 60px;
+      max-width: 204px;
       padding: 16px 24px;
       border-radius: 100px;
       text-transform: uppercase;
@@ -70,7 +71,7 @@
       }
     }
     &__buttons a{
-      width: 157px;
+      max-width: 157px;
       padding: 12px 16px;
       font-size: 16px;
       line-height: 24px;
@@ -80,7 +81,7 @@
 
 @media screen and (max-width: 576px) {
   .main__banner{
-    padding: 0;
+    padding: 0 20px;
   }
   .main__banner-welcome{
       font-size: 32px;
@@ -94,7 +95,7 @@
     gap: 24px;
     a {
       margin: 0;
-      width: 100%;
+      max-width: 100%;
     }
   }
 }

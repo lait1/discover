@@ -1,6 +1,6 @@
 <template>
 <div class="tour-form__description">
-  <v-row v-for="faq in tour.faqList" >
+  <v-row v-for="faq in tour.faqList" :key="faq.id" >
     <v-col cols="12">
       <v-text-field
           label="Заголовок"

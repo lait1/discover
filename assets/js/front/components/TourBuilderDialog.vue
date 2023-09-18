@@ -182,7 +182,6 @@
 
 <script>
 import axios from "axios";
-import 'vue-tel-input/dist/vue-tel-input.css';
 import PhoneMaskInput from  "vue-phone-mask-input";
 import {FunctionalCalendar} from "vue-functional-calendar";
 
@@ -364,7 +363,7 @@ export default {
 
 }
 ::v-deep .v-sheet.v-list{
-  height: 280px;
+  max-height: 280px;
   overflow: auto;
 }
 ::v-deep .v-application--wrap {

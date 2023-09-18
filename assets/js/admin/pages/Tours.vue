@@ -81,6 +81,7 @@
       <template v-slot:item.categories="{ item }">
         <v-chip
             v-for="category in item.categories"
+            :key="category.id"
             class="ma-2"
             color="primary"
             small

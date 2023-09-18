@@ -56,6 +56,28 @@ class SettingService
         return $this->settingRepository->findAll();
     }
 
+    public function getGalleryMainPage(): string
+    {
+        $imageList = [
+            'build/images/gallery/photo_2_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_4_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_1_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_3_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_5_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_6_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_7_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_8_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_9_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_10_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_11_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_12_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_13_2023-09-18_21-19-10.jpg',
+            'build/images/gallery/photo_14_2023-09-18_21-19-10.jpg',
+        ];
+
+        return json_encode($imageList);
+    }
+
     private function findOrCreate(string $name, string $value): Setting
     {
         $setting = $this->settingRepository->getByName($name);
