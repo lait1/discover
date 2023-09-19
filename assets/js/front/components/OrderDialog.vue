@@ -3,6 +3,11 @@
     <v-dialog attach=".order__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Заказать тур</h1>
+        <button class="dialog__close" @click="closeDialog">
+          <svg class="icon">
+            <use xlink:href="#close"></use>
+          </svg>
+        </button>
         <div class="wrap">
           <div v-if="errors.length" class="tour__dialog-row">
             <v-alert
@@ -243,5 +248,4 @@ export default {
   border-radius: 32px;
   background: #FFF;
 }
-
 </style>

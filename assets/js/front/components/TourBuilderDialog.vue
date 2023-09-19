@@ -3,7 +3,11 @@
     <v-dialog class="order__dialog" v-model="showDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour-builder__dialog">
         <h1 class="tour__dialog-header">Составьте свой тур</h1>
-
+        <button class="dialog__close" @click="closeDialog">
+          <svg class="icon">
+            <use xlink:href="#close"></use>
+          </svg>
+        </button>
         <v-stepper non-linear v-model="step" outlined>
           <v-stepper-header>
             <v-stepper-step step="1" :complete="step > 1" complete-icon="fa-check" class="pr-6"/>

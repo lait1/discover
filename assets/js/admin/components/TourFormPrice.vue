@@ -43,8 +43,8 @@ export default {
       tour: {
         id: this.tourId,
         price: this.tourPrice,
-        includePrice: this.tourIncludePrice,
-        excludePrice: this.tourExcludePrice,
+        includePrice: this.tourIncludePrice.map(item => item.value),
+        excludePrice: this.tourExcludePrice.map(item => item.value),
       },
       options: []
     }

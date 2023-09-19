@@ -3,6 +3,11 @@
     <v-dialog attach=".comment__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Добавить отзыв</h1>
+        <button class="dialog__close" @click="closeDialog">
+          <svg class="icon">
+            <use xlink:href="#close"></use>
+          </svg>
+        </button>
         <div class="wrap">
           <div class="tour__dialog-col">
             <label class="tour__dialog-label">Поставьте оценку</label>

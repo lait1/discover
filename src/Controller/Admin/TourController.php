@@ -124,6 +124,20 @@ class TourController extends AbstractController
     }
 
     /**
+     * @Route("/tour/remove-description/{id}", methods={"POST"})
+     */
+    public function removeDescriptionAction(Request $request, int $id): Response
+    {
+//        try {
+        $this->tourService->removeDescriptionAction($id);
+
+//            return $this->json(['message' => 'success']);
+//        } catch (\Throwable $e) {
+//            return $this->json(['error' => $e->getMessage()], 500);
+//        }
+    }
+
+    /**
      * @Route("/tour/update-price-info", methods={"POST"})
      */
     public function updatePriceInfoAction(Request $request): Response

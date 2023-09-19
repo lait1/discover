@@ -24,7 +24,7 @@ export default {
   data: function () {
     return {
       image: {
-        descId: this.imageIdTour,
+        index: this.imageIdTour,
         file: null
       },
       imageUrl: this.imageTour,

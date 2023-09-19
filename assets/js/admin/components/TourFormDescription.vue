@@ -40,7 +40,7 @@
           dark
           small
           color="red"
-          @click="removeDesc(index)"
+          @click="removeDesc(index, description.id)"
       >
         <v-icon dark>
           mdi-minus
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     changeImage(imageInfo){
-      this.tour.descriptions[imageInfo.descId].image = imageInfo.file
+      this.tour.descriptions[imageInfo.index].image = imageInfo.file
     },
     addNewDesc(){
       this.tour.descriptions.push(
@@ -105,8 +105,17 @@ export default {
         }
       )
     },
-    removeDesc(index){
-      this.tour.descriptions.splice(index, 1)
+    removeDesc(index, id){
+      axiosInstance.post(`/api/tour/remove-description/${id}`)
+          .then((response) => {
+            if (response.data.message === 'success'){
+              this.tour.descriptions.splice(index, 1)
+            }
+          })
+          .catch((response) => {
+            console.error(response)
+            alert("Save tour failed");
+          })
     },
     saveInfo(index){
 

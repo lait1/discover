@@ -11,6 +11,7 @@ use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
 use App\Entity\TourDescription;
 use App\Repository\CategoryRepository;
+use App\Repository\TourDescriptionRepository;
 use App\Repository\TourOptionRepository;
 use App\Repository\TourRepository;
 use App\View\TourList;
@@ -23,6 +24,8 @@ class TourService
 
     private TourOptionRepository $tourOptionRepository;
 
+    private TourDescriptionRepository $tourDescriptionRepository;
+
     private FileUploader $fileUploader;
 
     private CategoryRepository $categoryRepository;
@@ -30,11 +33,13 @@ class TourService
     public function __construct(
         TourRepository $tourRepository,
         TourOptionRepository $tourOptionRepository,
+        TourDescriptionRepository $tourDescriptionRepository,
         FileUploader $fileUploader,
         CategoryRepository $categoryRepository
     ) {
         $this->tourRepository = $tourRepository;
         $this->tourOptionRepository = $tourOptionRepository;
+        $this->tourDescriptionRepository = $tourDescriptionRepository;
         $this->fileUploader = $fileUploader;
         $this->categoryRepository = $categoryRepository;
     }
@@ -108,15 +113,32 @@ class TourService
         return $this->tourOptionRepository->findAll();
     }
 
+    public function removeDescriptionAction(int $id): void
+    {
+        $this->tourDescriptionRepository->remove(
+            $this->tourDescriptionRepository->find($id)
+        );
+    }
+
     public function updateDescriptionInfo(UpdateDescriptionDTO $dto, ?UploadedFile $file): void
     {
         $tour = $this->tourRepository->getById($dto->tourId);
-        $imagePath = $this->fileUploader->upload($file);
+        $description = $this->tourDescriptionRepository->find($dto->id);
 
-        $tourDesc = new TourDescription($dto->header, $dto->content, $imagePath);
-        $tour->addTourDescription($tourDesc);
+        if ($description) {
+            $description->setContent($dto->content);
+            $description->setHeader($dto->header);
+            if ($file) {
+                $imagePath = $this->fileUploader->upload($file);
+                $description->setImage($imagePath);
+            }
+        } else {
+            $imagePath = $this->fileUploader->upload($file);
+            $description = new TourDescription($dto->header, $dto->content, $imagePath);
+            $description->setTour($tour);
+        }
 
-        $this->tourRepository->save($tour);
+        $this->tourDescriptionRepository->save($description);
     }
 
     public function updatePriceInfo(UpdatePriceDTO $dto): void

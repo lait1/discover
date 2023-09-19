@@ -89,7 +89,7 @@
             <div class="tour__info-list">
                 {% for desc in tour.tourDescriptions %}
                     <div class="tour__info-list-item
-                {% if desc.id is even %}
+                {% if loop.index is even %}
                  reverse
                 {% endif %}">
                         <div class="tour__info-list-item__content">

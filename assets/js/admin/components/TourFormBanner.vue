@@ -56,7 +56,7 @@ export default {
         id: this.tourId,
         name: this.tourName,
         title: this.tourTitle,
-        categories: this.tourCategories,
+        categories: this.tourCategories.map(item => item.value),
       },
       categories: []
     }

@@ -74,7 +74,7 @@ class Tour
     /** @ORM\OneToMany(targetEntity=Review::class, mappedBy="tour") */
     private PersistentCollection $reviews;
 
-    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour", cascade={"persist", "remove"}) */
+    /** @ORM\OneToMany(targetEntity=TourDescription::class, mappedBy="tour") */
     private PersistentCollection $tourDescriptions;
 
     public function __construct(

@@ -19,4 +19,10 @@ class TourDescriptionRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($description);
         $this->getEntityManager()->flush();
     }
+
+    public function remove(TourDescription $description): void
+    {
+        $this->getEntityManager()->remove($description);
+        $this->getEntityManager()->flush();
+    }
 }
