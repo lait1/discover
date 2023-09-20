@@ -66,4 +66,7 @@ export default {
 ::v-deep .v-application--wrap {
   min-height: fit-content;
 }
+.theme--dark.v-btn.v-btn--has-bg{
+  background: transparent;
+}
 </style>

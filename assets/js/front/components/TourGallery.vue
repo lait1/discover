@@ -1,5 +1,36 @@
 <template>
-  <lightbox :items="this.imageList" :cells="height"></lightbox>
+  <div>
+  <lightbox v-if="!showSlider" :items="this.imageList" :cells="height"></lightbox>
+  <v-carousel v-if="showSlider" hide-delimiters>
+    <template v-slot:prev="{ on, attrs }">
+      <v-btn
+          class="mx-2 tour__gallery-gallery-btn"
+          fab
+          v-bind="attrs"
+          v-on="on"
+          small
+      >
+        <i class="fa-solid fa-circle-left"></i>
+      </v-btn>
+    </template>
+    <template v-slot:next="{ on, attrs }">
+      <v-btn
+          class="mx-2 tour__gallery-gallery-btn"
+          fab
+          v-bind="attrs"
+          v-on="on"
+          small
+      >
+        <i class="fa-solid fa-circle-right"></i>
+      </v-btn>
+    </template>
+    <v-carousel-item
+        v-for="(item,i) in this.imageList"
+        :key="i"
+        :src="item"
+    ></v-carousel-item>
+  </v-carousel>
+  </div>
 </template>
 
 <script>
@@ -18,6 +49,9 @@ export default {
         return 1;
       }
       return 3
+    },
+    showSlider() {
+      return this.$vuetify.breakpoint.width <= 586;
     }
   },
 }
@@ -50,5 +84,18 @@ export default {
 
 ::v-deep .lb-grid-3 .lb-item:nth-child(3){
   height: 49%;
+}
+
+::v-deep .v-window{
+  border-radius: 32px;
+  &__next{
+    right: 0;
+  }
+}
+.theme--dark.v-btn.v-btn--has-bg{
+  background: transparent;
+}
+.tour__gallery-gallery-btn{
+  font-size: 26px;
 }
 </style>
