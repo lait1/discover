@@ -45,20 +45,30 @@ export default {
     items: [
       {
         id: 1,
-        title: 'Как забронировать?',
-        description: 'A 20% prepayment is required for booking. To do this, select a tour and send an application. The date will already be yours! Then, our manager will contact you and send you a link for prepayment. And that\'s it, we will be looking forward to meeting you!',
+        title: 'Зачем вносить предоплату?',
+        description: 'Внесение предоплаты в размере 20% позволяет нам обеспечить вам гарантированное место на экскурсии и зарезервировать необходимые ресурсы, такие как гиды и транспорт.\n' +
+            '\n' +
+            'После подтверждения бронирования наш менеджер вышлет вам все необходимые данные для внесения предоплаты. Вы можете произвести оплату как с российской, так и с грузинской карты. Если эти способы оплаты вам не подходят, не переживайте. Мы найдем для вас наиболее удобный вариант оплаты. Ваш комфорт - наш приоритет.',
         isActive: false,
       },
       {
-        id: 1,
-        title: 'Нужно ли вносить предоплату?',
-        description: 'A 20% prepayment is required for booking. To do this, select a tour and send an application. The date will already be yours! Then, our manager will contact you and send you a link for prepayment. And that\'s it, we will be looking forward to meeting you!',
+        id: 2,
+        title: 'Сколько человек может посетить экскурсию?',
+        description: 'Стоимость экскурсии обычно рассчитывается до 4-х человек. Вы можете увеличить количество участников, обратившись к нам. Мы рассчитаем новую стоимость и предложим вам оптимальные варианты.',
         isActive: false,
       },
       {
-        id: 1,
-        title: 'Как забронировать?',
-        description: 'A 20% prepayment is required for booking. To do this, select a tour and send an application. The date will already be yours! Then, our manager will contact you and send you a link for prepayment. And that\'s it, we will be looking forward to meeting you!',
+        id: 3,
+        title: 'Как мне добать в экскурсию профессиональные фото и видео с дрона?',
+        description: 'Если вы хотите добавить дополнительные опции к вашей индивидуальной экскурсии, напишите нам. Мы договоримся о дополнительных услугах и стоимости, чтобы сделать вашу экскурсию незабываемой и визуально привлекательной.',
+        isActive: false,
+      },
+      {
+        id: 4,
+        title: 'Могу ли я изменить маршрут экскурсии?',
+        description: 'Мы готовы адаптировать маршрут под ваши желания и интересы, включая добавление новых локаций или корректировку существующих. Однако важно помнить, что изменение маршрута может повлиять на стоимость экскурсии, так как она зависит от расстояния, времени и других факторов.\n' +
+            '\n' +
+            'Чтобы учесть ваши пожелания и предоставить вам наилучший опыт, пожалуйста, свяжитесь с нами заранее и обсудите все детали. Мы постараемся сделать всё возможное, чтобы удовлетворить ваши запросы и предоставить вам незабываемую экскурсию!',
         isActive: false,
       },
     ],

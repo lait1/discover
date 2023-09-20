@@ -1,6 +1,12 @@
 <template>
   <v-app class="comment__dialog">
-    <v-dialog attach=".comment__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+    <v-dialog
+        attach=".comment__dialog"
+        v-model="showCommentDialog"
+        max-width="600px"
+        :fullscreen="fullscreen"
+        @click:outside="closeDialog"
+    >
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Добавить отзыв</h1>
         <button class="dialog__close" @click="closeDialog">
@@ -79,6 +85,9 @@ export default {
     showCommentDialog() {
       return this.value
     },
+    fullscreen() {
+      return this.$vuetify.breakpoint.width <= 586;
+    },
   },
   methods: {
     closeDialog() {
@@ -136,6 +145,9 @@ export default {
   display: flex;
   padding: 32px;
   flex-direction: column;
+  @media screen and (max-width: 568px) {
+    padding: 24px !important;
+  }
 }
 ::v-deep .v-application--wrap {
   min-height: fit-content;
@@ -143,6 +155,9 @@ export default {
 ::v-deep .v-dialog{
   border-radius: 32px;
   background: #FFF;
+  @media screen and (max-width: 568px) {
+    border-radius: 0;
+  }
 }
 ::v-deep .vue-star-rating{
   gap: 8px;

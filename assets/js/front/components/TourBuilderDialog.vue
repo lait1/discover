@@ -1,6 +1,11 @@
 <template>
   <v-app >
-    <v-dialog class="order__dialog" v-model="showDialog" @click:outside="closeDialog" max-width="600px">
+    <v-dialog
+        class="order__dialog"
+        v-model="showDialog"
+        max-width="600px"
+        @click:outside="closeDialog"
+    >
       <v-card class="tour-builder__dialog">
         <h1 class="tour__dialog-header">Составьте свой тур</h1>
         <button class="dialog__close" @click="closeDialog">

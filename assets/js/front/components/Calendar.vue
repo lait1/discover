@@ -116,6 +116,9 @@ export default {
 ::v-deep .vfc-week {
   gap: 8px;
   height: 70px;
+  @media screen and (max-width: 568px) {
+    height: 52px;
+  }
   .vfc-day{
     align-items: center;
     justify-content: center;
@@ -128,12 +131,15 @@ export default {
       font-size: 24px;
       font-weight: 400;
       line-height: 28px;
-      border-radius: 0;
+      border-radius: 6px;
       display: flex;
       width: 100%;
       height: 100%;
       align-items: center;
       justify-content: center;
+      @media screen and (max-width: 568px) {
+        font-size: 16px;
+      }
     }
     .vfc-disabled{
       background: var(--background-primary, #F6F6FA);

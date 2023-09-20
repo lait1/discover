@@ -35,7 +35,7 @@
     margin-bottom: 52px;
   }
   &__button_chose-tour{
-    width: 204px;
+    text-transform: uppercase;
     padding: 16px 24px;
     border-radius: 100px;
     font-weight: 600;
@@ -156,5 +156,38 @@
     visibility: visible;
     opacity: 1;
     transition: opacity .15s;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .trip-builder {
+    &__header {
+      font-size: 32px;
+      line-height: 48px;
+    }
+
+    &__title {
+      font-size: 20px;
+      line-height: 28px;
+    }
+    &__button_chose-tour{
+      font-size: 16px;
+      line-height: 24px;
+      padding: 12px 16px;
+    }
+  }
+}
+@media screen and (max-width: 575px) {
+  .trip-builder {
+    &__header {
+      font-size: 24px;
+      line-height: 28px;
+    }
+    &__content{
+      text-align: center;
+      .icon{
+        margin: 16px 0;
+      }
+    }
   }
 }

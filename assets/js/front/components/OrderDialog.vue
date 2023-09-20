@@ -1,6 +1,12 @@
 <template>
   <v-app class="order__dialog">
-    <v-dialog attach=".order__dialog" v-model="showCommentDialog" @click:outside="closeDialog" max-width="600px">
+    <v-dialog
+        attach=".order__dialog"
+        v-model="showCommentDialog"
+        :fullscreen="fullscreen"
+        max-width="600px"
+        @click:outside="closeDialog"
+    >
       <v-card class="tour__dialog">
         <h1 class="tour__dialog-header">Заказать тур</h1>
         <button class="dialog__close" @click="closeDialog">
@@ -147,6 +153,9 @@ export default {
     },
   },
   computed: {
+    fullscreen() {
+      return this.$vuetify.breakpoint.width <= 586;
+    },
     showCommentDialog() {
       return this.value
     },
@@ -240,6 +249,9 @@ export default {
   display: flex;
   padding: 32px;
   flex-direction: column;
+  @media screen and (max-width: 568px) {
+    padding: 24px !important;
+  }
 }
 ::v-deep .v-application--wrap {
   min-height: fit-content;
@@ -247,5 +259,8 @@ export default {
 ::v-deep .v-dialog{
   border-radius: 32px;
   background: #FFF;
+  @media screen and (max-width: 568px) {
+    border-radius: 0;
+  }
 }
 </style>
