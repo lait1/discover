@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
-use App\Domain\Model\TelegramMessage;
 use App\Entity\OrderTour;
 use App\Infrastructure\TelegramApiClient;
 use App\Repository\UserRepository;
@@ -47,9 +46,9 @@ class Notificator
         }
     }
 
-    public function answerMessage(TelegramMessage $param): void
+    public function answerMessage(int $chatId, string $message): void
     {
-        $this->apiClient->answerMessage($param->getChatId(), 'Тур забронирован');
+        $this->apiClient->answerMessage($chatId, $message);
     }
 
     private function buildOrderMessage(OrderTour $order): string

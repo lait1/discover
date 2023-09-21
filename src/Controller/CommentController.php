@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Domain\ReviewService;
 use App\DTO\ReviewDTO;
 use App\Exception\ValidationErrorException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,16 @@ class CommentController extends AbstractController
 
     private SerializerInterface $serializer;
 
-    public function __construct(ReviewService $reviewService, SerializerInterface $serializer)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        ReviewService $reviewService,
+        SerializerInterface $serializer,
+        LoggerInterface $logger
+    ) {
         $this->reviewService = $reviewService;
         $this->serializer = $serializer;
+        $this->logger = $logger;
     }
 
     /**
@@ -36,9 +43,16 @@ class CommentController extends AbstractController
             $this->reviewService->createReview($dto, $file);
 
             return $this->json(['message' => 'success']);
-        } catch (ValidationErrorException $e) {
-            return $this->json(['error' => $e->getMessage()], 400);
+//        } catch (ValidationErrorException $e) {
+//            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
+            $this->logger->error(
+                'Fail make comment',
+                [
+                    'error' => $e,
+                ]
+            );
+
             return $this->json(['error' => $e->getMessage()], 500);
         }
     }

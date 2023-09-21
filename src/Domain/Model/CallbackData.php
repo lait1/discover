@@ -9,36 +9,46 @@ class CallbackData implements \JsonSerializable
 {
     private OrderStatusEnum $status;
 
-    private int $tourId;
+    private int $orderId;
 
-    private function __construct(OrderStatusEnum $status, int $tourId)
+    private function __construct(OrderStatusEnum $status, int $orderId)
     {
         $this->status = $status;
-        $this->tourId = $tourId;
+        $this->orderId = $orderId;
     }
 
     public static function buildRawData(array $data): self
     {
         $status = new OrderStatusEnum($data['status']);
 
-        return new self($status, $data['tourId']);
+        return new self($status, $data['orderId']);
     }
 
-    public static function buildApproveData(int $tourId): self
+    public static function buildApproveData(int $orderId): self
     {
-        return new self(OrderStatusEnum::APPROVE(), $tourId);
+        return new self(OrderStatusEnum::APPROVE(), $orderId);
     }
 
-    public static function buildRejectData(int $tourId): self
+    public static function buildRejectData(int $orderId): self
     {
-        return new self(OrderStatusEnum::REJECT(), $tourId);
+        return new self(OrderStatusEnum::REJECT(), $orderId);
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'tourId' => $this->tourId,
-            'status' => $this->status->getValue(),
+            'orderId' => $this->orderId,
+            'status'  => $this->status->getValue(),
         ];
+    }
+
+    public function getStatus(): OrderStatusEnum
+    {
+        return $this->status;
+    }
+
+    public function getOrderId(): int
+    {
+        return $this->orderId;
     }
 }

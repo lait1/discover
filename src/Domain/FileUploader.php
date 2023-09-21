@@ -50,11 +50,11 @@ class FileUploader
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
-        try {
-            $file->move($this->targetDirectory, $fileName);
-        } catch (FileException $e) {
-            throw $e;
-        }
+//        try {
+        $file->move($this->targetDirectory, $fileName);
+//        } catch (FileException $e) {
+//            throw $e;
+//        }
 
         $filename2 = $this->targetDirectory . $fileName;
 

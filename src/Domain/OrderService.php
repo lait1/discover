@@ -7,6 +7,7 @@ use App\Domain\Model\TelegramMessage;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
 use App\Entity\OrderTour;
+use App\Enum\OrderStatusEnum;
 use App\Exception\ValidationErrorException;
 use App\Repository\CategoryRepository;
 use App\Repository\OrderTourRepository;
@@ -137,7 +138,22 @@ class OrderService
 
     public function handleTelegramMessage(TelegramMessage $param): void
     {
-        $this->notificator->answerMessage($param);
+        $status = $param->getCallbackData()->getStatus();
+        $orderId = $param->getCallbackData()->getOrderId();
+
+        switch ($status) {
+            case OrderStatusEnum::APPROVE():
+                $this->approve($orderId);
+                $result = 'Тур подтвержден!';
+                break;
+            case OrderStatusEnum::REJECT():
+                $this->reject($orderId);
+                $result = 'Тур отклонен :(';
+                break;
+            default:
+                throw new \InvalidArgumentException('Status is not supported');
+        }
+        $this->notificator->answerMessage($param->getChatId(), $result);
     }
 
     private function getDateTime(string $date): DateTimeInterface

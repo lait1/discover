@@ -31,13 +31,13 @@ class TelegramApiClient
         $this->telegramBot->setWebhook($router->generate('telegram-webhook'));
     }
 
-    public function sendMessage(string $recipient, string $message, int $tourId): void
+    public function sendMessage(string $recipient, string $message, int $orderId): void
     {
         $keyboard = new InlineKeyboardMarkup(
             [
                 [
-                    ['text' => 'Подтвердить', 'callback_data' => json_encode(CallbackData::buildApproveData($tourId))],
-                    ['text' => 'Отказать', 'callback_data' => json_encode(CallbackData::buildRejectData($tourId))],
+                    ['text' => 'Подтвердить', 'callback_data' => json_encode(CallbackData::buildApproveData($orderId))],
+                    ['text' => 'Отказать', 'callback_data' => json_encode(CallbackData::buildRejectData($orderId))],
                 ],
             ]
         );

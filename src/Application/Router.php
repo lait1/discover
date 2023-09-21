@@ -18,7 +18,7 @@ class Router implements RouterInterface
 
     public function generate(string $name, array $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_URL): string
     {
-        return 'https://discover-georgia.com/telegram/webhook';
+//        return 'https://discover-georgia.com/telegram/webhook';
 
         return $this->router->generate($name, $parameters, $referenceType);
     }
