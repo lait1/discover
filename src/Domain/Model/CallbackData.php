@@ -11,12 +11,17 @@ class CallbackData implements \JsonSerializable
 
     private int $tourId;
 
-    private ?string $hash = null;
-
     private function __construct(OrderStatusEnum $status, int $tourId)
     {
         $this->status = $status;
         $this->tourId = $tourId;
+    }
+
+    public static function buildRawData(array $data): self
+    {
+        $status = new OrderStatusEnum($data['status']);
+
+        return new self($status, $data['tourId']);
     }
 
     public static function buildApproveData(int $tourId): self
@@ -29,17 +34,11 @@ class CallbackData implements \JsonSerializable
         return new self(OrderStatusEnum::REJECT(), $tourId);
     }
 
-    public function setHash(string $hash): void
-    {
-        $this->hash = $hash;
-    }
-
     public function jsonSerialize(): array
     {
         return [
             'tourId' => $this->tourId,
             'status' => $this->status->getValue(),
-            //            'hash'   => $this->hash,
         ];
     }
 }

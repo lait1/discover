@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Domain\Model\TelegramMessage;
 use App\Domain\OrderService;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
@@ -101,17 +102,31 @@ class OrderController extends AbstractController
      */
     public function webhookAction(Request $request): Response
     {
-        $postParams = $request->request->all();
-        $getParams = $request->query->all();
         $content = $request->getContent() ?: '';
 
-        $this->logger->info('From telegram', [
-            'method'  => $request->getMethod(),
-            'post'    => $postParams,
-            'get'     => $getParams,
-            'content' => $content,
-        ]);
+        $this->logger->info(
+            'Telegram: Message received',
+            [
+                'headers' => $request->headers->keys(),
+                'message' => $content,
+            ]
+        );
+//        try {
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        return new Response();
+        $this->orderService->handleTelegramMessage(new TelegramMessage($data));
+//        } catch (\Throwable $exception) {
+//            $this->logger->error(
+//                'Can not get update from telegram',
+//                [
+//                    'error' => $exception->getMessage(),
+//                    'data'  => $content,
+//                ]
+//            );
+//
+//            return new Response();
+//        }
+
+        return new Response('ok');
     }
 }

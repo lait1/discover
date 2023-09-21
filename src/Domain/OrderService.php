@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use App\Domain\Model\TelegramMessage;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
 use App\Entity\OrderTour;
@@ -132,6 +133,11 @@ class OrderService
         $order->reject();
 
         $this->orderRepository->save($order);
+    }
+
+    public function handleTelegramMessage(TelegramMessage $param): void
+    {
+        $this->notificator->answerMessage($param);
     }
 
     private function getDateTime(string $date): DateTimeInterface
