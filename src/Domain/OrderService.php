@@ -79,18 +79,28 @@ class OrderService
 
     public function bookMyTour(OrderMyTourDTO $dto): void
     {
-        $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
-        $tour = $this->tourRepository->getUniqTour();
+        try {
+            $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
+            $tour = $this->tourRepository->getUniqTour();
 
-        $order = new OrderTour(time(), $dto->countPeople, $dto->text);
-        $order->setClient($client);
-        $order->setTour($tour);
-        $order->setCountDay($dto->countDay);
-        $order->setDetails($dto->selectedCategories);
+            $order = new OrderTour(time(), $dto->countPeople, $dto->text);
+            $order->setClient($client);
+            $order->setTour($tour);
+            $order->setCountDay($dto->countDay);
+            $order->setDetails($dto->selectedCategories);
 
-        $this->orderRepository->save($order);
+            $this->orderRepository->save($order);
 
-        $this->notificator->sendNotification($order);
+            $this->notificator->sendNotification($order);
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Fail book tour',
+                [
+                    'message' => $e,
+                ]
+            );
+            $this->notificator->sendErrorNotification($e->getMessage());
+        }
     }
 
     public function getUnavailableDates(): array

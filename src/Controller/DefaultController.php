@@ -110,14 +110,7 @@ class DefaultController extends AbstractController
         return $this->render('corporate.html.twig', [
             'social' => $this->settingService->getSocialMedia(),
             'email'  => $this->settingService->getEmailMedia(),
-            'photos' => json_encode([
-                'build/images/gallery/photo1.jpeg',
-                'build/images/gallery/photo.png',
-                'build/images/gallery/photo2.jpeg',
-                'build/images/gallery/photo.png',
-                'build/images/gallery/photo1.jpeg',
-                'build/images/gallery/photo2.jpeg',
-            ]),
+            'photos' => $this->settingService->getGalleryCorporate(),
         ]);
     }
 }

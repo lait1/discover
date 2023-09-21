@@ -78,6 +78,21 @@ class SettingService
         return json_encode($imageList);
     }
 
+    public function getGalleryCorporate(): string
+    {
+        $imageList = [
+            'build/images/corporate/photo_2023-09-13_23-35-26.jpg',
+            'build/images/corporate/photo_2_2023-09-21_22-29-22.jpg',
+            'build/images/corporate/photo_2_2023-09-21_22-25-48.jpg',
+            'build/images/corporate/photo_1_2023-09-21_22-25-48.jpg',
+            'build/images/corporate/photo_1_2023-09-21_22-29-22.jpg',
+            'build/images/corporate/photo_3_2023-09-21_22-25-48.jpg',
+            'build/images/corporate/photo_8_2023-09-21_22-25-48.jpg',
+        ];
+
+        return json_encode($imageList);
+    }
+
     private function findOrCreate(string $name, string $value): Setting
     {
         $setting = $this->settingRepository->getByName($name);

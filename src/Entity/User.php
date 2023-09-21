@@ -131,6 +131,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setTelegramToken(?string $telegramToken): void
     {
-        $this->telegramToken = $telegramToken;
+        $token = preg_replace('/\s+/', ' ', $telegramToken);
+        if ($token) {
+            $this->telegramToken = $token;
+        }
     }
 }

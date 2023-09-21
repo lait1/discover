@@ -50,6 +50,13 @@ class OrderController extends AbstractController
         } catch (ValidationErrorException $e) {
             return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed reservation tour',
+                [
+                    'error' => $e,
+                ]
+            );
+
             return $this->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -71,6 +78,13 @@ class OrderController extends AbstractController
         } catch (ValidationErrorException $e) {
             return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed make uniq tour',
+                [
+                    'error' => $e,
+                ]
+            );
+
             return $this->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -90,9 +104,14 @@ class OrderController extends AbstractController
     {
         try {
             return $this->json($this->orderService->getUnavailableDates());
-        } catch (ValidationErrorException $e) {
-            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed get unavailable dates',
+                [
+                    'error' => $e,
+                ]
+            );
+
             return $this->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -111,21 +130,20 @@ class OrderController extends AbstractController
                 'message' => $content,
             ]
         );
-//        try {
-        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        try {
+            $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+            $this->orderService->handleTelegramMessage(new TelegramMessage($data));
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Can not get update from telegram',
+                [
+                    'error' => $e,
+                    'data'  => $content,
+                ]
+            );
 
-        $this->orderService->handleTelegramMessage(new TelegramMessage($data));
-//        } catch (\Throwable $exception) {
-//            $this->logger->error(
-//                'Can not get update from telegram',
-//                [
-//                    'error' => $exception,
-//                    'data'  => $content,
-//                ]
-//            );
-//
-//            return new Response();
-//        }
+            return new Response();
+        }
 
         return new Response('ok');
     }

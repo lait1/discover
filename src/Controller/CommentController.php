@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Domain\ReviewService;
 use App\DTO\ReviewDTO;
-use App\Exception\ValidationErrorException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,10 +42,8 @@ class CommentController extends AbstractController
             $this->reviewService->createReview($dto, $file);
 
             return $this->json(['message' => 'success']);
-//        } catch (ValidationErrorException $e) {
-//            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
-            $this->logger->error(
+            $this->logger->critical(
                 'Fail make comment',
                 [
                     'error' => $e,
