@@ -15,18 +15,6 @@
           </svg>
         </button>
         <div class="wrap">
-          <div v-if="errors.length" class="tour__dialog-row">
-            <v-alert
-                outlined
-                text
-                type="error"
-                class="order__dialog-alert"
-            >
-              <ul>
-                <li v-for="error in errors">{{ error }}</li>
-              </ul>
-            </v-alert>
-          </div>
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="userName" class="tour__dialog-label">Выбранная Дата</label>
@@ -42,7 +30,16 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="userName" class="tour__dialog-label">Ваше имя</label>
-              <input v-model="order.name" placeholder="Имя" class="tour__dialog-input" type="text" name="userName" id="userName">
+              <input
+                  v-model="order.name"
+                  placeholder="Имя"
+                  class="tour__dialog-input"
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  :class="hasNameError ? 'error__active' : null"
+              >
+              <span v-if="hasNameError" class="error__message">{{ nameError.join(',') }}</span>
             </div>
             <div class="tour__dialog-col">
               <label for="userPhone" class="tour__dialog-label">Номер телефона</label>
@@ -51,8 +48,9 @@
                   v-model="order.phone"
                   autoDetectCountry
                   wrapperClass="tour__dialog-input-wrap"
-                  inputClass="tour__dialog-input"
+                  :inputClass="hasPhoneError ? 'tour__dialog-input error__active' : 'tour__dialog-input'"
               />
+              <span v-if="hasPhoneError" class="error__message">{{ phoneError.join(',') }}</span>
             </div>
           </div>
           <div class="order__people-row">
@@ -143,7 +141,8 @@ export default {
         isDatePicker: true,
         disabledDates: this.disableDate
       },
-      errors: []
+      phoneError: [],
+      nameError: []
     }
   },
   watch: {
@@ -165,6 +164,12 @@ export default {
     isDisableDecrementCounter(){
       return this.order.countPeople <= 1
     },
+    hasPhoneError(){
+      return this.phoneError.length > 0
+    },
+    hasNameError(){
+      return this.nameError.length > 0
+    }
   },
   methods: {
     incrementCountPeople(){
@@ -185,18 +190,19 @@ export default {
       this.order.text = ''
     },
     validation() {
-      this.errors = []
+      this.phoneError = []
+      this.nameError = []
 
       if (this.order.phone.slice(0, 4) === '+995' && this.order.phone.length < 13) {
-        this.errors.push('Длина номера телефона маловато будет')
+        this.phoneError.push('Длина номера телефона маловато будет')
       }
       if (this.order.phone.slice(0, 2) === '+7' && this.order.phone.length < 12) {
-        this.errors.push('Длина номера телефона маловато будет')
+        this.phoneError.push('Длина номера телефона маловато будет')
       }
       if (this.order.name.length < 3) {
-        this.errors.push('Длина имени маловато будет')
+        this.nameError.push('Длина имени маловато будет')
       }
-      return this.errors.length === 0
+      return this.nameError.length === 0 && this.phoneError.length === 0
     },
     successRequest() {
       this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
@@ -261,6 +267,17 @@ export default {
   background: #FFF;
   @media screen and (max-width: 568px) {
     border-radius: 0;
+  }
+}
+
+::v-deep .error {
+  &__active {
+    border: 2px solid #fd5f5f;
+  }
+
+  &__message {
+    color: #fd5f5f;
+    font-size: 14px;
   }
 }
 </style>

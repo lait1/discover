@@ -22,7 +22,15 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="userName" class="tour__dialog-label">Ваше имя</label>
-              <input v-model="review.name" class="tour__dialog-input" type="text" name="userName" id="userName">
+              <input
+                  v-model="review.name"
+                  class="tour__dialog-input"
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  :class="hasNameError ? 'error__active' : null"
+              >
+              <span v-if="hasNameError" class="error__message">{{ nameError.join(',') }}</span>
             </div>
             <div class="tour__dialog-col">
               <label for="userPhone" class="tour__dialog-label">Номер телефона</label>
@@ -31,8 +39,9 @@
                   v-model="review.phone"
                   autoDetectCountry
                   wrapperClass="tour__dialog-input-wrap"
-                  inputClass="tour__dialog-input"
+                  :inputClass="hasPhoneError ? 'tour__dialog-input error__active' : 'tour__dialog-input'"
               />
+              <span v-if="hasPhoneError" class="error__message">{{ phoneError.join(',') }}</span>
             </div>
           </div>
           <div class="tour__dialog-row">
@@ -78,7 +87,9 @@ export default {
         phone: '',
         text: '',
       },
-      selectedImages: []
+      selectedImages: [],
+      phoneError: [],
+      nameError: []
     }
   },
   computed: {
@@ -88,6 +99,12 @@ export default {
     fullscreen() {
       return this.$vuetify.breakpoint.width <= 586;
     },
+    hasPhoneError(){
+      return this.phoneError.length > 0
+    },
+    hasNameError(){
+      return this.nameError.length > 0
+    }
   },
   methods: {
     closeDialog() {
@@ -109,7 +126,26 @@ export default {
     loadPhoto(files){
       this.selectedImages = files
     },
+    validation() {
+      this.phoneError = []
+      this.nameError = []
+
+      if (this.review.phone.slice(0, 4) === '+995' && this.review.phone.length < 13) {
+        this.phoneError.push('Длина номера телефона маловато будет')
+      }
+      if (this.review.phone.slice(0, 2) === '+7' && this.review.phone.length < 12) {
+        this.phoneError.push('Длина номера телефона маловато будет')
+      }
+      if (this.review.name.length < 3) {
+        this.nameError.push('Длина имени маловато будет')
+      }
+      return this.nameError.length === 0 && this.phoneError.length === 0
+    },
     addComment(){
+      this.selectedImages = [];
+      if (! this.validation()){
+        return
+      }
       let data = new FormData()
       data.append('tourId', this.review.tourId)
       data.append('name', this.review.name)
@@ -161,5 +197,15 @@ export default {
 }
 ::v-deep .vue-star-rating{
   gap: 8px;
+}
+::v-deep .error {
+  &__active {
+    border: 2px solid #fd5f5f;
+  }
+
+  &__message {
+    color: #fd5f5f;
+    font-size: 14px;
+  }
 }
 </style>

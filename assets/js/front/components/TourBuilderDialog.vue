@@ -80,7 +80,16 @@
               <div class="tour__dialog-row">
                 <div class="tour__dialog-col">
                   <label for="userName" class="tour__dialog-label">Ваше имя</label>
-                  <input v-model="order.name" placeholder="Имя" class="tour__dialog-input" type="text" name="userName" id="userName">
+                  <input
+                      v-model="order.name"
+                      placeholder="Имя"
+                      class="tour__dialog-input"
+                      type="text"
+                      name="userName"
+                      id="userName"
+                      :class="hasNameError ? 'error__active' : null"
+                  >
+                  <span v-if="hasNameError" class="error__message">{{ nameError.join(',') }}</span>
                 </div>
                 <div class="tour__dialog-col">
                   <label for="userPhone" class="tour__dialog-label">Номер телефона</label>
@@ -89,8 +98,9 @@
                       v-model="order.phone"
                       autoDetectCountry
                       wrapperClass="tour__dialog-input-wrap"
-                      inputClass="tour__dialog-input"
+                      :inputClass="hasPhoneError ? 'tour__dialog-input error__active' : 'tour__dialog-input'"
                   />
+                  <span v-if="hasPhoneError" class="error__message">{{ phoneError.join(',') }}</span>
                 </div>
               </div>
             <div class="tour__dialog-row">
@@ -172,14 +182,14 @@
           <button
               class="tour__dialog-button tour__dialog-button-back"
               :class="{ 'tour__dialog-button-disabled':  step === 1 }"
-              @click="step--">Назад</button>
+              @click="backStep">Назад</button>
           <v-spacer></v-spacer>
 
           <button v-if="step === 3" class="tour__dialog-button" @click="sendOrder" >
             Заказать
           </button>
 
-          <button v-else class="tour__dialog-button" @click="step++" >
+          <button v-else class="tour__dialog-button" @click="nextStep" >
             Далее
           </button>
 
@@ -216,6 +226,8 @@ export default {
       selected: [],
       errors: [],
       step: 1,
+      phoneError: [],
+      nameError: []
     }
   },
   mounted() {
@@ -260,6 +272,12 @@ export default {
 
       return selections
     },
+    hasPhoneError(){
+      return this.phoneError.length > 0
+    },
+    hasNameError(){
+      return this.nameError.length > 0
+    }
   },
   watch: {
     showDialog() {
@@ -280,6 +298,17 @@ export default {
             console.error(response)
           })
     },
+    backStep(){
+      this.step--
+    },
+    nextStep(){
+      if (this.step === 2){
+        if (! this.validation()){
+          return
+        }
+      }
+      this.step++
+    },
     closeDialog() {
       this.$emit('closeDialog');
     },
@@ -289,18 +318,19 @@ export default {
       this.order.text = ''
     },
     validation() {
-      this.errors = []
+      this.phoneError = []
+      this.nameError = []
 
       if (this.order.phone.slice(0, 4) === '+995' && this.order.phone.length < 13) {
-        this.errors.push('Длина номера телефона маловато будет')
+        this.phoneError.push('Длина номера телефона маловато будет')
       }
       if (this.order.phone.slice(0, 2) === '+7' && this.order.phone.length < 12) {
-        this.errors.push('Длина номера телефона маловато будет')
+        this.phoneError.push('Длина номера телефона маловато будет')
       }
       if (this.order.name.length < 3) {
-        this.errors.push('Длина имени маловато будет')
+        this.nameError.push('Длина имени маловато будет')
       }
-      return this.errors.length === 0
+      return this.nameError.length === 0 && this.phoneError.length === 0
     },
     successRequest() {
       this.$emit('showSuccessMessage', 'Мы очень скоро с Вами свяжемся!');
@@ -309,9 +339,6 @@ export default {
       this.$emit('showErrorMessage', error);
     },
     sendOrder(){
-      if (! this.validation()){
-        return
-      }
       this.order.selectedCategories = this.selections
 
       axios.post('/order/make-my-tour', this.order)
@@ -381,5 +408,15 @@ export default {
 ::v-deep .v-dialog{
   border-radius: 32px;
   background: #FFF;
+}
+::v-deep .error {
+  &__active {
+    border: 2px solid #fd5f5f;
+  }
+
+  &__message {
+    color: #fd5f5f;
+    font-size: 14px;
+  }
 }
 </style>
