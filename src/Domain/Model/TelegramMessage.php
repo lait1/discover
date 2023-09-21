@@ -22,6 +22,6 @@ class TelegramMessage
 
     public function getCallbackData(): CallbackData
     {
-        return CallbackData::buildRawData($this->data['data']);
+        return CallbackData::buildRawData(json_decode($this->data['data'], true));
     }
 }

@@ -70,7 +70,7 @@ class OrderService
             $this->logger->critical(
                 'Fail book tour',
                 [
-                    'message' => $e->getMessage(),
+                    'message' => $e,
                 ]
             );
             $this->notificator->sendErrorNotification($e->getMessage());

@@ -119,7 +119,7 @@ class OrderController extends AbstractController
 //            $this->logger->error(
 //                'Can not get update from telegram',
 //                [
-//                    'error' => $exception->getMessage(),
+//                    'error' => $exception,
 //                    'data'  => $content,
 //                ]
 //            );
