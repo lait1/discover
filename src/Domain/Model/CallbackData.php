@@ -9,11 +9,14 @@ class CallbackData implements \JsonSerializable
 {
     private OrderStatusEnum $status;
 
+    private string $recipient;
+
     private int $orderId;
 
-    private function __construct(OrderStatusEnum $status, int $orderId)
+    private function __construct(OrderStatusEnum $status, string $recipient, int $orderId)
     {
         $this->status = $status;
+        $this->recipient = $recipient;
         $this->orderId = $orderId;
     }
 
@@ -21,24 +24,25 @@ class CallbackData implements \JsonSerializable
     {
         $status = new OrderStatusEnum($data['status']);
 
-        return new self($status, $data['orderId']);
+        return new self($status, $data['recipient'], $data['orderId']);
     }
 
-    public static function buildApproveData(int $orderId): self
+    public static function buildApproveData(string $recipient, int $orderId): self
     {
-        return new self(OrderStatusEnum::APPROVE(), $orderId);
+        return new self(OrderStatusEnum::APPROVE(), $recipient, $orderId);
     }
 
-    public static function buildRejectData(int $orderId): self
+    public static function buildRejectData(string $recipient, int $orderId): self
     {
-        return new self(OrderStatusEnum::REJECT(), $orderId);
+        return new self(OrderStatusEnum::REJECT(), $recipient, $orderId);
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'orderId' => $this->orderId,
-            'status'  => $this->status->getValue(),
+            'orderId'   => $this->orderId,
+            'recipient' => $this->recipient,
+            'status'    => $this->status->getValue(),
         ];
     }
 
@@ -50,5 +54,10 @@ class CallbackData implements \JsonSerializable
     public function getOrderId(): int
     {
         return $this->orderId;
+    }
+
+    public function getRecipient(): string
+    {
+        return $this->recipient;
     }
 }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\OrderStatusEnum;
 use App\Repository\OrderTourRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,9 +33,6 @@ class OrderTour
     private Tour $tour;
 
     /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
-    private int $reservationDate;
-
-    /** @ORM\Column(type="integer", nullable=false, options={"unsigned": true}) */
     private int $countPeople;
 
     /** @ORM\Column(type="integer", nullable=true, options={"unsigned": true}) */
@@ -54,17 +53,19 @@ class OrderTour
     /** @ORM\Column(type="integer", nullable=true, options={"unsigned": true}) */
     private int $updatedAt;
 
+    /** @ORM\OneToMany(targetEntity=ReservationDate::class, mappedBy="orderTour", cascade={"persist"}) */
+    private $reservationDate;
+
     public function __construct(
-        int $reservationDate,
         int $countPeople,
         ?string $description = null
     ) {
-        $this->reservationDate = $reservationDate;
         $this->countPeople = $countPeople;
         $this->comment = $description ? trim(strip_tags($description)) : null;
         $this->status = OrderStatusEnum::WAIT;
         $this->createdAt = time();
         $this->updatedAt = time();
+        $this->reservationDate = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,14 +102,14 @@ class OrderTour
         return $this;
     }
 
-    public function getReservationDate(): DateTimeImmutable
-    {
-        return (new \DateTimeImmutable())->setTimestamp($this->reservationDate);
-    }
-
     public function getFormattedReservationDate(): string
     {
-        return $this->getReservationDate()->format('d-m-Y');
+        if ($this->reservationDate->isEmpty()) {
+            return 'Нет даты';
+        }
+        $reservationDate = $this->reservationDate->first();
+
+        return $reservationDate->getReservationDate()->format('d-m-Y');
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -163,5 +164,45 @@ class OrderTour
     public function setDetails(array $details): void
     {
         $this->details = $details;
+    }
+
+    /**
+     * @return Collection<int, ReservationDate>
+     */
+    public function getReservationDate(): Collection
+    {
+        return $this->reservationDate;
+    }
+
+    public function addReservationDate(ReservationDate $reservationDate): self
+    {
+        if (!$this->reservationDate->contains($reservationDate)) {
+            $this->reservationDate[] = $reservationDate;
+            $reservationDate->setOrderTour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservationDate(ReservationDate $reservationDate): self
+    {
+        if ($this->reservationDate->removeElement($reservationDate)) {
+            // set the owning side to null (unless already changed)
+            if ($reservationDate->getOrderTour() === $this) {
+                $reservationDate->setOrderTour(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isReject(): bool
+    {
+        return $this->status === OrderStatusEnum::REJECT;
+    }
+
+    public function isApprove(): bool
+    {
+        return $this->status === OrderStatusEnum::APPROVE;
     }
 }

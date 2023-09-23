@@ -142,7 +142,7 @@ export default {
       }
     }
     .vfc-disabled{
-      background: var(--background-primary, #F6F6FA);
+      background: var(--background-primary, #e4e8f3);
     }
   }
 }

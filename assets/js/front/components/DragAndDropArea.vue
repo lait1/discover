@@ -7,9 +7,7 @@
         @drop="drop"
         @click="openFilePicker"
     >
-      <p v-if="selectedImages.length === 0">Перетащите сюда фотографии <br>
-        или <a href="#">выберите на компьютере</a>
-      </p>
+      <p v-if="selectedImages.length === 0">Выберите фотографии</p>
       <drag-and-drop-images
           :images="selectedImages"
           @removeFile="removePhoto"

@@ -36,6 +36,7 @@
           color="green"
           text-color="white"
           link
+          :disabled="item.status !== 'WAIT'"
           @click="approve(item)"
       >
         <v-avatar left>
@@ -48,6 +49,7 @@
           color="red"
           text-color="white"
           link
+          :disabled="item.status === 'REJECT'"
           @click="reject(item)"
       >
         <v-avatar left>
@@ -112,6 +114,10 @@ export default {
             }
           })
           .catch((response) => {
+            if (response.response.status === 400){
+              alert(response.response.data.error);
+              return
+            }
             alert("Ошибка апрува заказа");
           })
           .finally(() => {

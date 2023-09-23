@@ -94,4 +94,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->find($id);
     }
+
+    public function getUserByToken(string $userToken): User
+    {
+        return $this->findOneBy(['telegramToken' => $userToken]);
+    }
 }

@@ -103,7 +103,7 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <div class="order__question">
-                <strong>Остались вопросы?</strong> Напишите к нам в <a href="#">Telegram</a>, <a href="#">WhatsApp</a> или напишите в чат
+                <strong>Остались вопросы?</strong> Напишите к нам в <a href="#">Telegram</a>, <a href="#">WhatsApp</a>
               </div>
             </div>
           </div>

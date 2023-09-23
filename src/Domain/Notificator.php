@@ -5,6 +5,7 @@ namespace App\Domain;
 
 use App\Entity\OrderTour;
 use App\Infrastructure\TelegramApiClient;
+use App\Repository\OrderTourRepository;
 use App\Repository\UserRepository;
 
 class Notificator
@@ -13,10 +14,16 @@ class Notificator
 
     public UserRepository $userRepository;
 
-    public function __construct(TelegramApiClient $apiClient, UserRepository $userRepository)
-    {
+    public OrderTourRepository $orderTourRepository;
+
+    public function __construct(
+        TelegramApiClient $apiClient,
+        UserRepository $userRepository,
+        OrderTourRepository $orderTourRepository
+    ) {
         $this->apiClient = $apiClient;
         $this->userRepository = $userRepository;
+        $this->orderTourRepository = $orderTourRepository;
     }
 
     public function sendNotification(OrderTour $order): void

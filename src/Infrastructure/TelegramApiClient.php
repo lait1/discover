@@ -36,8 +36,8 @@ class TelegramApiClient
         $keyboard = new InlineKeyboardMarkup(
             [
                 [
-                    ['text' => 'Подтвердить', 'callback_data' => json_encode(CallbackData::buildApproveData($orderId))],
-                    ['text' => 'Отказать', 'callback_data' => json_encode(CallbackData::buildRejectData($orderId))],
+                    ['text' => 'Подтвердить', 'callback_data' => json_encode(CallbackData::buildApproveData($recipient, $orderId))],
+                    ['text' => 'Отказать', 'callback_data' => json_encode(CallbackData::buildRejectData($recipient, $orderId))],
                 ],
             ]
         );

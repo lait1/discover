@@ -61,11 +61,15 @@ class OrderTourRepository extends ServiceEntityRepository
 
     public function getOrderById(int $id): OrderTour
     {
-        return $this->find($id);
+        return $this->findOneBy(['id' => $id]);
     }
 
     public function getAllOrders(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('prd')
+            ->orderBy('prd.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

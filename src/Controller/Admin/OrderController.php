@@ -44,9 +44,11 @@ class OrderController extends AbstractController
         );
 
         try {
-            $this->orderService->approve($dto->id);
+            $this->orderService->approve($dto->id, $this->getUser());
 
             return $this->json(['message' => 'success']);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }
@@ -67,6 +69,8 @@ class OrderController extends AbstractController
             $this->orderService->reject($dto->id);
 
             return $this->json(['message' => 'success']);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
             return $this->json(['error' => $e->getMessage()], 500);
         }

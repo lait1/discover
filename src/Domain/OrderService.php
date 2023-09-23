@@ -7,13 +7,18 @@ use App\Domain\Model\TelegramMessage;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
 use App\Entity\OrderTour;
+use App\Entity\ReservationDate;
+use App\Entity\User;
 use App\Enum\OrderStatusEnum;
 use App\Exception\ValidationErrorException;
 use App\Repository\CategoryRepository;
 use App\Repository\OrderTourRepository;
+use App\Repository\ReservationDateRepository;
 use App\Repository\TourRepository;
+use App\Repository\UserRepository;
 use App\View\OrderList;
 use App\View\OrderView;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Psr\Log\LoggerInterface;
 
@@ -29,6 +34,10 @@ class OrderService
 
     private CategoryRepository $categoryRepository;
 
+    private ReservationDateRepository $reservationDateRepository;
+
+    private UserRepository $userRepository;
+
     private LoggerInterface $logger;
 
     public function __construct(
@@ -37,6 +46,8 @@ class OrderService
         ClientService $clientService,
         Notificator $notificator,
         CategoryRepository $categoryRepository,
+        ReservationDateRepository $reservationDateRepository,
+        UserRepository $userRepository,
         LoggerInterface $logger
     ) {
         $this->orderRepository = $orderRepository;
@@ -44,6 +55,8 @@ class OrderService
         $this->clientService = $clientService;
         $this->notificator = $notificator;
         $this->categoryRepository = $categoryRepository;
+        $this->reservationDateRepository = $reservationDateRepository;
+        $this->userRepository = $userRepository;
         $this->logger = $logger;
     }
 
@@ -52,17 +65,17 @@ class OrderService
      */
     public function bookAnOrder(OrderDTO $dto): void
     {
-        $reservationDate = $this->getDateTime($dto->date);
-        $this->checkAvailableDate($reservationDate);
+        $date = $this->getDateTime($dto->date);
+        $this->checkAvailableDate($date);
 
         try {
             $tour = $this->tourRepository->getById($dto->tourId);
             $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
 
-            $order = new OrderTour($reservationDate->getTimestamp(), $dto->countPeople, $dto->text);
+            $order = new OrderTour($dto->countPeople, $dto->text);
             $order->setTour($tour);
             $order->setClient($client);
-
+            $order->addReservationDate(new ReservationDate($date));
             $this->orderRepository->save($order);
 
             $this->notificator->sendNotification($order);
@@ -83,7 +96,7 @@ class OrderService
             $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
             $tour = $this->tourRepository->getUniqTour();
 
-            $order = new OrderTour(time(), $dto->countPeople, $dto->text);
+            $order = new OrderTour($dto->countPeople, $dto->text);
             $order->setClient($client);
             $order->setTour($tour);
             $order->setCountDay($dto->countDay);
@@ -105,11 +118,12 @@ class OrderService
 
     public function getUnavailableDates(): array
     {
-        $orders = $this->orderRepository->getOrdersOlderToday();
+        $reservationDate = $this->reservationDateRepository->getOrdersOlderToday();
+
         $dates = ['beforeToday'];
-        /** @var OrderTour $order */
-        foreach ($orders as $order) {
-            $dates[] = $order->getReservationDate()->format('d/n/Y');
+        /** @var ReservationDate $date */
+        foreach ($reservationDate as $date) {
+            $dates[] = $date->getReservationDate()->format('d/n/Y');
         }
 
         return $dates;
@@ -130,50 +144,76 @@ class OrderService
         return $list;
     }
 
-    public function approve(int $orderId): void
+    public function approve(int $orderId, User $user): void
     {
         $order = $this->orderRepository->getOrderById($orderId);
-        $order->approve();
+        if ($order->isApprove()) {
+            throw new \InvalidArgumentException('Заказ уже подтвержден');
+        }
+        if ($order->isReject()) {
+            throw new \InvalidArgumentException('Заказ уже отклонен');
+        }
 
+        if (!$order->isUniqTour()) {
+            $reservationDates = $order->getReservationDate();
+            foreach ($reservationDates->toArray() as $date) {
+                $date->setUser($user);
+                $this->reservationDateRepository->save($date);
+            }
+        }
+        $order->approve();
         $this->orderRepository->save($order);
     }
 
     public function reject(int $orderId): void
     {
         $order = $this->orderRepository->getOrderById($orderId);
+        if ($order->isReject()) {
+            throw new \InvalidArgumentException('Заказ уже отклонен');
+        }
+        if (!$order->isUniqTour()) {
+            $reservationDates = $order->getReservationDate();
+            foreach ($reservationDates->toArray() as $date) {
+                $this->reservationDateRepository->remove($date);
+            }
+        }
         $order->reject();
-
         $this->orderRepository->save($order);
     }
 
     public function handleTelegramMessage(TelegramMessage $param): void
     {
-        $status = $param->getCallbackData()->getStatus();
         $orderId = $param->getCallbackData()->getOrderId();
 
-        switch ($status) {
-            case OrderStatusEnum::APPROVE():
-                $this->approve($orderId);
-                $result = 'Тур подтвержден!';
-                break;
-            case OrderStatusEnum::REJECT():
-                $this->reject($orderId);
-                $result = 'Тур отклонен :(';
-                break;
-            default:
-                throw new \InvalidArgumentException('Status is not supported');
+        $user = $this->userRepository->getUserByToken($param->getCallbackData()->getRecipient());
+        try {
+            switch ($param->getCallbackData()->getStatus()) {
+                case OrderStatusEnum::APPROVE():
+                    $this->approve($orderId, $user);
+                    $result = 'Тур подтвержден!';
+                    break;
+                case OrderStatusEnum::REJECT():
+                    $this->reject($orderId);
+                    $result = 'Тур отклонен :(';
+                    break;
+                default:
+                    throw new \InvalidArgumentException('Status is not supported');
+            }
+        } catch (\InvalidArgumentException $exception) {
+            $result = $exception->getMessage();
+        } finally {
+            $this->notificator->answerMessage($param->getChatId(), $result);
         }
-        $this->notificator->answerMessage($param->getChatId(), $result);
     }
 
     private function getDateTime(string $date): DateTimeInterface
     {
-        return \DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $date . '00:00:00');
+        return DateTimeImmutable::createFromFormat('d/m/Y h:i:s', $date . '00:00:00');
     }
 
     private function checkAvailableDate(DateTimeInterface $date): void
     {
-        if ($this->orderRepository->hasOrderSameDate($date->getTimestamp())) {
+        if ($this->reservationDateRepository->hasOrderSameDate($date)) {
             throw new ValidationErrorException(
                 'Просим прощения, эта дата уже зарезервирована! Пожалуйста, выберите другую'
             );

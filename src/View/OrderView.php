@@ -21,7 +21,7 @@ class OrderView implements \JsonSerializable
             'client'          => new ClientView($this->entity->getClient()),
             'tour'            => new TourView($this->entity->getTour()),
             'status'          => $this->entity->getStatus(),
-            'dateReservation' => $this->entity->getReservationDate()->format('d.m.Y'),
+            'dateReservation' => $this->entity->getFormattedReservationDate(),
             'countPeople'     => $this->entity->getCountPeople(),
             'comment'         => $this->entity->getComment(),
             'created'         => $this->entity->getCreatedAt()->format('d.m.Y'),

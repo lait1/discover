@@ -47,8 +47,15 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="textComment" class="tour__dialog-label">Отзыв</label>
-              <textarea v-model="review.text" class="tour__dialog-input" name="textComment"
-                        id="textComment"></textarea>
+              <textarea
+                  v-model="review.text"
+                  class="tour__dialog-input"
+                  name="textComment"
+                  id="textComment"
+                  :class="hasTextError ? 'error__active' : null"
+              >
+              </textarea>
+              <span v-if="hasTextError" class="error__message">{{ textError.join(',') }}</span>
             </div>
           </div>
           <div class="tour__dialog-row">
@@ -89,7 +96,8 @@ export default {
       },
       selectedImages: [],
       phoneError: [],
-      nameError: []
+      nameError: [],
+      textError: []
     }
   },
   computed: {
@@ -104,6 +112,9 @@ export default {
     },
     hasNameError(){
       return this.nameError.length > 0
+    },
+    hasTextError(){
+      return this.textError.length > 0
     }
   },
   methods: {
@@ -112,7 +123,6 @@ export default {
     },
     clearForm() {
       this.review.name = ''
-      this.review.phone = ''
       this.review.rating = 5
       this.review.text = ''
     },
@@ -129,6 +139,7 @@ export default {
     validation() {
       this.phoneError = []
       this.nameError = []
+      this.textError = []
 
       if (this.review.phone.slice(0, 4) === '+995' && this.review.phone.length < 13) {
         this.phoneError.push('Длина номера телефона маловато будет')
@@ -139,7 +150,10 @@ export default {
       if (this.review.name.length < 3) {
         this.nameError.push('Длина имени маловато будет')
       }
-      return this.nameError.length === 0 && this.phoneError.length === 0
+      if (this.review.text.length < 10) {
+        this.textError.push('Сообщение маленькое, давайте постараемся')
+      }
+      return this.nameError.length === 0 && this.phoneError.length === 0 && this.textError.length === 0
     },
     addComment(){
       this.selectedImages = [];

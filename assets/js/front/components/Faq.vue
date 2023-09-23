@@ -24,9 +24,11 @@
       <div v-for="item in items" class="tour__faq-item">
         <div class="tour__faq-item__title" @click.prevent="item.isActive = !item.isActive">
           <span>{{ item.title }}</span>
+          <div>
             <svg class="icon">
               <use :xlink:href='item.isActive ? "#minus-faq" : "#plus-faq"'></use>
             </svg>
+          </div>
         </div>
 
         <div class="tour__faq-item__description" v-show="item.isActive">
