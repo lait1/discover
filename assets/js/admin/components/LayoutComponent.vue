@@ -71,6 +71,7 @@ export default {
     return {
       drawer: false,
       items: [
+        { title: 'Мой календарь', icon: 'mdi-calendar-account-outline', link: '/admin/profile' },
         { title: 'Туры', icon: 'mdi-view-list', link: '/admin/tours' },
         { title: 'Заказы', icon: 'mdi-cash', link: '/admin/orders' },
         { title: 'Коментарии', icon: 'mdi-view-dashboard', link: '/admin/comments' },

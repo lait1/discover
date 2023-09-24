@@ -118,12 +118,42 @@ class OrderService
 
     public function getUnavailableDates(): array
     {
-        $reservationDate = $this->reservationDateRepository->getOrdersOlderToday();
+        $reservationDate = $this->reservationDateRepository->getUnavailableDates();
 
         $dates = ['beforeToday'];
         /** @var ReservationDate $date */
         foreach ($reservationDate as $date) {
-            $dates[] = $date->getReservationDate()->format('d/n/Y');
+            $dates[] = $date->getReservationDate()->format('j/n/Y');
+        }
+
+        return $dates;
+    }
+
+    public function getBookedTourDates(): array
+    {
+        $reservationDate = $this->reservationDateRepository->getBookedOlderToday();
+
+        $dates = ['beforeToday'];
+        /** @var ReservationDate $date */
+        foreach ($reservationDate as $date) {
+            $dates[] = $date->getReservationDate()->format('j/n/Y');
+        }
+
+        return $dates;
+    }
+
+    public function getMarkedDates(): array
+    {
+        $reservationDate = $this->reservationDateRepository->getMarkedDatesOlderToday();
+
+        $dates = [];
+        /** @var ReservationDate $date */
+        foreach ($reservationDate as $date) {
+            $dateObject['date'] = $date->getReservationDate()->format('j/n/Y');
+            $dateObject['dateTime'] = false;
+            $dateObject['hour'] = '00';
+            $dateObject['minute'] = '00';
+            $dates[] = $dateObject;
         }
 
         return $dates;
@@ -204,6 +234,23 @@ class OrderService
         } finally {
             $this->notificator->answerMessage($param->getChatId(), $result);
         }
+    }
+
+    public function toggleDates(string $rawDate, User $user): string
+    {
+        $date = $this->getDateTime($rawDate);
+        $reservationDate = $this->reservationDateRepository->getDateByUser($date, $user->getId());
+
+        if ($reservationDate) {
+            $this->reservationDateRepository->remove($reservationDate);
+
+            return 'removed';
+        }
+        $reservationDate = new ReservationDate($date);
+        $reservationDate->setUser($user);
+        $this->reservationDateRepository->save($reservationDate);
+
+        return 'saved';
     }
 
     private function getDateTime(string $date): DateTimeInterface

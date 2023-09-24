@@ -10,9 +10,9 @@ use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class TelegramApiClient
 {
-    private BotApi $telegramBot;
+    private string $telegramToken;
 
-    private BotApi $telegramErrorChannel;
+    private string $telegramErrorChannelToken;
 
     private Router $router;
 
@@ -24,15 +24,17 @@ class TelegramApiClient
         string $telegramToken,
         string $telegramErrorChannelToken
     ) {
-        $this->telegramBot = new BotApi($telegramToken);
-        $this->telegramErrorChannel = new BotApi($telegramErrorChannelToken);
+        $this->telegramToken = $telegramToken;
+        $this->telegramErrorChannelToken = $telegramErrorChannelToken;
         $this->router = $router;
         $this->logger = $logger;
-        $this->telegramBot->setWebhook($router->generate('telegram-webhook'));
     }
 
     public function sendMessage(string $recipient, string $message, int $orderId): void
     {
+        $telegramBot = new BotApi($this->telegramToken);
+        $telegramBot->setWebhook($this->router->generate('telegram-webhook'));
+
         $keyboard = new InlineKeyboardMarkup(
             [
                 [
@@ -42,7 +44,7 @@ class TelegramApiClient
             ]
         );
 
-        $this->telegramBot->sendMessage(
+        $telegramBot->sendMessage(
             $recipient,
             $message,
             'HTML',
@@ -54,12 +56,14 @@ class TelegramApiClient
 
     public function answerMessage(int $chatId, string $message): void
     {
-        $this->telegramBot->answerCallbackQuery($chatId, $message, true);
+        $telegramBot = new BotApi($this->telegramToken);
+        $telegramBot->answerCallbackQuery($chatId, $message, true);
     }
 
     public function sendError(string $recipient, string $error): void
     {
-        $this->telegramErrorChannel->sendMessage(
+        $telegramErrorChannel = new BotApi($this->telegramErrorChannelToken);
+        $telegramErrorChannel->sendMessage(
             $recipient,
             $error,
             'HTML',

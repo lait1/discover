@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\OrderTour;
 use App\Entity\ReservationDate;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -27,12 +26,38 @@ class ReservationDateRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function getOrdersOlderToday(): array
+    public function getUnavailableDates(): array
     {
         $date = new \DateTimeImmutable();
 
         return $this->createQueryBuilder('rd')
             ->where('rd.reservationDate > :bookTime')
+            ->andWhere('rd.user IS NOT NULL')
+            ->setParameter('bookTime', $date)
+            ->getQuery()->getResult()
+        ;
+    }
+
+    public function getBookedOlderToday(): array
+    {
+        $date = new \DateTimeImmutable();
+
+        return $this->createQueryBuilder('rd')
+            ->where('rd.reservationDate > :bookTime')
+            ->andWhere('rd.orderTour IS NOT NULL')
+            ->andWhere('rd.user IS NOT NULL')
+            ->setParameter('bookTime', $date)
+            ->getQuery()->getResult()
+        ;
+    }
+
+    public function getMarkedDatesOlderToday(): array
+    {
+        $date = new \DateTimeImmutable();
+
+        return $this->createQueryBuilder('rd')
+            ->where('rd.reservationDate > :bookTime')
+            ->andWhere('rd.orderTour IS NULL')
             ->andWhere('rd.user IS NOT NULL')
             ->setParameter('bookTime', $date)
             ->getQuery()->getResult()
@@ -50,21 +75,15 @@ class ReservationDateRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getOrderById(int $id): OrderTour
+    public function getDateByUser(DateTimeInterface $date, int $userId)
     {
-        return $this->find($id);
-    }
-
-    public function getAllOrders(): array
-    {
-        return $this->findAll();
-    }
-
-    /**
-     * @return ReservationDate[]
-     */
-    public function getByOrderId($order): array
-    {
-        return $this->findBy(['orderTour', $order]);
+        return $this->createQueryBuilder('rd')
+            ->where('rd.reservationDate = :bookTime')
+            ->andWhere('rd.orderTour IS NULL')
+            ->andWhere('rd.user = :userId')
+            ->setParameter('bookTime', $date)
+            ->setParameter('userId', $userId)
+            ->getQuery()->getOneOrNullResult()
+        ;
     }
 }
