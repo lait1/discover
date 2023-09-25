@@ -11,11 +11,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo pdo_mysql zip
 
-#COPY crontab /etc/cron.d/crontab
-#
-#RUN chmod 0644 /etc/cron.d/crontab
-RUN crontab -l | { cat; echo "*/30 * * * * /usr/local/bin/php /symfony/bin/console parse:serials >> /var/log/cron.log 2>&1"; } | crontab -
+RUN echo "* * * * * /usr/local/bin/php /symfony/bin/console parse:exchange" > /etc/cron.d/symfony-cron
+RUN chmod 0644 /etc/cron.d/symfony-cron
+RUN crontab /etc/cron.d/symfony-cron
 
-RUN touch /var/log/cron.log
-
-CMD cron && tail -f /var/log/cron.log
+CMD ["cron", "-f"]
