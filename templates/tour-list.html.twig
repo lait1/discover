@@ -12,7 +12,7 @@
                 <div class="trip__footer">
                     <div class="trip__footer-book">
                         <h5 class="trip__footer-amount">
-                            {{ tour.price }}
+                            <Price :trip-id="{{ tour.id }}" />
                             <svg class="icon currency">
                                 <use xlink:href="#GEL"></use>
                             </svg>

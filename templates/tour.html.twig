@@ -108,9 +108,8 @@
     <section class="tour__details">
         <div class="wrap">
             <header class="tour__details-header">
-                <h1>СТОИМОСТЬ - <span class="tour__details-header-price">{{ tour.price }}
-                    <svg class="icon currency"><use xlink:href="#GEL"></use></svg>
-                </span>
+                <h1>СТОИМОСТЬ -
+                        <Price :trip-id="{{ tour.id }}" />
                 </h1>
                 <p>Цена за 1-4 человек. Для большего количества участников цена обговаривается индивидуально</p>
             </header>

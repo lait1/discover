@@ -104,6 +104,14 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/tour/get-price/{id}", methods={"GET"})
+     */
+    public function getCategoriesAction(int $id): Response
+    {
+        return $this->json($this->tourService->getPriceByTourId($id));
+    }
+
+    /**
      * @Route("/corporate", name="corporate")
      */
     public function corporateAction(): Response

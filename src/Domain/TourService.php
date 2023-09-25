@@ -10,10 +10,12 @@ use App\DTO\UpdatePriceDTO;
 use App\DTO\UpdateWhereToGoDTO;
 use App\Entity\Tour;
 use App\Entity\TourDescription;
+use App\Enum\CurrencyEnum;
 use App\Repository\CategoryRepository;
 use App\Repository\TourDescriptionRepository;
 use App\Repository\TourOptionRepository;
 use App\Repository\TourRepository;
+use App\View\PriceView;
 use App\View\TourList;
 use App\View\TourView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -26,22 +28,26 @@ class TourService
 
     private TourDescriptionRepository $tourDescriptionRepository;
 
-    private FileUploader $fileUploader;
-
     private CategoryRepository $categoryRepository;
+
+    private ExchangeService $exchangeService;
+
+    private FileUploader $fileUploader;
 
     public function __construct(
         TourRepository $tourRepository,
         TourOptionRepository $tourOptionRepository,
         TourDescriptionRepository $tourDescriptionRepository,
-        FileUploader $fileUploader,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        ExchangeService $exchangeService,
+        FileUploader $fileUploader
     ) {
         $this->tourRepository = $tourRepository;
         $this->tourOptionRepository = $tourOptionRepository;
         $this->tourDescriptionRepository = $tourDescriptionRepository;
-        $this->fileUploader = $fileUploader;
         $this->categoryRepository = $categoryRepository;
+        $this->exchangeService = $exchangeService;
+        $this->fileUploader = $fileUploader;
     }
 
     public function getAllTours(): TourList
@@ -172,6 +178,17 @@ class TourService
         $tour = $this->tourRepository->getById($tourId);
 
         $this->tourRepository->remove($tour);
+    }
+
+    public function getPriceByTourId(int $id): PriceView
+    {
+        $tour = $this->tourRepository->getById($id);
+        $priceView = new PriceView($tour->getPrice(), CurrencyEnum::GEL);
+        foreach ($this->exchangeService->calculate($tour->getPrice()) as $currency => $rate) {
+            $priceView->setRates($rate, $currency);
+        }
+
+        return $priceView;
     }
 
     private function buildTourView(Tour $tour): TourView

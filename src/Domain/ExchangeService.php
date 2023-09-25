@@ -50,6 +50,16 @@ class ExchangeService
         }
     }
 
+    public function calculate(int $getPrice): array
+    {
+        $result = [];
+        foreach ($this->exchangeRepository->findAll() as $rate) {
+            $result[$rate->getSymbol()] = (int) ((float) $rate->getRate() * $getPrice);
+        }
+
+        return $result;
+    }
+
     private function loadRate(array $result): void
     {
         foreach ($result as $symbol => $externalRate) {
