@@ -211,7 +211,7 @@ class TourController extends AbstractController
     /**
      * @Route("/tour/get-tour-info/{id}", methods={"GET"})
      */
-    public function tourInfoAction($id): Response
+    public function tourInfoAction(int $id): Response
     {
         return $this->json($this->tourService->getTourById($id));
     }
