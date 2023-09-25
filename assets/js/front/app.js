@@ -6,7 +6,7 @@ import Trailer from "./components/Trailer";
 import VueYouTube from 'vue-youtube'
 import Tourbuilder from "./components/Tourbuilder";
 import Feedback from "./components/Feedback";
-import { VTooltip } from 'v-tooltip'
+import { VTooltip, VPopover } from 'v-tooltip'
 import Tourgallery from "./components/TourGallery";
 import Lightbox from '@morioh/v-lightbox'
 import Calendar from "./components/Calendar";
@@ -16,11 +16,11 @@ import Price from "./components/Price";
 
 
 Vue.directive('tooltip', VTooltip)
+Vue.component('v-popover', VPopover)
 
 Vue.use(Lightbox);
 Vue.use(VueYouTube)
 Vue.use(Vuetify)
-
 new Vue({
     vuetify: new Vuetify(),
     components: {Calendar, Trailer, Tourbuilder, Feedback, Tourgallery, Faq, Reviews, Price }
