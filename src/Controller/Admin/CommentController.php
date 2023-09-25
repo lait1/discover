@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
@@ -7,20 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class CommentController extends AbstractController
 {
     private ReviewService $reviewService;
 
-    private SerializerInterface $serializer;
-
     public function __construct(
-        ReviewService $reviewService,
-        SerializerInterface $serializer
+        ReviewService $reviewService
     ) {
         $this->reviewService = $reviewService;
-        $this->serializer = $serializer;
     }
 
     /**
