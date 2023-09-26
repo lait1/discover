@@ -18,6 +18,8 @@
         :trip-id="this.tripId"
         :selected-date="this.selectedDate"
         :price="this.price"
+        :whatsapp="this.whatsapp"
+        :telegram="this.telegram"
         :disable-date="calendarConfigs.disabledDates"
         @closeDialog="closeDialog"
         @showSuccessMessage="showSuccessMessage"
@@ -44,7 +46,7 @@ export default {
   components: {
     FunctionalCalendar, OrderDialog, AlertDialog, LoaderLocal
   },
-  props:['tripId', 'price'],
+  props:['tripId', 'price', 'whatsapp', 'telegram'],
   data: () => ({
     showOrderDialog: false,
     selectedDate: {},

@@ -103,7 +103,7 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <div class="order__question">
-                <strong>Остались вопросы?</strong> Напишите к нам в <a href="#">Telegram</a>, <a href="#">WhatsApp</a>
+                <strong>Остались вопросы?</strong> Напишите к нам в <a :href="telegram">Telegram</a>, <a :href="whatsapp">WhatsApp</a>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default {
   components: {
     PhoneMaskInput, FunctionalCalendar
   },
-  props:['value', 'tripId', 'selectedDate', 'price', 'disableDate'],
+  props:['value', 'tripId', 'selectedDate', 'price', 'disableDate', 'whatsapp', 'telegram'],
   data: function () {
     return {
       order:{

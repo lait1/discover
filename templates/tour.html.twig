@@ -126,7 +126,7 @@
                     <h3>Дополнительные расходы</h3>
                     <ul class="tour__details-info__list">
                         {% for details in excludePrice %}
-                            <li><div><svg class="icon"><use xlink:href="#Plus"></use></svg></div>{{ details.name }}</li>
+                            <li><div><svg class="icon"><use xlink:href="#Minus"></use></svg></div>{{ details.name }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -144,7 +144,12 @@
         <div class="wrap">
             <h1 id="tour__calendar" class="tour__calendar-header">ВЫБЕРИТЕ ЛЮБОЙ ДЕНЬ И ЗАБРОНИРУЙТЕ</h1>
             <div class="tour__calendar-wrap">
-                <Calendar :trip-id="{{ tour.id }}" :price="{{ tour.price }}" />
+                <Calendar
+                        :trip-id="{{ tour.id }}"
+                        :price="{{ tour.price }}"
+                        :whatsapp="'{{ social.getWhatsapp }}'"
+                        :telegram="'{{ social.getTelegram }}'"
+                />
             </div>
             <div class="tour__calendar-info">
                 <span class="today">Сегодня</span>
@@ -156,7 +161,7 @@
     <section class="tour__faq">
       <Faq :telegram-link="'{{ social.getTelegram }}'" :whatsapp-link="'{{ social.getWhatsapp }}'"/>
     </section>
-    <section class="tour__reviews">
+    <section id="reviews" class="tour__reviews">
         <Reviews :trip-id="{{ tour.id }}" />
     </section>
 {% endblock %}

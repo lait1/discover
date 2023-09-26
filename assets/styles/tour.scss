@@ -252,7 +252,7 @@
                 }
             }
             .close:before{
-                background: #F6F6FA;
+                background: var(--background-primary, #e4e8f3);
             }
             .today:before{
                 background: #FF9393;

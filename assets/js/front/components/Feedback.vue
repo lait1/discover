@@ -35,7 +35,7 @@
                 <div class="feedback__comment-text">
                   {{comment.shortText}}
                 </div>
-                <a :href="'/tour/' + comment.tour.slug" class="feedback__comment-link">Посмотреть отзыв</a>
+                <a :href="'/tour/' + comment.tour.slug + '#reviews'" class="feedback__comment-link">Посмотреть отзыв</a>
               </div>
             </div>
           </swiper-slide>
