@@ -49,6 +49,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb->select('u')
             ->from($this->_entityName, 'u')
             ->where('u.roles LIKE :roles')
+            ->setMaxResults(1)
             ->setParameter('roles', '%ROLE_ADMIN%')
         ;
 
