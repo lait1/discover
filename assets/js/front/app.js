@@ -13,6 +13,7 @@ import Calendar from "./components/Calendar";
 import Faq from "./components/Faq";
 import Reviews from "./components/Reviews";
 import Price from "./components/Price";
+import Corporate from "./components/Corporate";
 
 
 Vue.directive('tooltip', VTooltip)
@@ -23,7 +24,7 @@ Vue.use(VueYouTube)
 Vue.use(Vuetify)
 new Vue({
     vuetify: new Vuetify(),
-    components: {Calendar, Trailer, Tourbuilder, Feedback, Tourgallery, Faq, Reviews, Price }
+    components: {Calendar, Trailer, Tourbuilder, Feedback, Tourgallery, Faq, Reviews, Price, Corporate }
 }).$mount('#app')
 
 

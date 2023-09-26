@@ -9,7 +9,7 @@
         <div class="wrap">
             <h2>Корпоративные мероприятия</h2>
             <p>Мы поможем вам провести ваше мероприятие весело, в любом месте <br> и с грузинским колоритом! Проведите ваш яркий уикенд вместе с нами!</p>
-            <a class="corporate__button_chose-tour" href="#">ОСТАВИТЬ ЗАЯВКУ</a>
+            <a class="corporate__button_chose-tour" href="#corporate-order">ОСТАВИТЬ ЗАЯВКУ</a>
         </div>
     </header>
     <section class="advantages corporate">
@@ -109,13 +109,7 @@
             <TourGallery :image-list="{{ photos }}"/>
         </div>
     </section>
-    <section class="order">
-        <div class="wrap">
-            <div class="order__banner">
-                <h2>Создайте незабываемый вечер</h2>
-                <p>Планируете корпоративный праздник? Напишите нам, и мы учтем ваши <br> пожелания, предложим концепты, и составим смету</p>
-                <a class="corporate__button_chose-tour" href="#">ОСТАВИТЬ ЗАЯВКУ</a>
-            </div>
-        </div>
+    <section id="corporate-order" class="order">
+      <Corporate />
     </section>
 {% endblock %}

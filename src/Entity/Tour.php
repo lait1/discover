@@ -16,6 +16,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class Tour
 {
     public const UNIQ_TOUR = 'uniq';
+    public const CORPORATE_TOUR = 'corp';
 
     /**
      * @ORM\Column(type="integer", options={"unsigned": true})
@@ -81,9 +82,8 @@ class Tour
     public function __construct(
         string $name
     ) {
-        $slugger = new AsciiSlugger('ru');
         $this->name = $name;
-        $this->slug = $slugger->slug($name);
+        $this->slug = (new AsciiSlugger('ru'))->slug($name)->toString();
         $this->createdAt = time();
         $this->public = false;
     }
@@ -319,9 +319,8 @@ class Tour
 
     public function setName(string $name): void
     {
-        $slugger = new AsciiSlugger('ru');
         $this->name = $name;
-        $this->slug = $slugger->slug($name);
+        $this->slug = ( new AsciiSlugger('ru'))->slug($name)->toString();
     }
 
     public function setTitle(?string $title): void

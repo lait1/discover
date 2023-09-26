@@ -44,7 +44,9 @@ class Notificator
     public function sendErrorNotification(string $message): void
     {
         $admin = $this->userRepository->getAdmin();
-
+        if ($admin) {
+            return;
+        }
         if ($admin->getTelegramToken() !== null) {
             $this->apiClient->sendError(
                 $admin->getTelegramToken(),
@@ -67,6 +69,15 @@ class Notificator
             <b>Тур:</b> Уникальный
             <b>Категории:</b> {$order->getSelectedCategory()}
             <b>Хочу дней:</b> {$order->getCountDay()}
+            <b>Клиент:</b> {$order->getClient()->getName()}, 
+            <b>Группа людей:</b> {$order->getCountPeople()} шт.
+            <b>Телефон:</b> {$order->getClient()->getPhone()}
+            $comment    
+            HTML;
+        }
+        if ($order->isCorporateTour()) {
+            return <<<HTML
+            <b>Тур:</b> Корпоративный
             <b>Клиент:</b> {$order->getClient()->getName()}, 
             <b>Группа людей:</b> {$order->getCountPeople()} шт.
             <b>Телефон:</b> {$order->getClient()->getPhone()}

@@ -66,4 +66,9 @@ class TourRepository extends ServiceEntityRepository
     {
         return $this->getTourBySlug(Tour::UNIQ_TOUR);
     }
+
+    public function getCorporateTour(): Tour
+    {
+        return $this->getTourBySlug(Tour::CORPORATE_TOUR);
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use App\Domain\Model\TelegramMessage;
+use App\DTO\OrderCorporateDTO;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
 use App\Entity\OrderTour;
@@ -101,6 +102,30 @@ class OrderService
             $order->setTour($tour);
             $order->setCountDay($dto->countDay);
             $order->setDetails($dto->selectedCategories);
+
+            $this->orderRepository->save($order);
+
+            $this->notificator->sendNotification($order);
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Fail book tour',
+                [
+                    'message' => $e,
+                ]
+            );
+            $this->notificator->sendErrorNotification($e->getMessage());
+        }
+    }
+
+    public function bookCorporateTour(OrderCorporateDTO $dto): void
+    {
+        try {
+            $client = $this->clientService->getOrCreateClient($dto->phone, $dto->name);
+            $tour = $this->tourRepository->getCorporateTour();
+
+            $order = new OrderTour($dto->countPeople, $dto->text);
+            $order->setClient($client);
+            $order->setTour($tour);
 
             $this->orderRepository->save($order);
 

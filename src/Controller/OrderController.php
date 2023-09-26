@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Domain\Model\TelegramMessage;
 use App\Domain\OrderService;
+use App\DTO\OrderCorporateDTO;
 use App\DTO\OrderDTO;
 use App\DTO\OrderMyTourDTO;
 use App\Exception\ValidationErrorException;
@@ -73,6 +74,34 @@ class OrderController extends AbstractController
         );
         try {
             $this->orderService->bookMyTour($dto);
+
+            return $this->json(['message' => 'success']);
+        } catch (ValidationErrorException $e) {
+            return $this->json(['error' => $e->getMessage()], 400);
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed make uniq tour',
+                [
+                    'error' => $e,
+                ]
+            );
+
+            return $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @Route("/order/book-corporate", name="book-corporate", methods={"POST"})
+     */
+    public function corporateAction(Request $request): Response
+    {
+        $dto = $this->serializer->deserialize(
+            $request->getContent(),
+            OrderCorporateDTO::class,
+            'json'
+        );
+        try {
+            $this->orderService->bookCorporateTour($dto);
 
             return $this->json(['message' => 'success']);
         } catch (ValidationErrorException $e) {

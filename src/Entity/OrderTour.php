@@ -89,6 +89,11 @@ class OrderTour
         return $this->tour->getSlug() === Tour::UNIQ_TOUR;
     }
 
+    public function isCorporateTour(): bool
+    {
+        return $this->tour->getSlug() === Tour::CORPORATE_TOUR;
+    }
+
     public function setTour(Tour $tour): self
     {
         $this->tour = $tour;

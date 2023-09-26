@@ -43,9 +43,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    public function getAdmin(): User
+    public function getAdmin(): ?User
     {
-        return $this->findOneBy(['email' => 'ale88371027@gmail.com']);
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_ADMIN%')
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
