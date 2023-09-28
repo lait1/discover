@@ -510,7 +510,7 @@
             background: var(--border-primary, #E3E6EE);
             color: var(--content-accent, #fff);
 
-            cursor: not-allowed;
+            cursor: not-allowed !important;
             &:hover{
                 background: var(--border-primary, #E3E6EE);
             }

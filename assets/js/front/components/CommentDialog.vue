@@ -64,7 +64,12 @@
               <drag-and-drop @file-dropped="loadPhoto" />
             </div>
           </div>
-          <button class="tour__dialog-button" @click="addComment" >
+          <button
+              class="tour__dialog-button"
+              @click="addComment"
+              :disabled="sendingRequest"
+              :class="sendingRequest ? 'tour__dialog-button-disabled' : null"
+          >
             Отправить
           </button>
         </div>
@@ -97,7 +102,8 @@ export default {
       selectedImages: [],
       phoneError: [],
       nameError: [],
-      textError: []
+      textError: [],
+      sendingRequest: false
     }
   },
   computed: {
@@ -120,11 +126,15 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('closeDialog');
+      this.clearForm()
     },
     clearForm() {
       this.review.name = ''
       this.review.rating = 5
       this.review.text = ''
+      this.phoneError = []
+      this.nameError = []
+      this.textError = []
     },
     successComment() {
       this.$emit('showSuccessMessage', 'Спасибо! Совсем скоро ваш отзыв будет опубликован');
@@ -159,6 +169,7 @@ export default {
       if (! this.validation()){
         return
       }
+      this.sendingRequest = true
       let data = new FormData()
       data.append('tourId', this.review.tourId)
       data.append('name', this.review.name)
@@ -183,7 +194,10 @@ export default {
             }
 
             this.errorComment('У нас технические трудности, попробуйте позднее')
-          });
+          })
+          .finally(() => {
+            this.sendingRequest = false
+          })
     },
   },
 };

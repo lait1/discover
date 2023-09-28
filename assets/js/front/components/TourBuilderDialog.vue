@@ -185,7 +185,12 @@
               @click="backStep">Назад</button>
           <v-spacer></v-spacer>
 
-          <button v-if="step === 3" class="tour__dialog-button" @click="sendOrder" >
+          <button v-if="step === 3"
+                  class="tour__dialog-button"
+                  :disabled="sendingRequest"
+                  :class="sendingRequest ? 'tour__dialog-button-disabled' : null"
+                  @click="sendOrder"
+          >
             Заказать
           </button>
 
@@ -222,6 +227,7 @@ export default {
       },
       categoryList: [],
       loading: false,
+      sendingRequest: false,
       search: '',
       selected: [],
       errors: [],
@@ -311,11 +317,14 @@ export default {
     },
     closeDialog() {
       this.$emit('closeDialog');
+      this.clearForm()
     },
     clearForm() {
       this.order.name = ''
       this.order.phone = ''
       this.order.text = ''
+      this.phoneError = []
+      this.nameError = []
     },
     validation() {
       this.phoneError = []
@@ -339,8 +348,8 @@ export default {
       this.$emit('showErrorMessage', error);
     },
     sendOrder(){
+      this.sendingRequest = true
       this.order.selectedCategories = this.selections
-
       axios.post('/order/make-my-tour', this.order)
           .then((response) => {
             if (response.data.message === 'success'){
@@ -355,7 +364,10 @@ export default {
             }
 
             this.errorRequest('У нас технические трудности, попробуйте позднее')
-          });
+          })
+          .finally(() => {
+            this.sendingRequest = false
+          })
     },
   },
 };

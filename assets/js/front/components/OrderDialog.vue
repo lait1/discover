@@ -95,7 +95,12 @@
           </div>
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
-              <button class="tour__dialog-button" @click="sendOrder" >
+              <button
+                  class="tour__dialog-button"
+                  :disabled="sendingRequest"
+                  :class="sendingRequest ? 'tour__dialog-button-disabled' : null"
+                  @click="sendOrder"
+              >
                 Заказать
               </button>
             </div>
@@ -142,7 +147,8 @@ export default {
         disabledDates: this.disableDate
       },
       phoneError: [],
-      nameError: []
+      nameError: [],
+      sendingRequest: false
     }
   },
   watch: {
@@ -180,6 +186,7 @@ export default {
     },
     closeDialog() {
       this.$emit('closeDialog');
+      this.clearForm()
     },
     choseDate(date) {
       this.order.date = date.date
@@ -188,6 +195,8 @@ export default {
       this.order.name = ''
       this.order.date = ''
       this.order.text = ''
+      this.phoneError = []
+      this.nameError = []
     },
     validation() {
       this.phoneError = []
@@ -215,8 +224,8 @@ export default {
         return
       }
 
+      this.sendingRequest = true
       this.order.date = this.calendarData.selectedDate
-
       axios.post('/order/reservation', this.order)
           .then((response) => {
             if (response.data.message === 'success'){
@@ -231,7 +240,10 @@ export default {
             }
 
             this.errorRequest('У нас технические трудности, попробуйте позднее')
-          });
+          })
+          .finally(() => {
+            this.sendingRequest = false
+          })
     },
   },
 };
