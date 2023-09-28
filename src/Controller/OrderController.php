@@ -76,8 +76,6 @@ class OrderController extends AbstractController
             $this->orderService->bookMyTour($dto);
 
             return $this->json(['message' => 'success']);
-        } catch (ValidationErrorException $e) {
-            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
             $this->logger->critical(
                 'Failed make uniq tour',
@@ -104,8 +102,6 @@ class OrderController extends AbstractController
             $this->orderService->bookCorporateTour($dto);
 
             return $this->json(['message' => 'success']);
-        } catch (ValidationErrorException $e) {
-            return $this->json(['error' => $e->getMessage()], 400);
         } catch (\Throwable $e) {
             $this->logger->critical(
                 'Failed make uniq tour',

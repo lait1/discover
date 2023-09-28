@@ -21,7 +21,6 @@ use App\View\OrderList;
 use App\View\OrderView;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Psr\Log\LoggerInterface;
 
 class OrderService
 {
@@ -39,8 +38,6 @@ class OrderService
 
     private UserRepository $userRepository;
 
-    private LoggerInterface $logger;
-
     public function __construct(
         OrderTourRepository $orderRepository,
         TourRepository $tourRepository,
@@ -48,8 +45,7 @@ class OrderService
         Notificator $notificator,
         CategoryRepository $categoryRepository,
         ReservationDateRepository $reservationDateRepository,
-        UserRepository $userRepository,
-        LoggerInterface $logger
+        UserRepository $userRepository
     ) {
         $this->orderRepository = $orderRepository;
         $this->tourRepository = $tourRepository;
@@ -58,7 +54,6 @@ class OrderService
         $this->categoryRepository = $categoryRepository;
         $this->reservationDateRepository = $reservationDateRepository;
         $this->userRepository = $userRepository;
-        $this->logger = $logger;
     }
 
     /**
@@ -81,13 +76,8 @@ class OrderService
 
             $this->notificator->sendNotification($order);
         } catch (\Throwable $e) {
-            $this->logger->critical(
-                'Fail book tour',
-                [
-                    'message' => $e,
-                ]
-            );
             $this->notificator->sendErrorNotification($e->getMessage());
+            throw $e;
         }
     }
 
@@ -107,13 +97,8 @@ class OrderService
 
             $this->notificator->sendNotification($order);
         } catch (\Throwable $e) {
-            $this->logger->critical(
-                'Fail book tour',
-                [
-                    'message' => $e,
-                ]
-            );
             $this->notificator->sendErrorNotification($e->getMessage());
+            throw $e;
         }
     }
 
@@ -131,13 +116,8 @@ class OrderService
 
             $this->notificator->sendNotification($order);
         } catch (\Throwable $e) {
-            $this->logger->critical(
-                'Fail book tour',
-                [
-                    'message' => $e,
-                ]
-            );
             $this->notificator->sendErrorNotification($e->getMessage());
+            throw $e;
         }
     }
 
@@ -261,21 +241,18 @@ class OrderService
         }
     }
 
-    public function toggleDates(string $rawDate, User $user): string
+    public function toggleDates(string $rawDate, User $user): void
     {
         $date = $this->getDateTime($rawDate);
         $reservationDate = $this->reservationDateRepository->getDateByUser($date, $user->getId());
 
         if ($reservationDate) {
             $this->reservationDateRepository->remove($reservationDate);
-
-            return 'removed';
+        } else {
+            $reservationDate = new ReservationDate($date);
+            $reservationDate->setUser($user);
+            $this->reservationDateRepository->save($reservationDate);
         }
-        $reservationDate = new ReservationDate($date);
-        $reservationDate->setUser($user);
-        $this->reservationDateRepository->save($reservationDate);
-
-        return 'saved';
     }
 
     private function getDateTime(string $date): DateTimeInterface

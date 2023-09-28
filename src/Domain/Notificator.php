@@ -7,6 +7,7 @@ use App\Entity\OrderTour;
 use App\Infrastructure\TelegramApiClient;
 use App\Repository\OrderTourRepository;
 use App\Repository\UserRepository;
+use Psr\Log\LoggerInterface;
 
 class Notificator
 {
@@ -16,41 +17,64 @@ class Notificator
 
     public OrderTourRepository $orderTourRepository;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         TelegramApiClient $apiClient,
         UserRepository $userRepository,
-        OrderTourRepository $orderTourRepository
+        OrderTourRepository $orderTourRepository,
+        LoggerInterface $logger
     ) {
         $this->apiClient = $apiClient;
         $this->userRepository = $userRepository;
         $this->orderTourRepository = $orderTourRepository;
+        $this->logger = $logger;
     }
 
     public function sendNotification(OrderTour $order): void
     {
-        $admins = $this->userRepository->findAll();
+        try {
+            $admins = $this->userRepository->findAll();
 
-        foreach ($admins as $admin) {
-            if ($admin->getTelegramToken() !== null) {
-                $this->apiClient->sendMessage(
-                    $admin->getTelegramToken(),
-                    $this->buildOrderMessage($order),
-                    $order->getId()
-                );
+            foreach ($admins as $admin) {
+                if ($admin->getTelegramToken() !== null) {
+                    $this->apiClient->sendMessage(
+                        $admin->getTelegramToken(),
+                        $this->buildOrderMessage($order),
+                        $order->getId()
+                    );
+                    sleep(1);
+                }
             }
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed send notification',
+                [
+                    'error' => $e,
+                ]
+            );
         }
     }
 
     public function sendErrorNotification(string $message): void
     {
-        $admin = $this->userRepository->getAdmin();
-        if ($admin) {
-            return;
-        }
-        if ($admin->getTelegramToken() !== null) {
-            $this->apiClient->sendError(
-                $admin->getTelegramToken(),
-                $message
+        try {
+            $admin = $this->userRepository->getAdmin();
+            if ($admin === null) {
+                return;
+            }
+            if ($admin->getTelegramToken() !== null) {
+                $this->apiClient->sendError(
+                    $admin->getTelegramToken(),
+                    $message
+                );
+            }
+        } catch (\Throwable $e) {
+            $this->logger->critical(
+                'Failed send error notification',
+                [
+                    'error' => $e,
+                ]
             );
         }
     }
