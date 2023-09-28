@@ -85,6 +85,9 @@ class TourService
 
     public function createTour(TourCreateDTO $dto): Tour
     {
+        if (!$dto->name) {
+            throw new \InvalidArgumentException('Empty name');
+        }
         $tour = new Tour($dto->name);
 
         return $this->tourRepository->save($tour);
