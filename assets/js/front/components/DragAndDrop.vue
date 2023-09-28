@@ -1,6 +1,10 @@
 <template>
   <div id="drag">
-    <drag-and-drop-area :selected-images="selectedImages" @file-dropped="handleFileDrop" />
+    <drag-and-drop-area
+        :selected-images="selectedImages"
+        @remove-file="removeFile"
+        @file-dropped="handleFileDrop"
+    />
   </div>
 </template>
 
@@ -18,6 +22,9 @@ export default {
     handleFileDrop(files) {
       this.$emit('file-dropped', files);
     },
+    removeFile(index){
+      this.$emit('remove-file', index);
+    }
   },
 };
 </script>

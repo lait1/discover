@@ -61,7 +61,11 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="textComment" class="tour__dialog-label">Добавить фото</label>
-              <drag-and-drop :selected-images="selectedImages" @file-dropped="loadPhoto" />
+              <drag-and-drop
+                  :selected-images="selectedImages"
+                  @remove-file="removePhoto"
+                  @file-dropped="loadPhoto"
+              />
               <span  class="info__message">Не более 6 фотографий. Допустимые форматы jpeg, png</span>
             </div>
           </div>
@@ -101,6 +105,7 @@ export default {
         text: '',
       },
       selectedImages: [],
+      images: [],
       phoneError: [],
       nameError: [],
       textError: [],
@@ -136,6 +141,14 @@ export default {
       this.phoneError = []
       this.nameError = []
       this.textError = []
+      this.selectedImages = []
+      this.images = []
+    },
+    removePhoto(index){
+      this.selectedImages.splice(index, 1)
+      let imagesArray = Array.from(this.images);
+      imagesArray.splice(index, 1)
+      this.images = imagesArray
     },
     successComment() {
       this.$emit('showSuccessMessage', 'Спасибо! Совсем скоро ваш отзыв будет опубликован');
@@ -145,6 +158,7 @@ export default {
       this.$emit('showErrorMessage', error);
     },
     loadPhoto(files){
+      this.images = files
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
@@ -187,8 +201,8 @@ export default {
       data.append('rating', this.review.rating)
       data.append('text', this.review.text)
 
-      for (let i = 0; i < this.selectedImages.length; i++) {
-        data.append(i, this.selectedImages[i]);
+      for (let i = 0; i < this.images.length; i++) {
+        data.append(i, this.images[i]);
       }
       axios.post('/comment/add', data)
           .then((response) => {

@@ -47,8 +47,7 @@ export default {
 
    },
     removePhoto(index){
-      console.log(index)
-      // this.selectedImages.splice(index, 1)
+      this.$emit('remove-file', index);
     },
     handleFileInput() {
       const files = this.$refs.fileInput.files;
