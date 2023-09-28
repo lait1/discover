@@ -10,23 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class CommentController extends AbstractController
 {
     private ReviewService $reviewService;
 
-    private SerializerInterface $serializer;
-
     private LoggerInterface $logger;
 
     public function __construct(
         ReviewService $reviewService,
-        SerializerInterface $serializer,
         LoggerInterface $logger
     ) {
         $this->reviewService = $reviewService;
-        $this->serializer = $serializer;
         $this->logger = $logger;
     }
 

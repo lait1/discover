@@ -49,9 +49,9 @@ class DefaultController extends AbstractController
         if ($rawDate === null) {
             return $this->json(['error' => 'date empty'], 400);
         }
-        $result = $this->orderService->toggleDates($rawDate, $this->getUser());
+        $this->orderService->toggleDates($rawDate, $this->getUser());
 
-        return $this->json(['message' => 'success', 'result' => $result]);
+        return $this->json(['message' => 'success']);
     }
 
     /**

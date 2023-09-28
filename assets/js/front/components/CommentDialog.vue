@@ -156,7 +156,6 @@ export default {
       return this.nameError.length === 0 && this.phoneError.length === 0 && this.textError.length === 0
     },
     addComment(){
-      this.selectedImages = [];
       if (! this.validation()){
         return
       }

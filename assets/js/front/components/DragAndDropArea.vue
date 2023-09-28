@@ -13,7 +13,7 @@
           @removeFile="removePhoto"
       />
     </div>
-    <input type="file" ref="fileInput" multiple @change="handleFileInput" style="display: none" />
+    <input type="file" ref="fileInput" accept="image/jpeg,image/png" multiple @change="handleFileInput" style="display: none" />
   </div>
 </template>
 
