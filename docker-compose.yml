@@ -19,6 +19,7 @@ services:
       context: ./docker/php-fpm
     volumes:
       - ./:/symfony
+      - ./docker/php-fpm/custom.ini:/usr/local/etc/php/conf.d/local.ini
     container_name: ${PROJECT_NAME}-fpm
     links:
       - mysql
