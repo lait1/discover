@@ -61,7 +61,8 @@
           <div class="tour__dialog-row">
             <div class="tour__dialog-col">
               <label for="textComment" class="tour__dialog-label">Добавить фото</label>
-              <drag-and-drop @file-dropped="loadPhoto" />
+              <drag-and-drop :selected-images="selectedImages" @file-dropped="loadPhoto" />
+              <span  class="info__message">Не более 6 фотографий. Допустимые форматы jpeg, png</span>
             </div>
           </div>
           <button
@@ -144,7 +145,16 @@ export default {
       this.$emit('showErrorMessage', error);
     },
     loadPhoto(files){
-      this.selectedImages = files
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          this.selectedImages.push(e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
     },
     validation() {
       this.phoneError = []
@@ -232,6 +242,12 @@ export default {
 
   &__message {
     color: #fd5f5f;
+    font-size: 14px;
+  }
+}
+.info {
+  &__message {
+    color: #918f8f;
     font-size: 14px;
   }
 }

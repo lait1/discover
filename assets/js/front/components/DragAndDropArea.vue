@@ -25,11 +25,7 @@ export default {
   components: {
     DragAndDropImages,
   },
-  data() {
-    return {
-      selectedImages: [],
-    };
-  },
+  props: ['selectedImages'],
   methods: {
     dragEnter(event) {
       event.preventDefault();
@@ -43,32 +39,24 @@ export default {
       this.$el.classList.remove('drag-over');
 
       const files = event.dataTransfer.files;
-      if (files.length > 0) {
-        this.handleFileDrop(files)
+      if (files.length > 0 && files.length < 7) {
+        this.$emit('file-dropped', files);
+      } else {
+        alert('Вы можете загрузить только 6 фоток');
       }
-    },
+
+   },
     removePhoto(index){
-      this.selectedImages.splice(index, 1)
+      console.log(index)
+      // this.selectedImages.splice(index, 1)
     },
     handleFileInput() {
       const files = this.$refs.fileInput.files;
-      if (files.length > 0) {
-        this.handleFileDrop(files)
+      if (files.length > 0 && files.length < 7) {
+        this.$emit('file-dropped', files);
+      } else {
+        alert('Вы можете загрузить только 6 фоток');
       }
-    },
-    handleFileDrop(files) {
-      // Handle dropped files (in this case, assume they are images)
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          this.selectedImages.push(e.target.result);
-        };
-
-        reader.readAsDataURL(file);
-      }
-      this.$emit('file-dropped', files);
     },
   },
 };

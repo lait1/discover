@@ -1,6 +1,6 @@
 <template>
   <div id="drag">
-    <drag-and-drop-area @file-dropped="handleFileDrop" />
+    <drag-and-drop-area :selected-images="selectedImages" @file-dropped="handleFileDrop" />
   </div>
 </template>
 
@@ -13,11 +13,7 @@ export default {
     DragAndDropArea,
     DragAndDropImages,
   },
-  data() {
-    return {
-      selectedImages: [],
-    };
-  },
+  props: ['selectedImages'],
   methods: {
     handleFileDrop(files) {
       this.$emit('file-dropped', files);
