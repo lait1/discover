@@ -130,10 +130,8 @@ h1,h2,h3,h4,h5{
     display: flex;
     align-items: center;
     &_links{
-      //padding-right: 24px;
       display: flex;
       align-items: center;
-      //border-right: 1px solid rgba(255, 255, 255, 0.24);
       a{
         margin: 0 8px;
       }
@@ -168,14 +166,14 @@ h1,h2,h3,h4,h5{
     width: 32px;
   }
 }
-#menu__toggle:checked ~ .menu__btn > span {
+#menu__toggle:checked ~ .menu__box .menu__btn_open-menu > span {
   transform: rotate(45deg);
 }
-#menu__toggle:checked ~ .menu__btn > span::before {
+#menu__toggle:checked ~ .menu__box .menu__btn_open-menu > span::before {
   top: 0;
   transform: rotate(0);
 }
-#menu__toggle:checked ~ .menu__btn > span::after {
+#menu__toggle:checked ~ .menu__box .menu__btn_open-menu > span::after {
   top: 0;
   transform: rotate(90deg);
 }
@@ -193,12 +191,19 @@ h1,h2,h3,h4,h5{
   width: 32px;
   height: 32px;
   cursor: pointer;
+}
+.menu__btn_close-menu{
+  z-index: 0;
+}
+.menu__btn_open-menu{
   z-index: 1;
 }
-
-.menu__btn > span,
-.menu__btn > span::before,
-.menu__btn > span::after {
+.menu__btn_close-menu > span,
+.menu__btn_close-menu > span::before,
+.menu__btn_close-menu > span::after,
+.menu__btn_open-menu > span,
+.menu__btn_open-menu > span::before,
+.menu__btn_open-menu > span::after{
   display: block;
   position: absolute;
   width: 100%;

@@ -43,21 +43,16 @@
                     </svg>
                 </a>
             </div>
-            <div class="header__currencies" style="display: none;">
-                <svg class="icon">
-                    <use xlink:href="#flag-ge"></use>
-                </svg>
-                <a href="#">
-                    GEL ^
-                </a>
-            </div>
         </div>
         <div class="header__hamburger-menu">
             <input id="menu__toggle" type="checkbox" />
-            <label class="menu__btn" for="menu__toggle">
+            <label class="menu__btn menu__btn_close-menu" for="menu__toggle">
                 <span></span>
             </label>
             <div class="menu__box">
+                <label class="menu__btn menu__btn_open-menu" for="menu__toggle">
+                    <span></span>
+                </label>
                 <ul class="menu__list">
                     <li><a class="menu__item" href="{{path('main-page')}}">О нас</a></li>
                     <li><a class="menu__item" href="{{path('tour-list')}}">Туры</a></li>
