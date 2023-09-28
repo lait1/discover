@@ -102,9 +102,11 @@ class Tour
             return '5.0';
         }
 
-        $reviewAssessment = array_map(function (Review $review) {
-            return $review->getAssessment();
-        }, ($this->reviews->toArray()));
+        $reviewAssessment = array_filter(
+            array_map(function (Review $review) {
+                return $review->isPublic() ? $review->getAssessment() : null;
+            }, ($this->reviews->toArray()))
+        );
         $average = array_sum($reviewAssessment) / count($reviewAssessment);
 
         return number_format($average, 1, '.', '');
