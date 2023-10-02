@@ -141,7 +141,7 @@ export default {
       calendarData: {},
       calendarConfigs: {
         isModal: true,
-        monthNames: ["Янв.", "Фев.", "Март", "Aпр.", "Maй", "Июнь", "Июль", "Авг.", "Сен.", "Октябрь", "Ноя.", "Дек."],
+        monthNames: ["Янв.", "Фев.", "Март", "Aпр.", "Maй", "Июнь", "Июль", "Авг.", "Сен.", "Окт.", "Ноя.", "Дек."],
         dayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
         isDatePicker: true,
         disabledDates: this.disableDate
