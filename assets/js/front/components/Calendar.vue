@@ -51,7 +51,7 @@ export default {
     showOrderDialog: false,
     selectedDate: {},
     calendarConfigs: {
-      monthNames: ["Январь", "Февраль", "Март", "Апрель", "May", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
       dayNames: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
       calendarsCount: 2,
       isDatePicker: true,
@@ -127,7 +127,6 @@ export default {
     border-radius: 8px;
     border: 2px solid var(--border-primary, #E3E6EE);
     span.vfc-span-day{
-      color: var(--content-dark, #1C1D20);
       text-align: center;
       font-family: 'Oswald', sans-serif;
       font-size: 24px;
@@ -139,6 +138,9 @@ export default {
       height: 100%;
       align-items: center;
       justify-content: center;
+      &.vfc-hover:hover{
+        color: #fff;
+      }
       @media screen and (max-width: 568px) {
         font-size: 16px;
       }
