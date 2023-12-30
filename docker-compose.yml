@@ -7,8 +7,8 @@ services:
     volumes:
       - ./:/symfony
       - ./logs:/var/log/nginx
-      - ./certbot/www:/var/www/certbot/
-      - ./certbot/conf/:/etc/letsencrypt/
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/letsencrypt/:ro
     container_name: ${PROJECT_NAME}-nginx
     ports:
       - "80:80"
@@ -18,8 +18,8 @@ services:
   certbot:
     image: certbot/cerbot:latest
     volumes:
-      - ./certbot/www/:/var/www/certbot/
-      - ./certbot/conf/:/etc/letsencrypt/
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
   php-fpm:
     build:
       context: ./docker/php-fpm
