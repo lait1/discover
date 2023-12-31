@@ -23,3 +23,9 @@ docker exec -it discover-npm bash
 npm install
 npm run build
 ```
+
+Create certs
+
+```bash
+docker-compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d domain.com
+```
