@@ -54,7 +54,9 @@ class UserService
     {
         $user = $this->userRepository->getUserById($dto->id);
         $user->setEmail($dto->email);
-        $user->setPassword($this->passwordHasher->hashPassword($user, $dto->password));
+        if ($dto->password){
+            $user->setPassword($this->passwordHasher->hashPassword($user, $dto->password));
+        }
         $user->setRoles($dto->role);
         $user->setTelegramToken($dto->telegramToken);
 
