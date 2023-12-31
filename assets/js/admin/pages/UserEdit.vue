@@ -83,7 +83,7 @@ export default {
   computed: {
     title() {
       if (this.editMode) {
-        return 'Редактировагие пользователя'
+        return 'Редактирование пользователя'
       }
       return 'Создание нового пользователя'
     },

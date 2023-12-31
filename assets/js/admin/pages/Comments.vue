@@ -81,13 +81,13 @@ export default {
         axiosInstance.post(`/api/comment/publish/${item.id}`)
             .catch((response) => {
               console.error(response)
-              alert("Ошибка смена статуса коментария");
+              alert("Ошибка смена статуса комментария");
             })
       } else {
         axiosInstance.post(`/api/comment/unpublish/${item.id}`)
             .catch((response) => {
               console.error(response)
-              alert("Ошибка смена статуса коментария");
+              alert("Ошибка смена статуса комментария");
             })
       }
     },
@@ -96,13 +96,13 @@ export default {
         axiosInstance.post(`/api/comment/publish-to-main/${item.id}`)
             .catch((response) => {
               console.error(response)
-              alert("Ошибка смена статуса коментария");
+              alert("Ошибка смена статуса комментария");
             })
       }else{
         axiosInstance.post(`/api/comment/unpublish-main/${item.id}`)
             .catch((response) => {
               console.error(response)
-              alert("Ошибка смена статуса коментария");
+              alert("Ошибка смена статуса комментария");
             })
       }
     },

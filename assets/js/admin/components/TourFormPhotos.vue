@@ -6,7 +6,7 @@
         multiple
         show-size
         accept="image/png, image/jpeg, image/jpg"
-        label="Фотографии для галлереи"
+        label="Фотографии для галереи"
         @change="previewImages"
     ></v-file-input>
     <draggable

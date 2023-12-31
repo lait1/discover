@@ -19,7 +19,6 @@
           </v-icon>
         </v-avatar>
 
-        <div>admin@example.com</div>
       </v-sheet>
 
       <v-divider></v-divider>
@@ -74,7 +73,7 @@ export default {
         { title: 'Мой календарь', icon: 'mdi-calendar-account-outline', link: '/admin/profile' },
         { title: 'Туры', icon: 'mdi-view-list', link: '/admin/tours' },
         { title: 'Заказы', icon: 'mdi-cash', link: '/admin/orders' },
-        { title: 'Коментарии', icon: 'mdi-view-dashboard', link: '/admin/comments' },
+        { title: 'Комментарии', icon: 'mdi-view-dashboard', link: '/admin/comments' },
         { title: 'Клиенты', icon: 'mdi-account-group', link: '/admin/clients' },
         { title: 'Users', icon: 'mdi-account-box', link: '/admin/users' },
         { title: 'Setting site', icon: 'mdi-security', link: '/admin/settings' },

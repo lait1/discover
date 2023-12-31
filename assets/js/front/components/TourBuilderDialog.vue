@@ -166,7 +166,7 @@
           <v-window-item :value="3">
             <div class="tour__dialog-row">
               <div class="tour__dialog-col">
-                <label for="textComment" class="tour__dialog-label order__description">Коментарий <span>(не обязательно)</span></label>
+                <label for="textComment" class="tour__dialog-label order__description">Комментарий <span>(не обязательно)</span></label>
                 <textarea
                     v-model="order.text"
                     placeholder="Напишите здесь ваши пожелания или вопросы"
