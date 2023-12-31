@@ -9,7 +9,7 @@ class UserEditDTO
 
     public string $email;
 
-    public ?string $password;
+    public ?string $password = null;
 
     public array $role;
 
